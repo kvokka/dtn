@@ -1,0 +1,5 @@
+# http://help.houndci.com/en/articles/2461415-supported-linters
+# have to use older version just because it is the latest one supported by hound
+rubocop:
+  version: 1.5.2
+  config_file: .rubocop.yml
