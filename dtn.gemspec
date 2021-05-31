@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description   = "Easy way tp access data from DTN (IQfeed)."
   spec.homepage      = "https://github.com/kvokka/dtn"
   spec.license       = "MIT"
-  spec.required_ruby_version = Gem::Requirement.new(">= 2.6.0")
+  spec.required_ruby_version = Gem::Requirement.new(">= 3.0.0")
 
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = "https://github.com/kvokka/dtn"
@@ -28,5 +28,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "dry-configurable", "~> 0.12.0"
+  spec.add_dependency "ractor-tvar", "~> 0.4.0"
   spec.add_dependency "zeitwerk", "~> 2.4.0"
 end

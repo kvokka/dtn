@@ -2,6 +2,7 @@
 
 require "dtn"
 require "pry"
+require "tcr"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -15,4 +16,4 @@ RSpec.configure do |config|
   end
 end
 
-Dir["#{__dir__}/support/**/*.rb"].sort.each { |file| require file }
+Dir["#{__dir__}/support/**/*.rb"].each { |file| require file }

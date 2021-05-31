@@ -16,4 +16,5 @@ group :test do
   gem "rspec", ">= 3.10.0", "< 4.0"
   gem "rspec_junit_formatter"
   gem "simplecov", "~> 0.21.0", require: false
+  gem "tcr", "~> 0.2.2"
 end

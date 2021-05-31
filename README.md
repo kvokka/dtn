@@ -4,14 +4,14 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/7bf62332c4d163460678/maintainability)](https://codeclimate.com/github/kvokka/dtn/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/7bf62332c4d163460678/test_coverage)](https://codeclimate.com/github/kvokka/dtn/test_coverage)
 
-
 # Dtn
 
-WIP. TODO: upd readme
+Unofficial DTN (IQFeed) client.
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/dtn`. To experiment with that code, run `bin/console` for an interactive prompt.
+# Dependencies
 
-TODO: Delete this and the text above, and describe your gem
+* Ruby 3.0+
+* IQFeed client 6.1+
 
 ## Installation
 
