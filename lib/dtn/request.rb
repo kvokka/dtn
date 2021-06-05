@@ -7,19 +7,19 @@ module Dtn
     delegate next_id: :'self.class'
 
     class << self
-      # Atm i do not know if it is even possible to cancel existed request,
-      # so we care only about the next_ request number.
       def next_id
-        Ractor.atomically do
-          _id_tvar.value += 1
-        end
+        _id_tvar.increment
+        last_id
+      end
+
+      def last_id
         _id_tvar.value
       end
 
       private
 
       def _id_tvar
-        @_id_tvar ||= Ractor::TVar.new(0)
+        @_id_tvar ||= Concurrent::AtomicFixnum.new
       end
     end
 

@@ -17,7 +17,7 @@ module Dtn
       DEFAULT_DATA_DIRECTION = 1
 
       TICK_TIMEFRAME_REQUEST_TEMPLATE =
-        "HTT,%<symbol>s,%<begin_datetime>s,%<end_datetime>s,%<max_datapoints>07d," \
+        "HTT,%<symbol>s,%<begin_datetime>s,%<end_datetime>s,%<max_datapoints>d," \
         "%<begin_filter_time>s,%<end_filter_time>s,%<data_direction>d,%<request_id>d," \
         "%<datapoints_per_send>d\r\n"
 
@@ -28,12 +28,13 @@ module Dtn
       #   HTT,[Symbol],[BeginDate BeginTime],[EndDate EndTime],[MaxDatapoints],[BeginFilterTime],\
       #   [EndFilterTime],[DataDirection],[RequestID],[DatapointsPerSend]<CR><LF>
       def tick_timeframe(symbol:, begin_datetime:, end_datetime:, **options)
-        socket.printf TICK_TIMEFRAME_REQUEST_TEMPLATE,
-                      use_defaults(options).merge({
-                                                    symbol: symbol,
-                                                    begin_datetime: begin_datetime.strftime("%Y%m%d %H%M%S"),
-                                                    end_datetime: end_datetime.strftime("%Y%m%d %H%M%S")
-                                                  })
+        combined_options = use_defaults(**options).merge({
+                                                           symbol: symbol.to_s.upcase,
+                                                           begin_datetime: begin_datetime.strftime("%Y%m%d %H%M%S"),
+                                                           end_datetime: end_datetime.strftime("%Y%m%d %H%M%S")
+                                                         })
+
+        socket.print format(TICK_TIMEFRAME_REQUEST_TEMPLATE, combined_options)
       end
 
       private

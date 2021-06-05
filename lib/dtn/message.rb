@@ -2,21 +2,16 @@
 
 module Dtn
   # Message abstraction
-  class Message
-    def initialize(line)
-      @line = line
+  class Message < OpenStruct
+    class << self
+      def parse(line:)
+        l = line.split(",")
+        new.tap do |n|
+          l.zip(fields).each do |value, (attr, converter)|
+            n.public_send("#{attr}=", value.public_send(converter))
+          end
+        end
+      end
     end
-
-    def call
-      raise NotImplemented
-    end
-
-    def to_s
-      line
-    end
-
-    protected
-
-    attr_reader :line
   end
 end

@@ -4,8 +4,10 @@ module Dtn
   module Messages
     # Error message abstraction.
     class Error < Message
-      def call
-        raise "DTN Error: #{line}"
+      class << self
+        def parse(line:)
+          raise "DTN Error: #{line}"
+        end
       end
     end
   end

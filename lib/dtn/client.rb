@@ -1,44 +1,70 @@
 # frozen_string_literal: true
 
 require "socket"
+require "securerandom"
 
 module Dtn
   # Top level client abstraction. Different streams are available on different
   # ports, so we can use it and follow the same pattern
   class Client
-    # setting :end_of_message_characters = "!ENDMSG!"
-    # setting :no_data_characters = "!NO_DATA!"
-    # setting :syntax_error_characters = "!SYNTAX_ERROR!"
+    QUEUE_LENGTH = 100_000
 
-    def call(name)
-      Ractor.new do
-        system_request.connect(name)
-        engine
-      end
+    END_OF_MESSAGE_CHARACTERS = /^.,!ENDMSG!/
+    NO_DATA_CHARACTERS = "!NO_DATA!"
+    SYNTAX_ERROR_CHARACTERS = "!SYNTAX_ERROR!"
+
+    def initialize(name: nil, queue_length: QUEUE_LENGTH)
+      @name = name || SecureRandom.alphanumeric(10)
+      @queue_length = queue_length
+
+      init_connection
+      engine
     end
 
-    def engine
-      raise NotImplemented
+    attr_reader :name, :queue_length
+
+    def stop
+      self.running = false
+    end
+
+    def running?
+      !!running
     end
 
     # TODO: refactor this in pretty way
 
     def system_request
-      Request::System.new(socket)
+      Requests::System.new(socket)
     end
 
-    def level1_request(socket)
-      Request::Level1.new(socket)
+    def level1_request
+      Requests::Level1.new(socket)
     end
 
-    def historical_request(socket)
-      Request::Historical.new(socket)
+    def historical_request
+      Requests::Historical.new(socket)
     end
 
     protected
 
+    attr_accessor :running
+
     def socket
-      @socket ||= TCPSocket.open Dtn.config.host, self.class.config.port
+      @socket ||= TCPSocket.open(Dtn.config.host, self.class::PORT)
+    end
+
+    def queue
+      @queue ||= Queue.new
+    end
+
+    private
+
+    def engine
+      raise NotImplemented
+    end
+
+    def init_connection
+      raise NotImplemented
     end
   end
 end

@@ -6,7 +6,7 @@ loader.setup # ready!
 
 require "dry-configurable"
 require "forwardable"
-require "ractor/tvar"
+require "concurrent-ruby"
 
 # Top level API methods only
 module Dtn
