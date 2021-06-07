@@ -68,7 +68,7 @@ module TCPSocketWithRecorder
 
   def initialize(*_args)
     @cassette = Thread.current[:current_spec_cassette]
-    super
+    super unless @cassette.persisted?
   end
 
   attr_reader :cassette
