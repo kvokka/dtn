@@ -10,7 +10,6 @@ Unofficial DTN (IQFeed) client.
 
 # Dependencies
 
-* Ruby 3.0+
 * IQFeed client 6.1+
 
 ## Installation

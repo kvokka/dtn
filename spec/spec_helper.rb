@@ -15,4 +15,4 @@ RSpec.configure do |config|
   end
 end
 
-Dir["#{__dir__}/support/**/*.rb"].each { |file| require file }
+Dir["#{__dir__}/support/**/*.rb"].sort.each { |file| require file }

@@ -53,7 +53,7 @@ module TCPSocketWithRecorder
     end
 
     def yaml_load
-      YAML.safe_load(File.read(filename)).tap do |yaml|
+      YAML.safe_load(File.read(filename), [Symbol]).tap do |yaml|
         self.reads = yaml[:reads] if yaml[:reads].any?
         self.writes = yaml[:writes] if yaml[:writes].any?
       end
