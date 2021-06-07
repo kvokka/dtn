@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   iqfeed:
-    image: kvokka/iqfeed:a40cf51d535764fbd7428d8dc2e7cf994baf4f36
+    image: kvokka/iqfeed
     container_name: iqfeed
     ports:
       - "5009:5009"
