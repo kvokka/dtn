@@ -18,5 +18,4 @@ group :test do
   gem "rspec", ">= 3.10.0", "< 4.0"
   gem "rspec_junit_formatter"
   gem "simplecov", "~> 0.21.0", require: false
-  gem "tcr", github: "kvokka/tcr", branch: "add-ruby3-support"
 end

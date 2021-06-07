@@ -2,9 +2,7 @@
 
 module Dtn
   module Clients
-    RSpec.describe Historical, type: :integration do
-      let(:client) { described_class.new.call "test" }
-
+    RSpec.describe Historical do
       context "PORT" do
         it "should have correct port" do
           expect(described_class::PORT).to eq 9100
@@ -12,12 +10,6 @@ module Dtn
       end
 
       context "#socket" do
-        around do |example|
-          TCR.turned_off do
-            example.run
-          end
-        end
-
         before do
           allow(TCPSocket).to receive(:open).with("localhost", 9100).and_return(double(print: nil, gets: nil))
         end
@@ -32,29 +24,25 @@ module Dtn
         end
       end
 
-      context "#call" do
+      context "#call", socket_recorder: true do
         let(:begin_datetime) { TESTING_BUSINESS_DAY.change({ hour: 10, min: 0, sec: 0 }) }
         let(:end_datetime) { TESTING_BUSINESS_DAY.change({ hour: 10, min: 10, sec: 0 }) }
 
         context "historical tick" do
-          around do |example|
-            TCR.use_cassette("historical_tick") do
-              example.run
-            end
-          end
-
           before do
             subject.historical_request.tick_timeframe(
               symbol: :aapl,
               begin_datetime: begin_datetime,
               end_datetime: end_datetime,
-              max_datapoints: 20
+              max_datapoints: 50
             )
           end
 
-          it {
-            binding.pry
-          }
+          let(:response) { subject.response.to_a }
+
+          it "produce response with ticks" do
+            expect(response).to all(be_an(Dtn::Messages::Tick))
+          end
         end
       end
     end

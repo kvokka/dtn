@@ -21,6 +21,7 @@ module Dtn
 
             klass = engine_klass_picker(line)
             break unless running?
+            raise("this is a unreachable stub. Got with line: #{line}") unless klass
 
             queue << klass.parse(line: line[2..])
           end
@@ -33,7 +34,6 @@ module Dtn
         when Client::END_OF_MESSAGE_CHARACTERS then (self.running = false)
         # when /^T/ then Messages::Tick # maybe another starting symbol
         when /^1/ then Messages::Tick
-        else raise("this is a unreachable stub. Got with line: #{line}")
         end
       end
     end

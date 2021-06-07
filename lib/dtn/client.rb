@@ -45,16 +45,20 @@ module Dtn
       Requests::Historical.new(socket)
     end
 
+    def response
+      Response.new(self)
+    end
+
+    def queue
+      @queue ||= Queue.new
+    end
+
     protected
 
     attr_accessor :running
 
     def socket
       @socket ||= TCPSocket.open(Dtn.config.host, self.class::PORT)
-    end
-
-    def queue
-      @queue ||= Queue.new
     end
 
     private
