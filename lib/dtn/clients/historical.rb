@@ -13,11 +13,14 @@ module Dtn
         nil
       end
 
+      # rubocop:disable Metrics/MethodLength
       def engine
+        return @engine if @engine
+
         self.running = true
-        Thread.new do
+        @engine = Thread.new do
           while (line = socket.gets)
-            sleep(1) while queue.length >= queue_length
+            sleep(0.1) while queue.length >= max_queue_length
 
             klass = engine_klass_picker(line)
             break unless running?
@@ -27,6 +30,7 @@ module Dtn
           end
         end
       end
+      # rubocop:enable Metrics/MethodLength
 
       def engine_klass_picker(line)
         case line

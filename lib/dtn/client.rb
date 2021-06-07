@@ -7,21 +7,21 @@ module Dtn
   # Top level client abstraction. Different streams are available on different
   # ports, so we can use it and follow the same pattern
   class Client
-    QUEUE_LENGTH = 100_000
+    MAX_QUEUE_LENGTH = 100_000
 
     END_OF_MESSAGE_CHARACTERS = /^.,!ENDMSG!/.freeze
     NO_DATA_CHARACTERS = "!NO_DATA!"
     SYNTAX_ERROR_CHARACTERS = "!SYNTAX_ERROR!"
 
-    def initialize(name: nil, queue_length: QUEUE_LENGTH)
+    def initialize(name: nil, max_queue_length: MAX_QUEUE_LENGTH)
       @name = name || SecureRandom.alphanumeric(10)
-      @queue_length = queue_length
+      @max_queue_length = max_queue_length
 
       init_connection
       engine
     end
 
-    attr_reader :name, :queue_length
+    attr_reader :name, :max_queue_length
 
     def stop
       self.running = false
