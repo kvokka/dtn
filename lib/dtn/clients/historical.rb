@@ -13,7 +13,6 @@ module Dtn
         nil
       end
 
-      # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
       def engine
         return @engine if @engine
 
@@ -22,18 +21,21 @@ module Dtn
           while (line = socket.gets)
             sleep(0.1) while queue.length >= max_queue_length
 
-            klass = engine_klass_picker(line)
-            raise("this is a unreachable stub. Got with line: #{line}") unless klass
-
-            queue << klass.parse(line: line).tap do |message|
-              self.running = false if message.termination?
-            end
-
+            process_line line: line
             break unless running?
           end
         end
       end
-      # rubocop:enable Metrics/MethodLength,Metrics/AbcSize
+
+      def process_line(line:)
+        klass = engine_klass_picker(line)
+        raise("this is a unreachable stub. Got with line: #{line}") unless klass
+
+        queue << klass.parse(line: line).tap do |message|
+          self.running = false if message.termination?
+        end
+        nil
+      end
 
       def engine_klass_picker(line)
         case line
