@@ -11,7 +11,7 @@ module Dtn
       end
 
       def method_missing(method_name, *args, **opts, &blk)
-        requests_module.const_get(method_name.to_s.camelize).new(socket).call(*args, **opts, &blk)
+        requests_module.const_get(method_name.to_s.camelize).new(socket: socket).call(*args, **opts, &blk)
       rescue NameError
         super
       end

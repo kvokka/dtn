@@ -27,7 +27,7 @@ module Dtn
       end
     end
 
-    def initialize(socket)
+    def initialize(socket:)
       @socket = socket
       @request_id = next_id
     end

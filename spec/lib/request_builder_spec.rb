@@ -4,11 +4,11 @@ module Dtn
   RSpec.describe RequestBuilder do
     # rubocop:disable Lint/ConstantDefinitionInBlock
     before(:context) do
-      module Dtn
+      module ::Dtn
         module Requests
           module Foo
-            class MyRequest
-              def call(*args, **_opt)
+            class MyRequest < Request
+              def call(*args, **opts)
                 [args, opts]
               end
             end
@@ -19,8 +19,8 @@ module Dtn
     # rubocop:enable Lint/ConstantDefinitionInBlock
 
     after(:context) do
-      remove_const(:'Dtn::Requests::Foo::MyRequest')
-      remove_const(:'Dtn::Requests::Foo')
+      Dtn::Requests::Foo.send(:remove_const, :MyRequest)
+      Dtn::Requests.send(:remove_const, :Foo)
     end
 
     let(:socket) { instance_double "TCPSocket" }
@@ -28,7 +28,7 @@ module Dtn
 
     context "#method_missing" do
       it "should return Proxy for foo class" do
-        expect(subject.foo).to be_a Proxy
+        expect(subject.foo).to be_a described_class::Proxy
       end
 
       it "should raise for missing class" do
