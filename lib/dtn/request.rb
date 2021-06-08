@@ -25,7 +25,14 @@ module Dtn
 
     def initialize(socket)
       @socket = socket
+      @request_id = next_id
     end
+
+    def call(*)
+      raise NotImplementedError
+    end
+
+    attr_reader :request_id
 
     protected
 

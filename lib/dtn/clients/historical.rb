@@ -9,11 +9,11 @@ module Dtn
       private
 
       def init_connection
-        system_request.set_client_name(name: @name)
+        request.system.set_client_name(name: @name)
         nil
       end
 
-      # rubocop:disable Metrics/MethodLength
+      # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
       def engine
         return @engine if @engine
 
@@ -23,21 +23,25 @@ module Dtn
             sleep(0.1) while queue.length >= max_queue_length
 
             klass = engine_klass_picker(line)
-            break unless running?
             raise("this is a unreachable stub. Got with line: #{line}") unless klass
 
-            queue << klass.parse(line: line[2..])
+            queue << klass.parse(line: line).tap do |message|
+              self.running = false if message.termination?
+            end
+
+            break unless running?
           end
         end
       end
-      # rubocop:enable Metrics/MethodLength
+      # rubocop:enable Metrics/MethodLength,Metrics/AbcSize
 
       def engine_klass_picker(line)
         case line
         when /^E/ then Messages::Error
-        when Client::END_OF_MESSAGE_CHARACTERS then (self.running = false)
+        when Client::END_OF_MESSAGE_CHARACTERS then Messages::EndOfMessageCharacters
+        when Client::NO_DATA_CHARACTERS then Messages::NoDataCharacters
         # when /^T/ then Messages::Tick # maybe another starting symbol
-        when /^1/ then Messages::Tick
+        when /^\d+/ then Messages::Tick
         end
       end
     end

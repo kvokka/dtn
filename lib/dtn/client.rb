@@ -9,8 +9,8 @@ module Dtn
   class Client
     MAX_QUEUE_LENGTH = 100_000
 
-    END_OF_MESSAGE_CHARACTERS = /^.,!ENDMSG!/.freeze
-    NO_DATA_CHARACTERS = "!NO_DATA!"
+    END_OF_MESSAGE_CHARACTERS = /^\d+,!ENDMSG!/.freeze
+    NO_DATA_CHARACTERS = /^\d+,E,!NO_DATA!/.freeze
     SYNTAX_ERROR_CHARACTERS = "!SYNTAX_ERROR!"
 
     def initialize(name: nil, max_queue_length: MAX_QUEUE_LENGTH)
@@ -31,22 +31,12 @@ module Dtn
       !!running
     end
 
-    # TODO: refactor this in pretty way
-
-    def system_request
-      Requests::System.new(socket)
-    end
-
-    def level1_request
-      Requests::Level1.new(socket)
-    end
-
-    def historical_request
-      Requests::Historical.new(socket)
+    def request
+      RequestBuilder.new(socket: socket)
     end
 
     def response
-      Response.new(self)
+      Response.new(client: self)
     end
 
     def queue

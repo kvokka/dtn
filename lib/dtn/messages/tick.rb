@@ -9,6 +9,7 @@ module Dtn
         # rubocop:disable Metrics/MethodLength
         def fields
           @fields ||= {
+            request_id: :to_i,
             timestamp: :to_datetime,
             last: :to_f,
             last_size: :to_i,

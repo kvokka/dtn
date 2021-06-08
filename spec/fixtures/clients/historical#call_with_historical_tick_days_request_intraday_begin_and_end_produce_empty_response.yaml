@@ -1,0 +1,6 @@
+---
+:reads:
+- "2,E,!NO_DATA!,,\r\n"
+:writes:
+- "S,SET CLIENT NAME,piBlMLnwAJ\r\n"
+- "HTD,AAPL,7,50,20210604 100000,20210604 101000,1,2,500\r\n"

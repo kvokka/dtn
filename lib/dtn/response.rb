@@ -6,7 +6,7 @@ module Dtn
     include Enumerable
     extend Forwardable
 
-    def initialize(client)
+    def initialize(client:)
       @client = client
     end
 
@@ -20,6 +20,16 @@ module Dtn
         next sleep(0.1) if running?
 
         break
+      end
+    end
+
+    # Fetch only 1 request specific meaningful messages (omitting all termination messages)
+    def each_from_request(request_id:)
+      return to_enum(:each_from_request, request_id: request_id) unless block_given?
+
+      each do |message|
+        break if message.termination?
+        next yield(message) if message.request_id == request_id
       end
     end
 

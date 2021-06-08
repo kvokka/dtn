@@ -28,9 +28,11 @@ module Dtn
         let(:begin_datetime) { TESTING_BUSINESS_DAY.change({ hour: 10, min: 0, sec: 0 }) }
         let(:end_datetime) { TESTING_BUSINESS_DAY.change({ hour: 10, min: 10, sec: 0 }) }
 
-        context "historical tick" do
-          before do
-            subject.historical_request.tick_timeframe(
+        let(:response) { subject.response.each_from_request(request_id: request_id).to_a }
+
+        context "with historical tick request" do
+          let(:request_id) do
+            subject.request.historical.tick_timeframe(
               symbol: :aapl,
               begin_datetime: begin_datetime,
               end_datetime: end_datetime,
@@ -38,10 +40,36 @@ module Dtn
             )
           end
 
-          let(:response) { subject.response.to_a }
-
           it "produce response with ticks" do
             expect(response).to all(be_an(Dtn::Messages::Tick))
+          end
+
+          it "yet another response do the same" do
+            expect(response).to all(be_an(Dtn::Messages::Tick))
+          end
+        end
+
+        context "with historical tick days request" do
+          let(:request_id) do
+            subject.request.historical.tick_day(
+              symbol: :aapl,
+              days: 7,
+              begin_datetime: begin_datetime,
+              end_datetime: end_datetime,
+              max_datapoints: 50
+            )
+          end
+
+          context "intraday begin and end" do
+            it "produce empty response" do
+              expect(response).to be_empty
+            end
+          end
+
+          context "few days begin and end" do
+            let(:begin_datetime) { TESTING_BUSINESS_DAY.change({ hour: 10, min: 0, sec: 0 }) - 7.days }
+
+            it "should return something useful"
           end
         end
       end
