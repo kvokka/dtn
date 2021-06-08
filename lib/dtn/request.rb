@@ -16,6 +16,10 @@ module Dtn
         _id_tvar.value
       end
 
+      def registry
+        @registry ||= Registry.new(name: "Requests registry")
+      end
+
       private
 
       def _id_tvar
