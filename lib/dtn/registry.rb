@@ -32,6 +32,8 @@ module Dtn
       @items[name] = item
     end
 
+    alias []= register
+
     def registered?(name)
       @items.key?(name)
     end
