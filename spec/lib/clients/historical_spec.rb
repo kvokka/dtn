@@ -25,8 +25,8 @@ module Dtn
       end
 
       context "#call", socket_recorder: true do
-        let(:begin_datetime) { TESTING_BUSINESS_DAY.change({ hour: 10, min: 0, sec: 0 }) }
-        let(:end_datetime) { TESTING_BUSINESS_DAY.change({ hour: 10, min: 10, sec: 0 }) }
+        let(:begin_datetime) { CURRENT_DAY.change({ hour: 10, min: 0, sec: 0 }) }
+        let(:end_datetime) { CURRENT_DAY.change({ hour: 10, min: 10, sec: 0 }) }
 
         let(:response) { subject.response.each_from_request(request_id: request_id).to_a }
 
@@ -67,7 +67,7 @@ module Dtn
           end
 
           context "few days begin and end" do
-            let(:begin_datetime) { TESTING_BUSINESS_DAY.change({ hour: 10, min: 0, sec: 0 }) - 7.days }
+            let(:begin_datetime) { CURRENT_DAY.change({ hour: 10, min: 0, sec: 0 }) - 7.days }
 
             it "should return something useful"
           end

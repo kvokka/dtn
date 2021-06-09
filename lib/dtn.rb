@@ -8,6 +8,8 @@ require "dry-configurable"
 require "forwardable"
 require "concurrent-ruby"
 require "active_support/inflector"
+require "socket"
+require "securerandom"
 
 # Top level API methods only
 module Dtn

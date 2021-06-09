@@ -2,6 +2,7 @@
 
 require "dtn"
 require "pry"
+require "active_support/time"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -16,3 +17,10 @@ RSpec.configure do |config|
 end
 
 Dir["#{__dir__}/support/**/*.rb"].sort.each { |file| require file }
+
+# This is generated with
+#
+#    $ be rake spec:set_spec_date
+#
+# to minimise specs files changing as much as possible
+CURRENT_DAY = File.open("spec/current_day", "r").readline.chomp.to_datetime

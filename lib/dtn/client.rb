@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require "socket"
-require "securerandom"
-
 module Dtn
   # Top level client abstraction. Different streams are available on different
   # ports, so we can use it and follow the same pattern
