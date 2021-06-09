@@ -20,12 +20,12 @@ module Dtn
         #
         # @returns Integer request_id
         def call(symbol:, days:, begin_datetime:, end_datetime:, **options)
-          combined_options = defaults(**options).merge({
-                                                         symbol: symbol.to_s.upcase,
-                                                         days: days.to_i > MAX_INT16 ? MAX_INT16 : days,
-                                                         begin_datetime: begin_datetime.strftime("%Y%m%d %H%M%S"),
-                                                         end_datetime: end_datetime.strftime("%Y%m%d %H%M%S")
-                                                       })
+          self.combined_options = defaults(**options).merge({
+                                                              symbol: symbol.to_s.upcase,
+                                                              days: days.to_i > MAX_INT16 ? MAX_INT16 : days,
+                                                              begin_datetime: begin_datetime.strftime("%Y%m%d %H%M%S"),
+                                                              end_datetime: end_datetime.strftime("%Y%m%d %H%M%S")
+                                                            })
 
           socket.print format(TEMPLATE, combined_options)
           request_id

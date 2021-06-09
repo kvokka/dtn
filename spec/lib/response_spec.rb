@@ -28,12 +28,12 @@ module Dtn
         Queue.new << msg1 << msg2 << msg3 << msg4 << msg5 << msg6
       end
 
-      let(:msg1) { instance_double("Dtn::Messages::Tick", request_id: 1, termination?: false) }
-      let(:msg2) { instance_double("Dtn::Messages::Tick", request_id: 2, termination?: false) }
-      let(:msg3) { instance_double("Dtn::Messages::Tick", request_id: 1, termination?: false) }
-      let(:msg4) { instance_double("Dtn::Messages::Tick", request_id: 1, termination?: false) }
-      let(:msg5) { instance_double("Dtn::Messages::EndOfMessageCharacters", request_id: 2, termination?: true) }
-      let(:msg6) { instance_double("Dtn::Messages::EndOfMessageCharacters", request_id: 1, termination?: true) }
+      let(:msg1) { instance_double("Tick", request_id: 1, termination?: false) }
+      let(:msg2) { instance_double("Tick", request_id: 2, termination?: false) }
+      let(:msg3) { instance_double("Tick", request_id: 1, termination?: false) }
+      let(:msg4) { instance_double("Tick", request_id: 1, termination?: false) }
+      let(:msg5) { instance_double("EndOfMessageCharacters", request_id: 2, termination?: true) }
+      let(:msg6) { instance_double("EndOfMessageCharacters", request_id: 1, termination?: true) }
 
       it "should return only request_id 1 messages" do
         expect(subject.each_from_request(request_id: 1).to_a).to eq [msg1, msg3, msg4]

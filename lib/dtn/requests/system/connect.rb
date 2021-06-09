@@ -7,6 +7,7 @@ module Dtn
       class Connect < Request
         def call
           socket.print "S,CONNECT\r\n"
+          finish
         end
       end
     end

@@ -32,7 +32,10 @@ module Dtn
         raise("this is a unreachable stub. Got with line: #{line}") unless klass
 
         queue << klass.parse(line: line).tap do |message|
-          self.running = false if message.termination?
+          next unless message.termination?
+
+          self.running = false
+          Request.registry.find(message.request_id).finish if message.try(:request_id)
         end
         nil
       end

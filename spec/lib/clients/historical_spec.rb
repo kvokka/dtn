@@ -30,6 +30,11 @@ module Dtn
 
         let(:response) { subject.response.each_from_request(request_id: request_id).to_a }
 
+        before do
+          Request.registry.clear
+          allow(Request).to receive(:next_id).and_return(1)
+        end
+
         context "with historical tick request", socket_recorder: "historical tick" do
           let(:request_id) do
             subject.request.historical.tick_timeframe(
@@ -43,6 +48,15 @@ module Dtn
           it "produce response with ticks" do
             expect(response).to all(be_an(Dtn::Messages::Tick))
           end
+
+          it "have correct combined_options" do
+            expect(Request.registry.find(request_id).combined_options).to include(
+              *%i[max_datapoints begin_filter_time data_direction end_filter_time
+                  datapoints_per_send request_id symbol begin_datetime end_datetime]
+            )
+          end
+
+          it_behaves_like "request registered in registry as", Requests::Historical::TickTimeframe
         end
 
         context "with historical tick days request", socket_recorder: "historical days" do
@@ -61,6 +75,15 @@ module Dtn
               expect(response).to be_empty
             end
           end
+
+          it "have correct combined_options" do
+            expect(Request.registry.find(request_id).combined_options).to include(
+              *%i[max_datapoints begin_filter_time data_direction end_filter_time
+                  datapoints_per_send request_id symbol begin_datetime end_datetime]
+            )
+          end
+
+          it_behaves_like "request registered in registry as", Requests::Historical::TickDay
 
           context "few days begin and end" do
             let(:begin_datetime) { CURRENT_DAY.change({ hour: 10, min: 0, sec: 0 }) - 7.days }

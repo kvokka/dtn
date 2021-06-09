@@ -17,11 +17,11 @@ module Dtn
         #   HTT,[Symbol],[BeginDate BeginTime],[EndDate EndTime],[MaxDatapoints],[BeginFilterTime],\
         #   [EndFilterTime],[DataDirection],[RequestID],[DatapointsPerSend]<CR><LF>
         def call(symbol:, begin_datetime:, end_datetime:, **options)
-          combined_options = defaults(**options).merge({
-                                                         symbol: symbol.to_s.upcase,
-                                                         begin_datetime: begin_datetime.strftime("%Y%m%d %H%M%S"),
-                                                         end_datetime: end_datetime.strftime("%Y%m%d %H%M%S")
-                                                       })
+          self.combined_options = defaults(**options).merge({
+                                                              symbol: symbol.to_s.upcase,
+                                                              begin_datetime: begin_datetime.strftime("%Y%m%d %H%M%S"),
+                                                              end_datetime: end_datetime.strftime("%Y%m%d %H%M%S")
+                                                            })
 
           socket.print format(TEMPLATE, combined_options)
           request_id

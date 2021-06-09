@@ -36,7 +36,16 @@ module Dtn
       raise NotImplementedError
     end
 
+    def finished?
+      !!@finished
+    end
+
+    def finish
+      @finished = true
+    end
+
     attr_reader :request_id
+    attr_accessor :combined_options
 
     protected
 

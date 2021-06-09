@@ -19,8 +19,6 @@ module Dtn
       end
     end
 
-    attr_reader :request_id
-
     def termination?
       TERMINATION_CLASSES.include?(self.class)
     end
