@@ -24,13 +24,13 @@ module Dtn
         end
       end
 
-      context "#call", socket_recorder: true do
+      context "#call" do
         let(:begin_datetime) { CURRENT_DAY.change({ hour: 10, min: 0, sec: 0 }) }
         let(:end_datetime) { CURRENT_DAY.change({ hour: 10, min: 10, sec: 0 }) }
 
         let(:response) { subject.response.each_from_request(request_id: request_id).to_a }
 
-        context "with historical tick request" do
+        context "with historical tick request", socket_recorder: "historical tick" do
           let(:request_id) do
             subject.request.historical.tick_timeframe(
               symbol: :aapl,
@@ -43,13 +43,9 @@ module Dtn
           it "produce response with ticks" do
             expect(response).to all(be_an(Dtn::Messages::Tick))
           end
-
-          it "yet another response do the same" do
-            expect(response).to all(be_an(Dtn::Messages::Tick))
-          end
         end
 
-        context "with historical tick days request" do
+        context "with historical tick days request", socket_recorder: "historical days" do
           let(:request_id) do
             subject.request.historical.tick_day(
               symbol: :aapl,

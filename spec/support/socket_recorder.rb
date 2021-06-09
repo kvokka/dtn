@@ -3,6 +3,14 @@
 require "yaml"
 require "fileutils"
 
+# Add the ability to record the output from socket to file and read it
+# from there afterwards
+#
+# For usage you can simple add `socket_recorder: true` to your spec or
+# spec context. This will generate the separate file for each spec.
+#
+# If you want to share one socket request between a few specs, you can
+# add a custom name `socket_recorder: 'my awesome file'`
 module TCPSocketWithRecorder
   class Cassette
     CASSETTES_PATH = "spec/fixtures"
@@ -36,9 +44,12 @@ module TCPSocketWithRecorder
     def filename
       return @filename if @filename
 
-      cassette_filename = spec.full_description.sub(/^Dtn::/, "").underscore.gsub(" ", "_")
-      cassette_filename += "_#{SecureRandom.alphanumeric(10)}" if spec.description.empty?
-      cassette_filename += ".yaml"
+      cassette_filename =
+        if spec.metadata[:socket_recorder] == true
+          calculate_filename
+        else
+          spec.metadata[:socket_recorder].underscore.gsub(" ", "_")
+        end
 
       @filename = Pathname.new(CASSETTES_PATH).join(cassette_filename)
     end
@@ -47,6 +58,12 @@ module TCPSocketWithRecorder
 
     attr_writer :reads, :writes
     attr_reader :spec
+
+    def calculate_filename
+      fn = spec.full_description.sub(/^Dtn::/, "").underscore.gsub(" ", "_")
+      fn += "_#{SecureRandom.alphanumeric(10)}" if spec.description.empty?
+      "#{fn}.yaml"
+    end
 
     def yaml_dump
       YAML.dump(reads: reads, writes: writes)
