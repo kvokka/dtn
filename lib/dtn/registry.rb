@@ -4,6 +4,11 @@ module Dtn
   # Abstract thread safe registry
   class Registry
     include Enumerable
+    extend Forwardable
+
+    delegate delete: :@items,
+             size: :@items,
+             clear: :@items
 
     attr_reader :name
 
@@ -29,6 +34,8 @@ module Dtn
     alias [] find
 
     def register(name, item)
+      return unless name
+
       @items[name] = item
     end
 
@@ -36,10 +43,6 @@ module Dtn
 
     def registered?(name)
       @items.key?(name)
-    end
-
-    def delete(name)
-      @items.delete(name)
     end
 
     private

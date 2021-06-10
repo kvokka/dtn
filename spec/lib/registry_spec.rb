@@ -38,6 +38,11 @@ module Dtn
       expect(subject).to be_registered(42)
     end
 
+    it "does not register a nil object" do
+      subject.register(nil, registered_object)
+      expect(subject.size).to be_zero
+    end
+
     it "knows when an object is not registered" do
       expect(subject).not_to be_registered("bogus")
     end
