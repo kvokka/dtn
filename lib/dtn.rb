@@ -10,6 +10,7 @@ require "concurrent-ruby"
 require "active_support/inflector"
 require "socket"
 require "securerandom"
+require "timeout"
 
 # Top level API methods only
 module Dtn

@@ -15,7 +15,7 @@ module Dtn
         end
 
         after do
-          subject.stop
+          subject.stop!
         end
 
         it "open the socket with correct defaults" do

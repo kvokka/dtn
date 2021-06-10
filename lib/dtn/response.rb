@@ -6,6 +6,9 @@ module Dtn
     include Enumerable
     extend Forwardable
 
+    # Default timeout in seconds to wait until the request appear in the registry
+    TIMEOUT = 5
+
     def initialize(client:)
       @client = client
     end
@@ -15,6 +18,7 @@ module Dtn
     def each
       return to_enum(:each) unless block_given?
 
+      wait_client
       loop do
         next yield(queue.pop) if queue.size.positive?
         next sleep(0.1) if running?
@@ -40,5 +44,17 @@ module Dtn
     private
 
     attr_reader :client
+
+    def wait_client(timeout: TIMEOUT)
+      Timeout.timeout(TIMEOUT) do
+        loop do
+          break if client.running? || client.stopped?
+
+          sleep(0.001)
+        end
+      end
+    rescue TimeoutError
+      raise TimeoutError, "The client engine is not ready after #{timeout} seconds"
+    end
   end
 end

@@ -8,7 +8,6 @@ module Dtn
       end
 
       it "registered request was finished" do
-        response
         expect(Request.registry.find(request_id).finished?).to be_truthy
       end
     end
