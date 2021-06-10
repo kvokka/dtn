@@ -3,7 +3,7 @@
 module Dtn
   module Requests
     module Historical
-      # Tick timframe requests
+      # Tick timeframe requests
       class TickTimeframe < Base
         TEMPLATE =
           "HTT,%<symbol>s,%<begin_datetime>s,%<end_datetime>s,%<max_datapoints>d," \

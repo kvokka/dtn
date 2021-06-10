@@ -32,7 +32,10 @@ module Dtn
 
         before do
           Request.registry.clear
-          allow(Request).to receive(:next_id).and_return(1)
+          allow(Request).to receive(:next_id).and_return(1,2,3,4,5)
+          # we must fetch all the data first for every request, cos the requests may run in different order
+          request_id
+          response
         end
 
         context "with historical tick request", socket_recorder: "historical tick" do
@@ -90,6 +93,25 @@ module Dtn
 
             it "should return something useful"
           end
+        end
+
+        context "with historical tick datapoints request", socket_recorder: "historical datapoint" do
+          let(:request_id) do
+            subject.request.historical.tick_datapoint(symbol: :aapl, max_datapoints: 100)
+          end
+
+          it "produce response with ticks" do
+            expect(response).to all(be_an(Dtn::Messages::Tick))
+          end
+
+          it "have correct combined_options" do
+            expect(Request.registry.find(request_id).combined_options).to include(
+              *%i[max_datapoints data_direction
+                  datapoints_per_send id symbol]
+            )
+          end
+
+          it_behaves_like "request registered in registry as", Requests::Historical::TickDatapoint
         end
       end
     end

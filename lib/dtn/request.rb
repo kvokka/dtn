@@ -39,8 +39,9 @@ module Dtn
     end
 
     # This should contain expected class of the returning message.
+    # Should be overwritten in child class
     #
-    # @returns Class
+    # @returns nil or Class
     def expected_messages_class
       raise NotImplementedError
     end
