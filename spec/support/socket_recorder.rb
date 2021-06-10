@@ -51,7 +51,7 @@ module TCPSocketWithRecorder
           spec.metadata[:socket_recorder].underscore.gsub(" ", "_")
         end
 
-      @filename = Pathname.new(CASSETTES_PATH).join(cassette_filename)
+      @filename = Pathname.new(CASSETTES_PATH).join("#{cassette_filename}.yaml")
     end
 
     private
@@ -62,7 +62,7 @@ module TCPSocketWithRecorder
     def calculate_filename
       fn = spec.full_description.sub(/^Dtn::/, "").underscore.gsub(" ", "_")
       fn += "_#{SecureRandom.alphanumeric(10)}" if spec.description.empty?
-      "#{fn}.yaml"
+      fn
     end
 
     def yaml_dump
