@@ -26,6 +26,10 @@ module Dtn
           socket.print format(TEMPLATE, combined_options)
           request_id
         end
+
+        def expected_messages_class
+          Messages::Tick
+        end
       end
     end
   end

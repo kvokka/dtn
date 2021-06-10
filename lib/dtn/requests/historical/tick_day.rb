@@ -30,6 +30,10 @@ module Dtn
           socket.print format(TEMPLATE, combined_options)
           request_id
         end
+
+        def expected_messages_class
+          # TODO: I do not know what should be here, cos i was not able to fetch a thing from api
+        end
       end
     end
   end

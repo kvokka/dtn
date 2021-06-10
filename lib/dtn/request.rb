@@ -32,7 +32,17 @@ module Dtn
       @request_id = next_id
     end
 
+    # Initialize the request to api
+    #
+    # @returns nil or request_id (Integer)
     def call(*)
+      raise NotImplementedError
+    end
+
+    # This should contain expected class of the returning message.
+    #
+    # @returns Class
+    def expected_messages_class
       raise NotImplementedError
     end
 

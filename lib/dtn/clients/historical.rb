@@ -45,8 +45,7 @@ module Dtn
         when /^E/ then Messages::Error
         when Client::END_OF_MESSAGE_CHARACTERS then Messages::EndOfMessageCharacters
         when Client::NO_DATA_CHARACTERS then Messages::NoDataCharacters
-        # when /^T/ then Messages::Tick # maybe another starting symbol
-        when /^\d+/ then Messages::Tick
+        when /^(\d+)/ then Request.registry.find(Integer($1)).expected_messages_class
         end
       end
     end
