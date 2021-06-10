@@ -10,7 +10,7 @@ module Dtn
           "%<begin_filter_time>s,%<end_filter_time>s,%<data_direction>d,%<id>d," \
           "%<datapoints_per_send>d\r\n"
 
-        # Get historical tick data
+        # Retrieves tick data between [BeginDate BeginTime] and [EndDate EndTime] for the specified [Symbol].
         #
         # Example message
         #

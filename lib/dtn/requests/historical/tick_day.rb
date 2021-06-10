@@ -9,7 +9,8 @@ module Dtn
           "HTD,%<symbol>s,%<days>s,%<max_datapoints>d,%<begin_datetime>s,%<end_datetime>s," \
           "%<data_direction>d,%<id>d,%<datapoints_per_send>d\r\n"
 
-        # Get historical tick day data
+        # Retrieves ticks for the previous [Days] days for the specified [Symbol].
+        #
         # NOTE: Unfortunately I constantly get an empty response with this and
         #       more information about this data point needed.
         #

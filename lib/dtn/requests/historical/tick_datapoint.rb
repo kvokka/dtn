@@ -8,7 +8,7 @@ module Dtn
         TEMPLATE =
           "HTX,%<symbol>s,%<max_datapoints>d,%<data_direction>d,%<id>d,%<datapoints_per_send>d\r\n"
 
-        # Get historical tick datapoints (the most recent historical ticks)
+        # Retrieves up to [MaxDatapoints] number of ticks for the specified [Symbol].
         #
         # Example message
         #
