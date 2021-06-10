@@ -2,7 +2,7 @@
 
 module Dtn
   RSpec.describe Response do
-    let(:client) { instance_double "Client", running?: true, queue: queue }
+    let(:client) { instance_double "Dtn::Client", running?: true, queue: queue }
 
     subject { described_class.new(client: client) }
     let(:result) { [] }
@@ -21,6 +21,26 @@ module Dtn
         it("should left 1 element") { expect(queue.size).to eq 1 }
         it("should collect right elements") { expect(result).to eq [1, 2, 3] }
       end
+
+      context "empty queue" do
+        let(:queue) { Queue.new }
+
+        before do
+          # Did not find the better way to turn off the client
+          allow(subject).to receive(:sleep) {
+                              client.instance_eval do
+                                def running?
+                                  false
+                                end
+                              end
+                            }
+        end
+
+        it "should sleep" do
+          subject.each {} # rubocop:disable Lint/EmptyBlock
+          expect(subject).to have_received(:sleep)
+        end
+      end
     end
 
     context "#each_from_request" do
@@ -35,12 +55,30 @@ module Dtn
       let(:msg5) { instance_double("EndOfMessageCharacters", request_id: 2, termination?: true) }
       let(:msg6) { instance_double("EndOfMessageCharacters", request_id: 1, termination?: true) }
 
-      it "should return only request_id 1 messages" do
-        expect(subject.each_from_request(request_id: 1).to_a).to eq [msg1, msg3, msg4]
+      context "request_id 1" do
+        let(:queue) { Queue.new << msg1 << msg3 << msg4 << msg6 }
+
+        it "should return only own messages" do
+          expect(subject.each_from_request(request_id: 1).to_a).to eq [msg1, msg3, msg4]
+        end
       end
 
-      it "should return only request_id 2 messages" do
-        expect(subject.each_from_request(request_id: 2).to_a).to eq [msg2]
+      context "request_id 2" do
+        let(:queue) { Queue.new << msg2 << msg5 }
+
+        it "should return only own messages" do
+          expect(subject.each_from_request(request_id: 2).to_a).to eq [msg2]
+        end
+      end
+
+      context "mixed requests" do
+        let(:queue) { Queue.new << msg1 << msg2 }
+
+        it "should raise" do
+          expect do
+            subject.each_from_request(request_id: 1).to_a
+          end.to raise_error Response::MessageFromAnotherRequestError
+        end
       end
     end
   end
