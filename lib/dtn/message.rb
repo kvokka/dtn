@@ -3,11 +3,6 @@
 module Dtn
   # Message abstraction
   class Message < OpenStruct
-    TERMINATION_CLASSES = [
-      Messages::EndOfMessageCharacters,
-      Messages::NoDataCharacters
-    ].freeze
-
     class << self
       def parse(line:)
         l = line.split(",").first(fields.size)
@@ -19,8 +14,10 @@ module Dtn
       end
     end
 
+    # After receiving termination Message Request will be marked as finished and #each
+    # method successfully finalize the iteration
     def termination?
-      TERMINATION_CLASSES.include?(self.class)
+      false
     end
   end
 end

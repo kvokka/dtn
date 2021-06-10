@@ -6,8 +6,8 @@ module Dtn
   class Client
     MAX_QUEUE_LENGTH = 100_000
 
-    END_OF_MESSAGE_CHARACTERS = /^\d+,!ENDMSG!/.freeze
-    NO_DATA_CHARACTERS = /^\d+,E,!NO_DATA!/.freeze
+    END_OF_MESSAGE_CHARACTERS = /!ENDMSG!/.freeze
+    NO_DATA_CHARACTERS = /!NO_DATA!/.freeze
     SYNTAX_ERROR_CHARACTERS = "!SYNTAX_ERROR!"
 
     def initialize(name: nil, max_queue_length: MAX_QUEUE_LENGTH)

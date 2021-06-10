@@ -11,6 +11,10 @@ module Dtn
           }
         end
       end
+
+      def termination?
+        true
+      end
     end
   end
 end

@@ -41,11 +41,13 @@ module Dtn
       end
 
       def engine_klass_picker(line)
-        case line
-        when /^E/ then Messages::Error
+        /^(\d+),(.+)/ =~ line
+        request_id = Regexp.last_match(1)
+        case (Regexp.last_match(2) || line)
         when Client::END_OF_MESSAGE_CHARACTERS then Messages::EndOfMessageCharacters
         when Client::NO_DATA_CHARACTERS then Messages::NoDataCharacters
-        when /^(\d+)/ then Request.registry.find(Integer(Regexp.last_match(1))).expected_messages_class
+        when /^E/ then Messages::Error
+        else Request.registry.find(Integer(request_id)).expected_messages_class
         end
       end
     end
