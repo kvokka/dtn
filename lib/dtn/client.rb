@@ -49,7 +49,7 @@ module Dtn
     end
 
     def queue
-      @queue ||= Queue.new
+      @queue ||= SizedQueue.new MAX_QUEUE_LENGTH
     end
 
     def to_s

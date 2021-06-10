@@ -17,8 +17,6 @@ module Dtn
         @engine ||= Thread.new(self) do |client|
           client.run!
           while (line = socket.gets)
-            sleep(0.1) while queue.length >= max_queue_length
-
             process_line line: line, client: client
             break unless client.running?
           end
