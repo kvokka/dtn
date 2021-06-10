@@ -32,7 +32,7 @@ module Dtn
 
         before do
           Request.registry.clear
-          allow(Request).to receive(:next_id).and_return(1,2,3,4,5)
+          allow(Request).to receive(:next_id).and_return(1, 2, 3, 4, 5)
           # we must fetch all the data first for every request, cos the requests may run in different order
           request_id
           response

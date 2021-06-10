@@ -95,6 +95,7 @@ module TCPSocketWithRecorder
       return (super(*args, **opts).tap { |r| cassette.reads << r }) unless cassette.persisted?
 
       raise("Trying to read more than was saved in the cassette #{cassette.filename}") if cassette.reads.empty?
+
       sleep(0.001) until _reads_available
 
       cassette.reads.shift
@@ -107,7 +108,7 @@ module TCPSocketWithRecorder
         raise("Trying to write more than was saved in the cassette #{casette.filename}") if cassette.writes.empty?
 
         # unlock reads only after the first non-system request
-        cassette.writes.shift.tap{|line| self._reads_available = true unless /^S,.+/ =~ line }.length
+        cassette.writes.shift.tap { |inner_line| self._reads_available = true unless /^S,.+/ =~ inner_line }.length
       else
         cassette.writes << line
         super(line, *args, **opts)
