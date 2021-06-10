@@ -52,7 +52,7 @@ module Dtn
           it "have correct combined_options" do
             expect(Request.registry.find(request_id).combined_options).to include(
               *%i[max_datapoints begin_filter_time data_direction end_filter_time
-                  datapoints_per_send request_id symbol begin_datetime end_datetime]
+                  datapoints_per_send id symbol begin_datetime end_datetime]
             )
           end
 
@@ -79,7 +79,7 @@ module Dtn
           it "have correct combined_options" do
             expect(Request.registry.find(request_id).combined_options).to include(
               *%i[max_datapoints begin_filter_time data_direction end_filter_time
-                  datapoints_per_send request_id symbol begin_datetime end_datetime]
+                  datapoints_per_send id symbol begin_datetime end_datetime]
             )
           end
 

@@ -9,7 +9,7 @@ module Dtn
       private
 
       def init_connection
-        request.system.set_client_name(name: @name)
+        request.system.set_client_name(name: name)
         nil
       end
 
@@ -45,7 +45,7 @@ module Dtn
         when /^E/ then Messages::Error
         when Client::END_OF_MESSAGE_CHARACTERS then Messages::EndOfMessageCharacters
         when Client::NO_DATA_CHARACTERS then Messages::NoDataCharacters
-        when /^(\d+)/ then Request.registry.find(Integer($1)).expected_messages_class
+        when /^(\d+)/ then Request.registry.find(Integer(Regexp.last_match(1))).expected_messages_class
         end
       end
     end

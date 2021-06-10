@@ -7,7 +7,7 @@ module Dtn
       class TickTimeframe < Base
         TEMPLATE =
           "HTT,%<symbol>s,%<begin_datetime>s,%<end_datetime>s,%<max_datapoints>d," \
-          "%<begin_filter_time>s,%<end_filter_time>s,%<data_direction>d,%<request_id>d," \
+          "%<begin_filter_time>s,%<end_filter_time>s,%<data_direction>d,%<id>d," \
           "%<datapoints_per_send>d\r\n"
 
         # Get historical tick data
@@ -24,7 +24,7 @@ module Dtn
                                                             })
 
           socket.print format(TEMPLATE, combined_options)
-          request_id
+          id
         end
 
         def expected_messages_class

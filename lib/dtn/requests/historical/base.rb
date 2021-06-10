@@ -28,7 +28,7 @@ module Dtn
             data_direction: DEFAULT_DATA_DIRECTION,
             end_filter_time: DEFAULT_END_FILTER_TIME,
             datapoints_per_send: DEFAULT_DATAPOINTS_PER_SENT,
-            request_id: request_id
+            id: id
           }.merge(options)
         end
       end

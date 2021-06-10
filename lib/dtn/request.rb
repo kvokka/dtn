@@ -29,7 +29,6 @@ module Dtn
 
     def initialize(socket:)
       @socket = socket
-      @request_id = next_id
     end
 
     # Initialize the request to api
@@ -54,7 +53,10 @@ module Dtn
       @finished = true
     end
 
-    attr_reader :request_id
+    def id
+      @id ||= next_id
+    end
+
     attr_accessor :combined_options
 
     protected

@@ -7,7 +7,7 @@ module Dtn
       class TickDay < Base
         TEMPLATE =
           "HTD,%<symbol>s,%<days>s,%<max_datapoints>d,%<begin_datetime>s,%<end_datetime>s," \
-          "%<data_direction>d,%<request_id>d,%<datapoints_per_send>d\r\n"
+          "%<data_direction>d,%<id>d,%<datapoints_per_send>d\r\n"
 
         # Get historical tick day data
         # NOTE: Unfortunately I constantly get an empty response with this and
@@ -18,7 +18,7 @@ module Dtn
         #   HTD,[Symbol],[Days],[MaxDatapoints],[BeginFilterTime],[EndFilterTime],[DataDirection],\
         #   [RequestID],[DatapointsPerSend]<CR><LF>
         #
-        # @returns Integer request_id
+        # @returns Integer id
         def call(symbol:, days:, begin_datetime:, end_datetime:, **options)
           self.combined_options = defaults(**options).merge({
                                                               symbol: symbol.to_s.upcase,
@@ -28,7 +28,7 @@ module Dtn
                                                             })
 
           socket.print format(TEMPLATE, combined_options)
-          request_id
+          id
         end
 
         def expected_messages_class
