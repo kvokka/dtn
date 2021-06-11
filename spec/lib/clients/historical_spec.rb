@@ -42,6 +42,12 @@ module Dtn
           subject.stop
         end
 
+        around do |example|
+          Timeout.timeout(5) do
+            example.run
+          end
+        end
+
         context "with historical tick request", socket_recorder: "historical tick" do
           let(:request_id) do
             subject.request.historical.tick_timeframe(
@@ -68,7 +74,7 @@ module Dtn
           it_behaves_like "request registered in registry as", Requests::Historical::TickTimeframe
         end
 
-        context "with historical tick days request", socket_recorder: "historical days" do
+        context "with historical tick days request", socket_recorder: "historical tick days" do
           let(:request_id) do
             subject.request.historical.tick_day(
               symbol: :aapl,
@@ -103,7 +109,7 @@ module Dtn
           end
         end
 
-        context "with historical tick datapoints request", socket_recorder: "historical datapoint" do
+        context "with historical tick datapoints request", socket_recorder: "historical tick datapoint" do
           let(:request_id) do
             subject.request.historical.tick_datapoint(symbol: :aapl, max_datapoints: 100)
           end
@@ -122,6 +128,27 @@ module Dtn
           it("should stop engine in the end") { expect(subject.stopped?).to be_truthy }
 
           it_behaves_like "request registered in registry as", Requests::Historical::TickDatapoint
+        end
+
+        context "with historical interval datapoints request", socket_recorder: "historical interval datapoint" do
+          let(:request_id) do
+            subject.request.historical.interval_datapoint(symbol: :aapl, interval: 60*60, max_datapoints: 100)
+          end
+
+          it "produce response with ticks" do
+            expect(response).to all(be_an(Dtn::Messages::Interval))
+          end
+
+          it "have correct combined_options" do
+            expect(Request.registry.find(request_id).combined_options).to include(
+              *%i[max_datapoints data_direction interval interval_type
+                  datapoints_per_send id symbol]
+            )
+          end
+
+          it("should stop engine in the end") { expect(subject.stopped?).to be_truthy }
+
+          it_behaves_like "request registered in registry as", Requests::Historical::IntervalDatapoint
         end
       end
     end

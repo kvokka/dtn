@@ -5,6 +5,7 @@ module Dtn
     module Historical
       # User historical requests
       class Base < Request
+        class ValidationError < StandardError; end
         # Maximum data allowed per 1 request and per 1 batch
         DEFAULT_MAX_DATAPOINTS = 1_000_000
         DEFAULT_DATAPOINTS_PER_SENT = 500
@@ -16,6 +17,8 @@ module Dtn
 
         # Returned data order
         DEFAULT_DATA_DIRECTION = 1
+
+        DEFAULT_INTERVAL_TYPE = "S"
 
         MAX_INT16 = 2**16 - 1
 
@@ -35,6 +38,15 @@ module Dtn
             datapoints_per_send: DEFAULT_DATAPOINTS_PER_SENT,
             id: id
           }.merge(options)
+        end
+
+        def validate_interval_type(interval_type:)
+          return DEFAULT_INTERVAL_TYPE unless interval_type
+
+          it = interval_type.to_s.upcase
+          return it if %w[S V T].include?(it)
+
+          raise ValidationError, "IntervalType can be only 'S' for seconds, 'V' for volume or 'T' for ticks"
         end
       end
     end
