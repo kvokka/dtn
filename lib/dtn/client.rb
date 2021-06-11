@@ -9,7 +9,7 @@ module Dtn
       STATUSES = { run: :running, stop: :stopped, initializing: :initialized }.freeze
 
       STATUSES.each do |k, v|
-        define_method("#{k}!") { self.status = v }
+        define_method(k) { self.status = v }
         define_method("#{v}?") { status == v }
       end
 
@@ -32,7 +32,7 @@ module Dtn
       @name = name || SecureRandom.alphanumeric(10)
       @max_queue_length = max_queue_length
 
-      initializing!
+      initializing
 
       init_connection
       engine

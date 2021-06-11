@@ -15,7 +15,7 @@ module Dtn
         end
 
         after do
-          subject.stop!
+          subject.stop
         end
 
         it "open the socket with correct defaults" do
@@ -39,7 +39,7 @@ module Dtn
         end
 
         after do
-          subject.stop!
+          subject.stop
         end
 
         context "with historical tick request", socket_recorder: "historical tick" do
@@ -62,6 +62,8 @@ module Dtn
                   datapoints_per_send id symbol begin_datetime end_datetime]
             )
           end
+
+          it("should stop engine in the end") { expect(subject.stopped?).to be_truthy }
 
           it_behaves_like "request registered in registry as", Requests::Historical::TickTimeframe
         end
@@ -90,6 +92,8 @@ module Dtn
             )
           end
 
+          it("should stop engine in the end") { expect(subject.stopped?).to be_truthy }
+
           it_behaves_like "request registered in registry as", Requests::Historical::TickDay
 
           context "few days begin and end" do
@@ -114,6 +118,8 @@ module Dtn
                   datapoints_per_send id symbol]
             )
           end
+
+          it("should stop engine in the end") { expect(subject.stopped?).to be_truthy }
 
           it_behaves_like "request registered in registry as", Requests::Historical::TickDatapoint
         end

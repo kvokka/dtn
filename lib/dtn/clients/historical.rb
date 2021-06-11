@@ -14,27 +14,27 @@ module Dtn
       end
 
       def engine
-        @engine ||= Thread.new(self) do |client|
-          client.run!
-          while client.running? && (line = socket.gets)
-            process_line line: line, client: client
+        @engine ||= Thread.new do
+          run
+          while running? && (line = socket.gets)
+            process_line line: line
           end
         end
       end
 
-      def process_line(line:, client:)
+      def process_line(line:)
         klass = engine_klass_picker(line)
         raise("this is a unreachable stub. Got with line: #{line}") unless klass
 
-        queue << parse_message(klass: klass, line: line, client: client)
+        queue << parse_message(klass: klass, line: line)
         nil
       end
 
-      def parse_message(klass:, line:, client:)
+      def parse_message(klass:, line:)
         klass.parse(line: line).tap do |message|
           next unless message.termination?
 
-          client.stop!
+          stop
           Request.registry.find(message.request_id).finish if message.try(:request_id)
         end
       end
