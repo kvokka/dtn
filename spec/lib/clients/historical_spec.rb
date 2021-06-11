@@ -2,7 +2,7 @@
 
 module Dtn
   module Clients
-    RSpec.describe Historical do
+    RSpec.describe Lookup do
       context "PORT" do
         it "should have correct port" do
           expect(described_class::PORT).to eq 9100

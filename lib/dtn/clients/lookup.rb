@@ -2,8 +2,8 @@
 
 module Dtn
   module Clients
-    # Historical management methods only
-    class Historical < Client
+    # Lookup management methods only
+    class Lookup < Client
       PORT = 9100
 
       private

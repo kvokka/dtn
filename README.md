@@ -35,7 +35,7 @@ Or install it yourself as:
 ### Quick start
 
 ```ruby
-client = Dtn::Clients::Historical.new
+client = Dtn::Clients::Lookup.new
 client.request.historical.daily_timeframe(
     symbol: :aapl,
     begin_date: Date.new(2021, 05, 01),
@@ -55,6 +55,8 @@ client.response.each { |message| puts message }
 ### Supported requests
 
 #### Historical
+
+For all requests `client = Dtn::Clients::Lookup.new` was used
 
 * [interval_day](https://github.com/kvokka/dtn/blob/master/lib/dtn/requests/historical/interval_day.rb)
 ```ruby
