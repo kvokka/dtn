@@ -23,8 +23,7 @@ module Dtn
                                                               end_datetime: end_datetime.strftime("%Y%m%d %H%M%S")
                                                             })
 
-          socket.print format(TEMPLATE, combined_options)
-          id
+          super
         end
 
         def expected_messages_class

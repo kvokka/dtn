@@ -19,6 +19,11 @@ module Dtn
 
         MAX_INT16 = 2**16 - 1
 
+        def call(*)
+          socket.print format(self.class.const_get(:TEMPLATE), combined_options)
+          id
+        end
+
         protected
 
         def defaults(**options)

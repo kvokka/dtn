@@ -16,8 +16,7 @@ module Dtn
         def call(symbol:, **options)
           self.combined_options = defaults(**options).merge(symbol: symbol.to_s.upcase)
 
-          socket.print format(TEMPLATE, combined_options)
-          id
+          super
         end
 
         def expected_messages_class

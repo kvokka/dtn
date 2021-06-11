@@ -23,13 +23,12 @@ module Dtn
         def call(symbol:, days:, begin_datetime:, end_datetime:, **options)
           self.combined_options = defaults(**options).merge({
                                                               symbol: symbol.to_s.upcase,
-                                                              days: days.to_i > MAX_INT16 ? MAX_INT16 : days,
+                                                              days: Integer(days) > MAX_INT16 ? MAX_INT16 : days,
                                                               begin_datetime: begin_datetime.strftime("%Y%m%d %H%M%S"),
                                                               end_datetime: end_datetime.strftime("%Y%m%d %H%M%S")
                                                             })
 
-          socket.print format(TEMPLATE, combined_options)
-          id
+          super
         end
 
         def expected_messages_class
