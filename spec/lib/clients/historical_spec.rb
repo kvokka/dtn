@@ -206,6 +206,66 @@ module Dtn
 
           it_behaves_like "request registered in registry as", Requests::Historical::DailyTimeframe
         end
+
+        context "with historical daily datapoint request", socket_recorder: "historical daily datapoint" do
+          let(:request_id) do
+            subject.request.historical.daily_datapoint symbol: :aapl, max_datapoints: 50
+          end
+
+          it "produce response with ticks" do
+            expect(response).to all(be_an(Dtn::Messages::DailyWeeklyMonthly))
+          end
+
+          it "have correct combined_options" do
+            expect(Request.registry.find(request_id).combined_options).to include(
+              *%i[max_datapoints data_direction datapoints_per_send id symbol]
+            )
+          end
+
+          it("should stop engine in the end") { expect(subject.stopped?).to be_truthy }
+
+          it_behaves_like "request registered in registry as", Requests::Historical::DailyDatapoint
+        end
+
+        context "with historical weekly datapoint request", socket_recorder: "historical weekly datapoint" do
+          let(:request_id) do
+            subject.request.historical.weekly_datapoint symbol: :aapl, max_datapoints: 10
+          end
+
+          it "produce response with ticks" do
+            expect(response).to all(be_an(Dtn::Messages::DailyWeeklyMonthly))
+          end
+
+          it "have correct combined_options" do
+            expect(Request.registry.find(request_id).combined_options).to include(
+              *%i[max_datapoints data_direction datapoints_per_send id symbol]
+            )
+          end
+
+          it("should stop engine in the end") { expect(subject.stopped?).to be_truthy }
+
+          it_behaves_like "request registered in registry as", Requests::Historical::WeeklyDatapoint
+        end
+
+        context "with historical monthly datapoint request", socket_recorder: "historical monthly datapoint" do
+          let(:request_id) do
+            subject.request.historical.monthly_datapoint symbol: :aapl, max_datapoints: 10
+          end
+
+          it "produce response with ticks" do
+            expect(response).to all(be_an(Dtn::Messages::DailyWeeklyMonthly))
+          end
+
+          it "have correct combined_options" do
+            expect(Request.registry.find(request_id).combined_options).to include(
+              *%i[max_datapoints data_direction datapoints_per_send id symbol]
+            )
+          end
+
+          it("should stop engine in the end") { expect(subject.stopped?).to be_truthy }
+
+          it_behaves_like "request registered in registry as", Requests::Historical::MonthlyDatapoint
+        end
       end
     end
   end
