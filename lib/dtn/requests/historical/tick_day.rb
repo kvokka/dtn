@@ -6,7 +6,7 @@ module Dtn
       # Tick days requests
       class TickDay < Tick
         TEMPLATE =
-          "HTD,%<symbol>s,%<days>s,%<max_datapoints>d,%<begin_datetime>s,%<end_datetime>s," \
+          "HTD,%<symbol>s,%<days>s,%<max_datapoints>d,%<begin_filter_time>s,%<end_filter_time>s," \
           "%<data_direction>d,%<id>d,%<datapoints_per_send>d\r\n"
 
         # Retrieves ticks for the previous [Days] days for the specified [Symbol].
@@ -20,12 +20,10 @@ module Dtn
         #   [RequestID],[DatapointsPerSend]<CR><LF>
         #
         # @returns Integer id
-        def call(symbol:, days:, begin_datetime:, end_datetime:, **options)
+        def call(symbol:, days:, **options)
           self.combined_options = defaults(**options).merge({
                                                               symbol: symbol.to_s.upcase,
-                                                              days: Integer(days) > MAX_INT16 ? MAX_INT16 : days,
-                                                              begin_datetime: begin_datetime.strftime("%Y%m%d %H%M%S"),
-                                                              end_datetime: end_datetime.strftime("%Y%m%d %H%M%S")
+                                                              days: Integer(days) > MAX_INT16 ? MAX_INT16 : days
                                                             })
 
           super

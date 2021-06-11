@@ -74,39 +74,21 @@ module Dtn
           it_behaves_like "request registered in registry as", Requests::Historical::TickTimeframe
         end
 
-        context "with historical tick days request", socket_recorder: "historical tick days" do
+        context "with historical tick days request", socket_recorder: "historical tick day" do
           let(:request_id) do
-            subject.request.historical.tick_day(
-              symbol: :aapl,
-              days: 7,
-              begin_datetime: begin_datetime,
-              end_datetime: end_datetime,
-              max_datapoints: 50
-            )
-          end
-
-          context "intraday begin and end" do
-            it "produce empty response" do
-              expect(response).to be_empty
-            end
+            subject.request.historical.tick_day(symbol: :aapl, days: 2, max_datapoints: 50)
           end
 
           it "have correct combined_options" do
             expect(Request.registry.find(request_id).combined_options).to include(
               *%i[max_datapoints begin_filter_time data_direction end_filter_time
-                  datapoints_per_send id symbol begin_datetime end_datetime]
+                  datapoints_per_send id symbol]
             )
           end
 
           it("should stop engine in the end") { expect(subject.stopped?).to be_truthy }
 
           it_behaves_like "request registered in registry as", Requests::Historical::TickDay
-
-          context "few days begin and end" do
-            let(:begin_datetime) { CURRENT_DAY.change({ hour: 10, min: 0, sec: 0 }) - 7.days }
-
-            it "should return something useful"
-          end
         end
 
         context "with historical tick datapoints request", socket_recorder: "historical tick datapoint" do
