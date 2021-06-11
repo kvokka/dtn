@@ -150,6 +150,27 @@ module Dtn
 
           it_behaves_like "request registered in registry as", Requests::Historical::IntervalDatapoint
         end
+
+        context "with historical interval days request", socket_recorder: "historical interval day" do
+          let(:request_id) do
+            subject.request.historical.interval_day(symbol: :aapl, interval: 3600, max_datapoints: 50, days: 2)
+          end
+
+          it "produce response with ticks" do
+            expect(response).to all(be_an(Dtn::Messages::Interval))
+          end
+
+          it "have correct combined_options" do
+            expect(Request.registry.find(request_id).combined_options).to include(
+              *%i[max_datapoints data_direction interval interval_type days
+                  datapoints_per_send id symbol]
+            )
+          end
+
+          it("should stop engine in the end") { expect(subject.stopped?).to be_truthy }
+
+          it_behaves_like "request registered in registry as", Requests::Historical::IntervalDay
+        end
       end
     end
   end
