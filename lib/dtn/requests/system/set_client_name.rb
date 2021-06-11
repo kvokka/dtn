@@ -4,7 +4,7 @@ module Dtn
   module Requests
     module System
       # Set client name request
-      class SetClientName < Request
+      class SetClientName < Base
         def call(name:)
           self.combined_options = { name: name }
 
