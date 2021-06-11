@@ -4,7 +4,7 @@ module Dtn
   module Requests
     module Historical
       # Interval datapoint requests
-      class IntervalDatapoint < Base
+      class IntervalDatapoint < Interval
         TEMPLATE =
           "HIX,%<symbol>s,%<interval>d,%<max_datapoints>d,%<data_direction>d,%<id>d,"\
           "%<datapoints_per_send>d,%<interval_type>s\r\n"
@@ -24,10 +24,6 @@ module Dtn
             }
           )
           super
-        end
-
-        def expected_messages_class
-          Messages::Interval
         end
       end
     end

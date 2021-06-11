@@ -4,7 +4,7 @@ module Dtn
   module Requests
     module Historical
       # Tick days requests
-      class TickDay < Base
+      class TickDay < Tick
         TEMPLATE =
           "HTD,%<symbol>s,%<days>s,%<max_datapoints>d,%<begin_datetime>s,%<end_datetime>s," \
           "%<data_direction>d,%<id>d,%<datapoints_per_send>d\r\n"
@@ -29,10 +29,6 @@ module Dtn
                                                             })
 
           super
-        end
-
-        def expected_messages_class
-          # TODO: I do not know what should be here, cos i was not able to fetch a thing from api
         end
       end
     end

@@ -16,3 +16,7 @@ Layout/LineLength:
 Metrics/BlockLength:
   Exclude:
     - spec/**/*
+
+Metrics/ModuleLength:
+  Exclude:
+    - spec/**/*

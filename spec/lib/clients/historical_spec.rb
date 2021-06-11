@@ -132,7 +132,7 @@ module Dtn
 
         context "with historical interval datapoints request", socket_recorder: "historical interval datapoint" do
           let(:request_id) do
-            subject.request.historical.interval_datapoint(symbol: :aapl, interval: 60*60, max_datapoints: 100)
+            subject.request.historical.interval_datapoint(symbol: :aapl, interval: 3600, max_datapoints: 100)
           end
 
           it "produce response with ticks" do

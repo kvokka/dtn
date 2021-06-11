@@ -4,7 +4,7 @@ module Dtn
   module Requests
     module Historical
       # Tick timeframe requests
-      class TickTimeframe < Base
+      class TickTimeframe < Tick
         TEMPLATE =
           "HTT,%<symbol>s,%<begin_datetime>s,%<end_datetime>s,%<max_datapoints>d," \
           "%<begin_filter_time>s,%<end_filter_time>s,%<data_direction>d,%<id>d," \
@@ -24,10 +24,6 @@ module Dtn
                                                             })
 
           super
-        end
-
-        def expected_messages_class
-          Messages::Tick
         end
       end
     end

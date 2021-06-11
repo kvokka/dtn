@@ -4,7 +4,7 @@ module Dtn
   module Requests
     module Historical
       # Tick datapoint requests
-      class TickDatapoint < Base
+      class TickDatapoint < Tick
         TEMPLATE =
           "HTX,%<symbol>s,%<max_datapoints>d,%<data_direction>d,%<id>d,%<datapoints_per_send>d\r\n"
 
@@ -17,10 +17,6 @@ module Dtn
           self.combined_options = defaults(**options).merge(symbol: symbol.to_s.upcase)
 
           super
-        end
-
-        def expected_messages_class
-          Messages::Tick
         end
       end
     end
