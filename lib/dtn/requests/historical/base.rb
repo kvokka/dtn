@@ -48,17 +48,11 @@ module Dtn
         end
 
         def validate_datetime(value)
-          return value.strftime(DATE_TIME_FORMAT) if value.is_a? Date
-          return value if value.to_s =~ /^\d{8}\s\d{6}$/
-
-          raise ValidationError, "Entered value '#{value.inspect}' is not following pattern #{DATE_TIME_FORMAT}"
+          general_date_validation(format: DATE_TIME_FORMAT, string_pattern: /^\d{8}\s\d{6}$/, value: value)
         end
 
         def validate_date(value)
-          return value.strftime(DATE_FORMAT) if value.is_a? Date
-          return value if value.to_s =~ /^\d{8}$/
-
-          raise ValidationError, "Entered value '#{value.inspect}' is not following pattern #{DATE_FORMAT}"
+          general_date_validation(format: DATE_FORMAT, string_pattern: /^\d{8}$/, value: value)
         end
 
         def validate_symbol(value)
@@ -66,6 +60,13 @@ module Dtn
           return v.upcase if v.length.positive?
 
           raise ValidationError, "Symbol must be present"
+        end
+
+        def general_date_validation(format:, string_pattern:, value:)
+          return value.strftime(format) if value.is_a? Date
+          return value if value.to_s =~ string_pattern
+
+          raise ValidationError, "Entered value '#{value.inspect}' is not following pattern #{format}"
         end
       end
     end
