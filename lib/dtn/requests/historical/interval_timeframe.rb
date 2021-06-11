@@ -22,11 +22,11 @@ module Dtn
         def call(symbol:, interval:, begin_datetime:, end_datetime:, **options)
           self.combined_options = defaults(**options).merge(
             {
-              symbol: symbol.to_s.upcase,
-              interval: Integer(interval),
-              interval_type: validate_interval_type(interval_type: options[:interval_type]),
-              begin_datetime: begin_datetime.strftime("%Y%m%d %H%M%S"),
-              end_datetime: end_datetime.strftime("%Y%m%d %H%M%S")
+              symbol: validate_symbol(symbol),
+              interval: validate_interval(interval),
+              interval_type: validate_interval_type(options[:interval_type]),
+              begin_datetime: validate_datetime(begin_datetime),
+              end_datetime: validate_datetime(end_datetime)
             }
           )
           super

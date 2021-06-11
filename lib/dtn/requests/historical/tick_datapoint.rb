@@ -14,7 +14,7 @@ module Dtn
         #
         #   HTX,[Symbol],[MaxDatapoints],[DataDirection],[RequestID],[DatapointsPerSend]<CR><LF>
         def call(symbol:, **options)
-          self.combined_options = defaults(**options).merge(symbol: symbol.to_s.upcase)
+          self.combined_options = defaults(**options).merge(symbol: validate_symbol(symbol))
 
           super
         end

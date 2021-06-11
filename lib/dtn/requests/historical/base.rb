@@ -22,6 +22,9 @@ module Dtn
 
         MAX_INT16 = 2**16 - 1
 
+        DATE_TIME_FORMAT = "%Y%m%d %H%M%S"
+        DATE_FORMAT = "%Y%m%d"
+
         def call(*)
           socket.print format(self.class.const_get(:TEMPLATE), combined_options)
           id
@@ -40,13 +43,29 @@ module Dtn
           }.merge(options)
         end
 
-        def validate_interval_type(interval_type:)
-          return DEFAULT_INTERVAL_TYPE unless interval_type
+        def validate_days(value)
+          Integer(value) > MAX_INT16 ? MAX_INT16 : value
+        end
 
-          it = interval_type.to_s.upcase
-          return it if %w[S V T].include?(it)
+        def validate_datetime(value)
+          return value.strftime(DATE_TIME_FORMAT) if value.is_a? Date
+          return value if value.to_s =~ /^\d{8}\s\d{6}$/
 
-          raise ValidationError, "IntervalType can be only 'S' for seconds, 'V' for volume or 'T' for ticks"
+          raise ValidationError, "Entered value '#{value.inspect}' is not following pattern #{DATE_TIME_FORMAT}"
+        end
+
+        def validate_date(value)
+          return value.strftime(DATE_FORMAT) if value.is_a? Date
+          return value if value.to_s =~ /^\d{8}$/
+
+          raise ValidationError, "Entered value '#{value.inspect}' is not following pattern #{DATE_FORMAT}"
+        end
+
+        def validate_symbol(value)
+          v = value.to_s
+          return v.upcase if v.length.positive?
+
+          raise ValidationError, "Symbol must be present"
         end
       end
     end

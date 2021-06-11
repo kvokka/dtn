@@ -17,9 +17,9 @@ module Dtn
         def call(symbol:, begin_date:, end_date:, **options)
           self.combined_options = defaults(**options).merge(
             {
-              symbol: symbol.to_s.upcase,
-              begin_date: begin_date.strftime("%Y%m%d"),
-              end_date: end_date.strftime("%Y%m%d")
+              symbol: validate_symbol(symbol),
+              begin_date: validate_date(begin_date),
+              end_date: validate_date(end_date)
             }
           )
           super

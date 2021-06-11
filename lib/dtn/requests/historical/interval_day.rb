@@ -18,10 +18,10 @@ module Dtn
         def call(symbol:, interval:, days:, **options)
           self.combined_options = defaults(**options).merge(
             {
-              symbol: symbol.to_s.upcase,
-              days: Integer(days) > MAX_INT16 ? MAX_INT16 : days,
-              interval: Integer(interval),
-              interval_type: validate_interval_type(interval_type: options[:interval_type])
+              symbol: validate_symbol(symbol),
+              days: validate_days(days),
+              interval: validate_interval(interval),
+              interval_type: validate_interval_type(options[:interval_type])
             }
           )
           super

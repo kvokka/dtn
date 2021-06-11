@@ -18,9 +18,9 @@ module Dtn
         def call(symbol:, interval:, **options)
           self.combined_options = defaults(**options).merge(
             {
-              symbol: symbol.to_s.upcase,
-              interval: Integer(interval),
-              interval_type: validate_interval_type(interval_type: options[:interval_type])
+              symbol: validate_symbol(symbol),
+              interval: validate_interval(interval),
+              interval_type: validate_interval_type(options[:interval_type])
             }
           )
           super

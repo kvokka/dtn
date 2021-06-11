@@ -18,9 +18,9 @@ module Dtn
         #   [EndFilterTime],[DataDirection],[RequestID],[DatapointsPerSend]<CR><LF>
         def call(symbol:, begin_datetime:, end_datetime:, **options)
           self.combined_options = defaults(**options).merge({
-                                                              symbol: symbol.to_s.upcase,
-                                                              begin_datetime: begin_datetime.strftime("%Y%m%d %H%M%S"),
-                                                              end_datetime: end_datetime.strftime("%Y%m%d %H%M%S")
+                                                              symbol: validate_symbol(symbol),
+                                                              begin_datetime: validate_datetime(begin_datetime),
+                                                              end_datetime: validate_datetime(end_datetime)
                                                             })
 
           super

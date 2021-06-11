@@ -22,8 +22,8 @@ module Dtn
         # @returns Integer id
         def call(symbol:, days:, **options)
           self.combined_options = defaults(**options).merge({
-                                                              symbol: symbol.to_s.upcase,
-                                                              days: Integer(days) > MAX_INT16 ? MAX_INT16 : days
+                                                              symbol: validate_symbol(symbol),
+                                                              days: validate_days(days)
                                                             })
 
           super
