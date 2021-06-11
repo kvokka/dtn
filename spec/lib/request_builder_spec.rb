@@ -31,6 +31,10 @@ module Dtn
         expect(subject.foo).to be_a described_class::Proxy
       end
 
+      it "should respond_to? foo method" do
+        expect(subject.respond_to?(:foo)).to be_truthy
+      end
+
       it "should raise for missing class" do
         expect { subject.some_really_missing_method }.to raise_error NoMethodError
       end
@@ -38,6 +42,10 @@ module Dtn
       context "Proxy" do
         it "should run #call method with correct arguments" do
           expect(subject.foo.my_request(:bar, a: 42)).to eq [[:bar], { a: 42 }]
+        end
+
+        it "should respond_to? my_request method" do
+          expect(subject.foo.respond_to?(:my_request)).to be_truthy
         end
 
         it "should raise for missing class" do

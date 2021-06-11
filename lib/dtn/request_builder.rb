@@ -19,7 +19,7 @@ module Dtn
       end
 
       def respond_to_missing?(method_name, include_private = false)
-        !requests_module.const_get(method_name.to_s.camelize).nil?
+        requests_module.const_get(method_name.to_s.camelize).is_a? Module
       rescue NameError
         super
       end
@@ -34,13 +34,13 @@ module Dtn
     end
 
     def method_missing(method_name, *_args, **_opts, &_blk)
-      Proxy.new(socket: socket, requests_module: "Dtn::Requests::#{method_name.to_s.camelize}".constantize)
+      Proxy.new(socket: socket, requests_module: _requests_module(method_name))
     rescue NameError
       super
     end
 
     def respond_to_missing?(method_name, include_private = false)
-      !method_name.to_s.camelize.constantize.nil?
+      _requests_module(method_name).is_a? Module
     rescue NameError
       super
     end
@@ -48,5 +48,9 @@ module Dtn
     private
 
     attr_reader :socket
+
+    def _requests_module(method_name)
+      "Dtn::Requests::#{method_name.to_s.camelize}".constantize
+    end
   end
 end
