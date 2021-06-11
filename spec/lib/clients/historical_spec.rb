@@ -27,6 +27,8 @@ module Dtn
       context "#call" do
         let(:begin_datetime) { CURRENT_DAY.change({ hour: 10, min: 0, sec: 0 }) }
         let(:end_datetime) { CURRENT_DAY.change({ hour: 10, min: 10, sec: 0 }) }
+        let(:end_date) { CURRENT_DAY }
+        let(:begin_date) { CURRENT_DAY - 2.months }
 
         let(:response) { subject.response.each_from_request(request_id: request_id).to_a }
 
@@ -179,6 +181,30 @@ module Dtn
           it("should stop engine in the end") { expect(subject.stopped?).to be_truthy }
 
           it_behaves_like "request registered in registry as", Requests::Historical::IntervalTimeframe
+        end
+
+        context "with historical daily timeframe request", socket_recorder: "historical daily timeframe" do
+          let(:request_id) do
+            subject.request.historical.daily_timeframe(
+              symbol: :aapl,
+              begin_date: begin_date,
+              end_date: end_date
+            )
+          end
+
+          it "produce response with ticks" do
+            expect(response).to all(be_an(Dtn::Messages::DailyWeeklyMonthly))
+          end
+
+          it "have correct combined_options" do
+            expect(Request.registry.find(request_id).combined_options).to include(
+              *%i[max_datapoints data_direction begin_date end_date datapoints_per_send id symbol]
+            )
+          end
+
+          it("should stop engine in the end") { expect(subject.stopped?).to be_truthy }
+
+          it_behaves_like "request registered in registry as", Requests::Historical::DailyTimeframe
         end
       end
     end
