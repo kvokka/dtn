@@ -16,9 +16,8 @@ module Dtn
       def engine
         @engine ||= Thread.new(self) do |client|
           client.run!
-          while (line = socket.gets)
+          while client.running? && (line = socket.gets)
             process_line line: line, client: client
-            break unless client.running?
           end
         end
       end

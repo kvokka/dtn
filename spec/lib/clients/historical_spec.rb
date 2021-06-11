@@ -38,6 +38,10 @@ module Dtn
           response
         end
 
+        after do
+          subject.stop!
+        end
+
         context "with historical tick request", socket_recorder: "historical tick" do
           let(:request_id) do
             subject.request.historical.tick_timeframe(
