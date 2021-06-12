@@ -18,7 +18,7 @@ module Dtn
         # Returned data order
         DEFAULT_DATA_DIRECTION = 1
 
-        DEFAULT_INTERVAL_TYPE = "S"
+        DEFAULT_INTERVAL_TYPE = "s"
 
         MAX_INT16 = 2**16 - 1
 

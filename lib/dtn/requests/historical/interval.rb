@@ -14,11 +14,11 @@ module Dtn
         def validate_interval_type(value)
           return DEFAULT_INTERVAL_TYPE unless value
 
-          it = value.to_s.upcase
-          return it if %w[S V T].include?(it)
+          it = value.to_s.downcase
+          return it if %w[s v t].include?(it)
 
           raise ValidationError,
-                "Got #{value}, but interval_type can be only 'S' for seconds, 'V' for volume or 'T' for ticks"
+                "Got #{value}, but interval_type can be only 's' for seconds, 'v' for volume or 't' for ticks"
         end
 
         def validate_interval(value)
