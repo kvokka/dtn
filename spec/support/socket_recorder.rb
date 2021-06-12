@@ -85,13 +85,14 @@ module TCPSocketWithRecorder
 
   def initialize(*_args)
     @cassette = Thread.current[:current_spec_cassette]
-    super unless @cassette.persisted?
+    super unless @cassette&.persisted?
   end
 
   attr_reader :cassette
 
   %i[read getc gets read_nonblock].each do |method|
     define_method(method) do |*args, **opts|
+      return super unless cassette
       return (super(*args, **opts).tap { |r| cassette.reads << r }) unless cassette.persisted?
 
       raise("Trying to read more than was saved in the cassette #{cassette.filename}") if cassette.reads.empty?
@@ -104,6 +105,8 @@ module TCPSocketWithRecorder
 
   %i[write write_nonblock].each do |method|
     define_method(method) do |line, *args, **opts|
+      return super unless cassette
+
       if cassette.persisted?
         raise("Trying to write more than was saved in the cassette #{casette.filename}") if cassette.writes.empty?
 
