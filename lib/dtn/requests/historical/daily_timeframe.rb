@@ -8,7 +8,7 @@ module Dtn
         TEMPLATE =
           "HDT,%<symbol>s,%<begin_date>s,%<end_date>s,%<max_datapoints>d,%<data_direction>d,%<id>d\r\n"
 
-        # HID - Retrieves [Days] days of interval data for the specified [Symbol].
+        # HDT - Retrieves [Days] days of interval data for the specified [Symbol].
         #
         # Example message
         #
