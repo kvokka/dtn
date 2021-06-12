@@ -66,13 +66,13 @@ module TCPSocketWithRecorder
     end
 
     def yaml_dump
-      YAML.dump(reads: reads, writes: writes)
+      YAML.dump(writes: writes, reads: reads)
     end
 
     def yaml_load
       YAML.safe_load(File.read(filename), [Symbol]).tap do |yaml|
-        self.reads = yaml[:reads] if yaml[:reads].any?
         self.writes = yaml[:writes] if yaml[:writes].any?
+        self.reads = yaml[:reads] if yaml[:reads].any?
       end
       true
     end
@@ -95,11 +95,16 @@ module TCPSocketWithRecorder
       return super unless cassette
       return (super(*args, **opts).tap { |r| cassette.reads << r }) unless cassette.persisted?
 
-      raise("Trying to read more than was saved in the cassette #{cassette.filename}") if cassette.reads.empty?
+      # In case we drained the cassette we just act like hanging socket and it's other Thread
+      # responsibility to stop the pulling
+      sleep if cassette.reads.empty?
 
-      sleep(0.001) until _reads_available
+      cassette.reads.shift.tap do |line|
+        lm = /^(\d+),.+/ =~ line && Integer(Regexp.last_match(1))
+        next unless lm
 
-      cassette.reads.shift
+        sleep(0.001) until ::Dtn::Request.registry.registered?(lm)
+      end
     end
   end
 
@@ -108,20 +113,16 @@ module TCPSocketWithRecorder
       return super unless cassette
 
       if cassette.persisted?
-        raise("Trying to write more than was saved in the cassette #{casette.filename}") if cassette.writes.empty?
 
-        # unlock reads only after the first non-system request
-        cassette.writes.shift.tap { |inner_line| self._reads_available = true unless /^S,.+/ =~ inner_line }.length
+        raise("Trying to write more than was saved in the cassette #{cassette.filename}") if cassette.writes.empty?
+
+        cassette.writes.shift.length
       else
         cassette.writes << line
         super(line, *args, **opts)
       end
     end
   end
-
-  private
-
-  attr_accessor :_reads_available
 end
 
 TCPSocket.prepend TCPSocketWithRecorder
