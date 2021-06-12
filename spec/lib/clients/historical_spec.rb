@@ -24,7 +24,7 @@ module Dtn
         end
       end
 
-      context "#call" do
+      context "historical integration" do
         let(:begin_datetime) { CURRENT_DAY.change({ hour: 10, min: 0, sec: 0 }) }
         let(:end_datetime) { CURRENT_DAY.change({ hour: 10, min: 10, sec: 0 }) }
         let(:end_date) { CURRENT_DAY }
@@ -44,9 +44,48 @@ module Dtn
           subject.stop
         end
 
-        around do |example|
-          Timeout.timeout(5) do
-            example.run
+        unless ENV["DEBUG"]
+          around do |example|
+            Timeout.timeout(5) do
+              example.run
+            end
+          end
+        end
+
+        context "multiple requests, ::new auto_stop: false", socket_recorder: "multiple historical requests" do
+          let(:request_id) do
+            subject.request.historical.interval_datapoint(symbol: :aapl, interval: 3600, max_datapoints: 10)
+          end
+          let!(:request_id2) do
+            subject.request.historical.interval_datapoint(symbol: :fb, interval: 3600, max_datapoints: 10)
+          end
+          let!(:request_id3) do
+            subject.request.historical.interval_datapoint(symbol: :msft, interval: 3600, max_datapoints: 10)
+          end
+
+          subject { described_class.new auto_stop: false }
+
+          # we have to dirty stub response for this example (cos it was in before block)
+          # and trigger it only after we got all the requests
+          let(:response) {} # rubocop:disable Lint/EmptyBlock
+          let(:responses) do
+            subject.response.each_with_object({ result: [], finished: 0 }) do |el, acc|
+              el.termination? ? acc[:finished] += 1 : acc[:result] << el
+              break acc[:result] if acc[:finished] == 3
+            end
+          end
+
+          it "produce response with ticks" do
+            expect(responses).to all(be_an(Dtn::Messages::Interval))
+          end
+
+          it "should contain messages of all 3 requests" do
+            expect(responses.map(&:request_id).uniq).to include 1, 2, 3
+          end
+
+          it("should run engine in the end") do
+            responses
+            expect(subject.running?).to be_truthy
           end
         end
 

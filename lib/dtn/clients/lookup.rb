@@ -33,6 +33,7 @@ module Dtn
       def parse_message(klass:, line:)
         klass.parse(line: line).tap do |message|
           next unless message.termination?
+          next unless auto_stop?
 
           stop
           Request.registry.find(message.request_id).finish if message.try(:request_id)

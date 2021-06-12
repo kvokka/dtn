@@ -28,9 +28,13 @@ module Dtn
     NO_DATA_CHARACTERS = /!NO_DATA!/.freeze
     SYNTAX_ERROR_CHARACTERS = "!SYNTAX_ERROR!"
 
-    def initialize(name: nil, max_queue_length: MAX_QUEUE_LENGTH)
+    # @params name             Specify name for this client
+    # @params max_queue_length Limit the number of messages for 1 client to avoid OOM
+    # @params auto_stop        If true, stop client after the first user request, needs manual stop otherwise
+    def initialize(name: nil, max_queue_length: MAX_QUEUE_LENGTH, auto_stop: true)
       @name = name || SecureRandom.alphanumeric(10)
       @max_queue_length = max_queue_length
+      @auto_stop = auto_stop
 
       initializing
 
@@ -38,7 +42,8 @@ module Dtn
       engine
     end
 
-    attr_reader :name, :max_queue_length
+    attr_reader :name, :max_queue_length, :auto_stop
+    alias auto_stop? auto_stop
 
     def request
       RequestBuilder.new(socket: socket)
