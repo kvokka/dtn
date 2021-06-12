@@ -31,11 +31,12 @@ module Dtn
       @socket = socket
     end
 
-    # Initialize the request to api
+    # Initialize the request to api, should be used in children classes only
     #
     # @returns nil or request_id (Integer)
     def call(*)
-      raise NotImplementedError
+      socket.print format(self.class.const_get(:TEMPLATE), combined_options)
+      id
     end
 
     # This should contain expected class of the returning message.

@@ -1,0 +1,59 @@
+---
+:reads:
+- "1,<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\r\n"
+- "1,<DynamicNewsConf>\r\n"
+- "1,\t<category name = \"All News\">\r\n"
+- "1,\t\t<major_type type = \"DTN\" name = \"DTN News\" auth_code = \"1D\" icon_id
+  = \"10\">\r\n"
+- "1,\t\t\t<minor_type type = \"DT5\" name = \"Treasuries, Most Actives, Gainers,
+  Losers\" auth_code = \"1D\" icon_id = \"10\" fixed_page = \"true\"/>\r\n"
+- "1,\t\t\t<minor_type type = \"RTL\" name = \"Derivatives - Selected Futures and
+  Options\" auth_code = \"2Ab\" icon_id = \"10\" fixed_page = \"true\"/>\r\n"
+- "1,\t\t\t<minor_type type = \"DT7\" name = \"Quote List Changes\" auth_code = \"1D\"
+  icon_id = \"10\" fixed_page = \"true\"/>\r\n"
+- "1,\t\t\t<minor_type type = \"RTI\" name = \"Calendars and Reports\" auth_code =
+  \"2Ab\" icon_id = \"10\" fixed_page = \"true\"/>\r\n"
+- "1,\t\t</major_type>\r\n"
+- "1,\t\t<major_type type = \"CPR\" name = \"PR Newswire\" auth_code = \"1X\" icon_id
+  = \"5\">\r\n"
+- "1,\t\t</major_type>\r\n"
+- "1,\t\t<major_type type = \"CBW\" name = \"Business Wire\" auth_code = \"1X\" icon_id
+  = \"2\">\r\n"
+- "1,\t\t</major_type>\r\n"
+- "1,\t\t<major_type type = \"RTT\" name = \"Real-Time Trader\" auth_code = \"2Ab\"
+  icon_id = \"10\">\r\n"
+- "1,\t\t\t<minor_type type = \"RTB\" name = \"Breaking News Headlines\" auth_code
+  = \"2Ab\" icon_id = \"10\"/>\r\n"
+- "1,\t\t\t<minor_type type = \"RTC\" name = \"Big Stories\" auth_code = \"2Ab\" icon_id
+  = \"10\"/>\r\n"
+- "1,\t\t\t<minor_type type = \"RTD\" name = \"Analyst Updates\" auth_code = \"2Ab\"
+  icon_id = \"10\"/>\r\n"
+- "1,\t\t\t<minor_type type = \"RTE\" name = \"Analyst Comments\" auth_code = \"2Ab\"
+  icon_id = \"10\"/>\r\n"
+- "1,\t\t\t<minor_type type = \"RTF\" name = \"Stocks on the Move\" auth_code = \"2Ab\"
+  icon_id = \"10\"/>\r\n"
+- "1,\t\t\t<minor_type type = \"RTG\" name = \"Corporate Actions\" auth_code = \"2Ab\"
+  icon_id = \"10\"/>\r\n"
+- "1,\t\t\t<minor_type type = \"RTH\" name = \"Market Overview\" auth_code = \"2Ab\"
+  icon_id = \"10\"/>\r\n"
+- "1,\t\t\t<minor_type type = \"RTK\" name = \"Economic News\" auth_code = \"2Ab\"
+  icon_id = \"10\"/>\r\n"
+- "1,\t\t\t<minor_type type = \"RTJ\" name = \"Canadian Stocks and Market Overview\"
+  auth_code = \"2Ab\" icon_id = \"10\"/>\r\n"
+- "1,\t\t\t<minor_type type = \"RTM\" name = \"Asian Market\" auth_code = \"2Ab\"
+  icon_id = \"10\"/>\r\n"
+- "1,\t\t\t<minor_type type = \"RTN\" name = \"Wall Street Events/Conference Calls\"
+  auth_code = \"2Ab\" icon_id = \"10\"/>\r\n"
+- "1,\t\t</major_type>\r\n"
+- "1,\t\t<major_type type = \"CPZ\" name = \"GlobeNewswire Inc\" auth_code = \"2Ag\"
+  icon_id = \"10\">\r\n"
+- "1,\t\t</major_type>\r\n"
+- "1,\t\t<major_type type = \"BEN\" name = \"Benzinga Pro\" auth_code = \"1a\" icon_id
+  = \"10\">\r\n"
+- "1,\t\t</major_type>\r\n"
+- "1,\t</category>\r\n"
+- "1,</DynamicNewsConf>\r\n"
+- "1,!ENDMSG!,\r\n"
+:writes:
+- "S,SET CLIENT NAME,kipgrQ5O73\r\n"
+- "NCG,x,1\r\n"

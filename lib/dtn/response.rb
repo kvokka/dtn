@@ -5,14 +5,16 @@ module Dtn
   class Response
     # In case we are have a conflict with a few parallel requests in 1 queue
     class MessageFromAnotherRequestError < StandardError
-      def initialize(request_id:, message:)
+      def initialize(request_id:, msg:)
         @request_id = request_id
-        @message = message
+        @msg = msg
         super
       end
 
+      attr_reader :msg, :request_id
+
       def message
-        "Can process only messages from #{request_id} request_id, but got the message: #{message}"
+        "Can process only messages from '#{request_id.inspect}' request_id, but got the message: '#{msg.inspect}'"
       end
     end
 
@@ -49,7 +51,7 @@ module Dtn
 
       each do |message|
         unless message.request_id == request_id
-          raise MessageFromAnotherRequestError.new(request_id: request_id, message: message)
+          raise MessageFromAnotherRequestError.new(request_id: request_id, msg: message)
         end
 
         break if message.termination?

@@ -25,12 +25,7 @@ module Dtn
         DATE_TIME_FORMAT = "%Y%m%d %H%M%S"
         DATE_FORMAT = "%Y%m%d"
 
-        def call(*)
-          socket.print format(self.class.const_get(:TEMPLATE), combined_options)
-          id
-        end
-
-        protected
+        private
 
         def defaults(**options)
           {

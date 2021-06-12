@@ -54,6 +54,19 @@ client.response.each { |message| puts message }
 
 ### Supported requests
 
+#### News
+
+For all requests `client = Dtn::Clients::Lookup.new` was used
+
+* [config](https://github.com/kvokka/dtn/blob/master/lib/dtn/requests/news/config.rb)
+```ruby
+client.request.news.config
+```
+
+NOTES:
+
+* if XML output option selected, the response will return **unparsed** XML
+
 #### Historical
 
 For all requests `client = Dtn::Clients::Lookup.new` was used

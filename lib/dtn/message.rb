@@ -5,11 +5,19 @@ module Dtn
   class Message < OpenStruct
     class << self
       def parse(line:)
-        l = line.split(",").first(fields.size)
+        values = line.split(",")
+
         new.tap do |n|
-          l.zip(fields).each do |value, (attr, converter)|
-            n.public_send("#{attr}=", value.public_send(converter))
-          end
+          apply_values instance: n, attributes: fields, values: values
+          parse_dynamic_fields(instance: n, values: values[(fields.size)..]) if respond_to?(:parse_dynamic_fields)
+        end
+      end
+
+      private
+
+      def apply_values(instance:, attributes:, values:)
+        attributes.zip(values).each do |(attr, converter), value|
+          instance.public_send("#{attr}=", value.public_send(converter))
         end
       end
     end
