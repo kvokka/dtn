@@ -6,11 +6,9 @@ module Dtn
       # Collection of common validations
       # This gem too small for ActiveModel, so manual approach should be just ok
       module Validation
-        unless defined?(::Date::Error)
-          # Ruby 2.6 support
-          class ::Date
-            class Error < StandardError; end
-          end
+        # Ruby 2.6 support
+        class ::Date
+          class Error < ArgumentError; end
         end
 
         DATE_TIME_FORMAT = "%Y%m%d %H%M%S"
@@ -20,21 +18,11 @@ module Dtn
         private
 
         def validate_datetime(value)
-          return if value.blank?
-
-          base = value.is_a?(Date) ? value : value.to_s.to_datetime
-          base.strftime(DATE_TIME_FORMAT)
-        rescue ArgumentError, Date::Error
-          raise Request::ValidationError, "Value '#{value}' is not a date & time"
+          _general_date_validation(value: value, converter: :to_datetime, format: DATE_TIME_FORMAT)
         end
 
         def validate_date(value)
-          return if value.blank?
-
-          base = value.is_a?(Date) ? value : value.to_s.to_date
-          base.strftime(DATE_FORMAT)
-        rescue ArgumentError, Date::Error
-          raise Request::ValidationError, "Value '#{value}' is not a date"
+          _general_date_validation(value: value, converter: :to_date, format: DATE_FORMAT)
         end
 
         def validate_short_int(value)
@@ -45,8 +33,17 @@ module Dtn
 
         def validate_int(value)
           Integer(value)
-        rescue StandardError
+        rescue TypeError, ArgumentError
           raise Request::ValidationError, "Value '#{value}' is not an integer"
+        end
+
+        def _general_date_validation(value:, converter:, format:)
+          return if value.blank?
+
+          base = value.is_a?(Date) ? value : value.to_s.public_send(converter)
+          base.strftime(format)
+        rescue ArgumentError
+          raise Request::ValidationError, "Value '#{value}' is not a date"
         end
       end
     end
