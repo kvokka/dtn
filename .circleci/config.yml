@@ -2,10 +2,10 @@ version: 2.1
 defaults: &defaults
   working_directory: ~/repo
   docker:
-    - image: circleci/ruby:2.6.3-stretch-node
+    - image: circleci/ruby:2.6
       environment:
         BUNDLE_PATH: vendor/bundle
-  # executor: ruby/default
+
 commands:
   prepare:
     description: "Common preparation steps"
@@ -46,7 +46,14 @@ jobs:
           paths:
             - cc-test-reporter
   rspec:
-    <<: *defaults
+    working_directory: ~/repo
+    docker:
+      - image: << parameters.image >>
+        environment:
+          BUNDLE_PATH: vendor/bundle
+    parameters:
+      image:
+        type: string
     environment:
       COVERAGE: "1"
       CI: "1"
@@ -59,11 +66,11 @@ jobs:
           command: |
             bundle exec rspec
 
-            ./tmp/cc-test-reporter format-coverage -t simplecov -o tmp/codeclimate.json coverage/coverage.json
+            ./tmp/cc-test-reporter format-coverage -t simplecov -o tmp/codeclimate.$CIRCLE_BUILD_NUM.json coverage/coverage.json
       - persist_to_workspace:
           root: tmp
           paths:
-            - codeclimate.json
+            - codeclimate.*.json
   rubocop:
     <<: *defaults
     steps:
@@ -80,7 +87,10 @@ jobs:
           at: ~/repo/tmp
       - run:
           name: Upload coverage results to Code Climate
+          # --parts flag must match the build matrix size
           command: |
+            ./tmp/cc-test-reporter sum-coverage -o tmp/codeclimate.json --parts 3 tmp/codeclimate.*.json
+
             ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.json
 
 workflows:
@@ -91,6 +101,12 @@ workflows:
       - rspec:
           requires:
             - download_test_reporter
+          matrix:
+            parameters:
+              image:
+              - "circleci/ruby:2.6"
+              - "circleci/ruby:2.7"
+              - "circleci/ruby:3.0"
       - rubocop
       - upload-coverage:
           requires:
