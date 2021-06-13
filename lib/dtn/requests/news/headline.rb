@@ -29,7 +29,7 @@ module Dtn
             format_type: validate_news_format_type(format_type),
             symbols: validate_list(symbols),
             sources: validate_list(sources),
-            date: validate_date_range(date),
+            date: validate_date_ranges(date),
             limit: limit
           )
           super

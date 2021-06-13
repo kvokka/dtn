@@ -41,30 +41,38 @@ module Dtn
           end
         end
 
-        context "#validate_date_range" do
+        context "#validate_date_ranges" do
           context "valid" do
             %w[20191007 20191001-20191007 20191001:20191007 20190612:20191001-20191007
                20190601-20190607:20191001-20191007
                20190601-20190607:20191001-20191007:20201001-20201007].each do |value|
-              it { expect { subject.validate_date_range(value) }.not_to raise_error }
+              it { expect { subject.validate_date_ranges(value) }.not_to raise_error }
             end
           end
 
           context "invalid" do
             context "pair"
             %w[20191001- -20191007 20191001:20191007-].each do |value|
-              it { expect { subject.validate_date_range(value) }.to raise_error Request::ValidationError }
+              it { expect { subject.validate_date_ranges(value) }.to raise_error Request::ValidationError }
             end
 
             context "date"
             %w[20191055 20191001-20191055 20190601-20190607:20191001-20191055].each do |value|
-              it { expect { subject.validate_date_range(value) }.to raise_error Request::ValidationError }
+              it { expect { subject.validate_date_ranges(value) }.to raise_error Request::ValidationError }
             end
           end
 
           context "returns" do
-            it { expect(subject.validate_date_range("")).to eq "" }
-            it { expect(subject.validate_date_range(nil)).to eq nil }
+            {
+              "" => "",
+              nil => "",
+              [(Date.new(2020, 0o1, 0o1)..Date.new(2020, 0o1, 15))] => "20200101-20200115",
+              [Date.new(2020, 0o1, 0o1), Date.new(2020, 0o1, 15)] => "20200101:20200115",
+              [(Date.new(2020, 0o1, 0o1)..Date.new(2020, 0o1, 0o5)), "20201101"] => "20200101-20200105:20201101",
+              "20200101-20200105:20201101" => "20200101-20200105:20201101"
+            }.each do |given, want|
+              it { expect(subject.validate_date_ranges(*Array(given))).to eq want }
+            end
           end
         end
       end
