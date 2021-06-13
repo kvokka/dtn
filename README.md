@@ -68,7 +68,7 @@ client.request.news.headline limit: 10, symbols: 'aapl;fb'
 ```
 * [story_count](https://github.com/kvokka/dtn/blob/master/lib/dtn/requests/news/story_count.rb)
 ```ruby
-client.request.news.story_count symbols: :aapl, date: Date.new(2020,1,1)..Date.new(2020,2,1)
+client.request.news.story_count symbols: :aapl, date_range: Date.new(2020,1,1)..Date.new(2020,2,1)
 ```
 
 NOTES:

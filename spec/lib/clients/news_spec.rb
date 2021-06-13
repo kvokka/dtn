@@ -72,7 +72,7 @@ module Dtn
 
             it "have correct combined_options" do
               expect(Request.registry.find(request_id).combined_options).to include(
-                *%i[format_type id symbols sources date limit]
+                *%i[format_type id symbols sources date_range limit]
               )
             end
 
@@ -97,7 +97,7 @@ module Dtn
 
             it "have correct combined_options" do
               expect(Request.registry.find(request_id).combined_options).to include(
-                *%i[format_type id symbols sources date limit]
+                *%i[format_type id symbols sources date_range limit]
               )
             end
 
@@ -116,7 +116,7 @@ module Dtn
 
             context "text", socket_recorder: "news story count text" do
               let(:request_id) do
-                subject.request.news.story_count symbols: :aapl, date: date_range
+                subject.request.news.story_count symbols: :aapl, date_range: date_range
               end
 
               it "produce response with headlines" do
@@ -125,7 +125,7 @@ module Dtn
 
               it "have correct combined_options" do
                 expect(Request.registry.find(request_id).combined_options).to include(
-                  *%i[format_type id symbols date sources]
+                  *%i[format_type id symbols date_range sources]
                 )
               end
 
@@ -141,7 +141,7 @@ module Dtn
 
             context "xml", socket_recorder: "news story count xml" do
               let(:request_id) do
-                subject.request.news.story_count symbols: :aapl, date: date_range, format_type: "x"
+                subject.request.news.story_count symbols: :aapl, date_range: date_range, format_type: "x"
               end
 
               it "produce response with headline" do
@@ -150,7 +150,7 @@ module Dtn
 
               it "have correct combined_options" do
                 expect(Request.registry.find(request_id).combined_options).to include(
-                  *%i[format_type id symbols date sources]
+                  *%i[format_type id symbols date_range sources]
                 )
               end
 
