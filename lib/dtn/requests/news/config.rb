@@ -21,7 +21,7 @@ module Dtn
         end
 
         def expected_messages_class
-          Messages::NewsConfig
+          Messages::News::Config
         end
       end
     end

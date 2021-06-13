@@ -54,8 +54,8 @@ module Dtn
             end
           end
 
-          it "produce response with ticks" do
-            expect(response).to all(be_an(Dtn::Messages::Interval))
+          it "produce response with intervals" do
+            expect(response).to all(be_an(Dtn::Messages::Historical::Interval))
           end
 
           it "should contain messages of all 3 requests" do
@@ -84,7 +84,7 @@ module Dtn
             end
 
             it "produce response with ticks" do
-              expect(response).to all(be_an(Dtn::Messages::Tick))
+              expect(response).to all(be_an(Dtn::Messages::Historical::Tick))
             end
 
             it "have correct combined_options" do
@@ -102,6 +102,10 @@ module Dtn
           context "with historical tick days request", socket_recorder: "historical tick day" do
             let(:request_id) do
               subject.request.historical.tick_day(symbol: :aapl, days: 2, max_datapoints: 50)
+            end
+
+            it "produce response with ticks" do
+              expect(response).to all(be_an(Dtn::Messages::Historical::Tick))
             end
 
             it "have correct combined_options" do
@@ -122,7 +126,7 @@ module Dtn
             end
 
             it "produce response with ticks" do
-              expect(response).to all(be_an(Dtn::Messages::Tick))
+              expect(response).to all(be_an(Dtn::Messages::Historical::Tick))
             end
 
             it "have correct combined_options" do
@@ -142,8 +146,8 @@ module Dtn
               subject.request.historical.interval_datapoint(symbol: :aapl, interval: 3600, max_datapoints: 100)
             end
 
-            it "produce response with ticks" do
-              expect(response).to all(be_an(Dtn::Messages::Interval))
+            it "produce response with intervals" do
+              expect(response).to all(be_an(Dtn::Messages::Historical::Interval))
             end
 
             it "have correct combined_options" do
@@ -163,8 +167,8 @@ module Dtn
               subject.request.historical.interval_day(symbol: :aapl, interval: 3600, max_datapoints: 50, days: 2)
             end
 
-            it "produce response with ticks" do
-              expect(response).to all(be_an(Dtn::Messages::Interval))
+            it "produce response with intervals" do
+              expect(response).to all(be_an(Dtn::Messages::Historical::Interval))
             end
 
             it "have correct combined_options" do
@@ -190,8 +194,8 @@ module Dtn
               )
             end
 
-            it "produce response with ticks" do
-              expect(response).to all(be_an(Dtn::Messages::Interval))
+            it "produce response with intervals" do
+              expect(response).to all(be_an(Dtn::Messages::Historical::Interval))
             end
 
             it "have correct combined_options" do
@@ -216,7 +220,7 @@ module Dtn
             end
 
             it "produce response with ticks" do
-              expect(response).to all(be_an(Dtn::Messages::DailyWeeklyMonthly))
+              expect(response).to all(be_an(Dtn::Messages::Historical::DailyWeeklyMonthly))
             end
 
             it "have correct combined_options" do
@@ -236,7 +240,7 @@ module Dtn
             end
 
             it "produce response with ticks" do
-              expect(response).to all(be_an(Dtn::Messages::DailyWeeklyMonthly))
+              expect(response).to all(be_an(Dtn::Messages::Historical::DailyWeeklyMonthly))
             end
 
             it "have correct combined_options" do
@@ -256,7 +260,7 @@ module Dtn
             end
 
             it "produce response with ticks" do
-              expect(response).to all(be_an(Dtn::Messages::DailyWeeklyMonthly))
+              expect(response).to all(be_an(Dtn::Messages::Historical::DailyWeeklyMonthly))
             end
 
             it "have correct combined_options" do
@@ -276,7 +280,7 @@ module Dtn
             end
 
             it "produce response with ticks" do
-              expect(response).to all(be_an(Dtn::Messages::DailyWeeklyMonthly))
+              expect(response).to all(be_an(Dtn::Messages::Historical::DailyWeeklyMonthly))
             end
 
             it "have correct combined_options" do

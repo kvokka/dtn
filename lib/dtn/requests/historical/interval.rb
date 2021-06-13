@@ -6,7 +6,7 @@ module Dtn
       # Interval requests
       class Interval < Base
         def expected_messages_class
-          Messages::Interval
+          Messages::Historical::Interval
         end
 
         private

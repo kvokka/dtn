@@ -6,7 +6,7 @@ module Dtn
       # Tick requests
       class Tick < Base
         def expected_messages_class
-          Messages::Tick
+          Messages::Historical::Tick
         end
       end
     end

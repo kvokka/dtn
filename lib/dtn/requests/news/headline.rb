@@ -36,7 +36,7 @@ module Dtn
         end
 
         def expected_messages_class
-          Messages::NewsHeadline
+          Messages::News::Headline
         end
       end
     end

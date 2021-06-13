@@ -45,10 +45,10 @@ client.request.historical.daily_timeframe(
 client.response.each { |message| puts message }
 
 =>
-#<Dtn::Messages::DailyWeeklyMonthly request_id=1, timestamp=Mon, 03 May 2021 18:06:37 +0000, high=134.07, low=131.83, open=132.04, close=132.54, period_volume=75135100, open_interest=0>
-#<Dtn::Messages::DailyWeeklyMonthly request_id=1, timestamp=Tue, 04 May 2021 18:06:37 +0000, high=131.4899, low=126.7, open=131.19, close=127.85, period_volume=137564718, open_interest=0>
-#<Dtn::Messages::DailyWeeklyMonthly request_id=1, timestamp=Wed, 05 May 2021 18:06:37 +0000, high=130.45, low=127.97, open=129.2, close=128.1, period_volume=84000900, open_interest=0>
-#<Dtn::Messages::DailyWeeklyMonthly request_id=1, timestamp=Thu, 06 May 2021 18:06:37 +0000, high=129.75, low=127.13, open=127.89, close=129.74, period_volume=78128334, open_interest=0>
+#<Dtn::Messages::Historical::DailyWeeklyMonthly request_id=1, timestamp=Mon, 03 May 2021 18:06:37 +0000, high=134.07, low=131.83, open=132.04, close=132.54, period_volume=75135100, open_interest=0>
+#<Dtn::Messages::Historical::DailyWeeklyMonthly request_id=1, timestamp=Tue, 04 May 2021 18:06:37 +0000, high=131.4899, low=126.7, open=131.19, close=127.85, period_volume=137564718, open_interest=0>
+#<Dtn::Messages::Historical::DailyWeeklyMonthly request_id=1, timestamp=Wed, 05 May 2021 18:06:37 +0000, high=130.45, low=127.97, open=129.2, close=128.1, period_volume=84000900, open_interest=0>
+#<Dtn::Messages::Historical::DailyWeeklyMonthly request_id=1, timestamp=Thu, 06 May 2021 18:06:37 +0000, high=129.75, low=127.13, open=127.89, close=129.74, period_volume=78128334, open_interest=0>
 ...
 ```
 
@@ -164,15 +164,15 @@ client.response.each_with_object({finished: 0 }) do |message, acc|
   break if acc[:finished] == 3
 end
 =>
-#<Dtn::Messages::Interval request_id=1, timestamp=Fri, 11 Jun 2021 18:00:00 +0000, high=127.28, low=127.2, open=127.22, close=127.26, total_volume=53402051, period_volume=40382, number_of_trades=0>
-#<Dtn::Messages::Interval request_id=1, timestamp=Fri, 11 Jun 2021 19:00:00 +0000, high=127.29, low=127.2, open=127.27, close=127.26, total_volume=53441647, period_volume=35228, number_of_trades=0>
-#<Dtn::Messages::Interval request_id=1, timestamp=Fri, 11 Jun 2021 20:00:00 +0000, high=127.4, low=127.2599, open=127.26, close=127.4, total_volume=53522373, period_volume=73615, number_of_trades=0>
-#<Dtn::Messages::Interval request_id=2, timestamp=Fri, 11 Jun 2021 18:00:00 +0000, high=331.26, low=331.12, open=331.26, close=331.12, total_volume=13583725, period_volume=940, number_of_trades=0>
-#<Dtn::Messages::Interval request_id=2, timestamp=Fri, 11 Jun 2021 19:00:00 +0000, high=331.33, low=331.26, open=331.26, close=331.26, total_volume=13585069, period_volume=586, number_of_trades=0>
-#<Dtn::Messages::Interval request_id=2, timestamp=Fri, 11 Jun 2021 20:00:00 +0000, high=331.4, low=331.26, open=331.26, close=331.4, total_volume=13587916, period_volume=1906, number_of_trades=0>
-#<Dtn::Messages::Interval request_id=3, timestamp=Fri, 11 Jun 2021 18:00:00 +0000, high=257.7, low=257.55, open=257.65, close=257.7, total_volume=18994753, period_volume=4127, number_of_trades=0>
-#<Dtn::Messages::Interval request_id=3, timestamp=Fri, 11 Jun 2021 19:00:00 +0000, high=257.7, low=257.57, open=257.7, close=257.7, total_volume=18996645, period_volume=1100, number_of_trades=0>
-#<Dtn::Messages::Interval request_id=3, timestamp=Fri, 11 Jun 2021 20:00:00 +0000, high=257.7, low=257.61, open=257.61, close=257.65, total_volume=18999612, period_volume=1785, number_of_trades=0>
+#<Dtn::Messages::Historical::Interval request_id=1, timestamp=Fri, 11 Jun 2021 18:00:00 +0000, high=127.28, low=127.2, open=127.22, close=127.26, total_volume=53402051, period_volume=40382, number_of_trades=0>
+#<Dtn::Messages::Historical::Interval request_id=1, timestamp=Fri, 11 Jun 2021 19:00:00 +0000, high=127.29, low=127.2, open=127.27, close=127.26, total_volume=53441647, period_volume=35228, number_of_trades=0>
+#<Dtn::Messages::Historical::Interval request_id=1, timestamp=Fri, 11 Jun 2021 20:00:00 +0000, high=127.4, low=127.2599, open=127.26, close=127.4, total_volume=53522373, period_volume=73615, number_of_trades=0>
+#<Dtn::Messages::Historical::Interval request_id=2, timestamp=Fri, 11 Jun 2021 18:00:00 +0000, high=331.26, low=331.12, open=331.26, close=331.12, total_volume=13583725, period_volume=940, number_of_trades=0>
+#<Dtn::Messages::Historical::Interval request_id=2, timestamp=Fri, 11 Jun 2021 19:00:00 +0000, high=331.33, low=331.26, open=331.26, close=331.26, total_volume=13585069, period_volume=586, number_of_trades=0>
+#<Dtn::Messages::Historical::Interval request_id=2, timestamp=Fri, 11 Jun 2021 20:00:00 +0000, high=331.4, low=331.26, open=331.26, close=331.4, total_volume=13587916, period_volume=1906, number_of_trades=0>
+#<Dtn::Messages::Historical::Interval request_id=3, timestamp=Fri, 11 Jun 2021 18:00:00 +0000, high=257.7, low=257.55, open=257.65, close=257.7, total_volume=18994753, period_volume=4127, number_of_trades=0>
+#<Dtn::Messages::Historical::Interval request_id=3, timestamp=Fri, 11 Jun 2021 19:00:00 +0000, high=257.7, low=257.57, open=257.7, close=257.7, total_volume=18996645, period_volume=1100, number_of_trades=0>
+#<Dtn::Messages::Historical::Interval request_id=3, timestamp=Fri, 11 Jun 2021 20:00:00 +0000, high=257.7, low=257.61, open=257.61, close=257.65, total_volume=18999612, period_volume=1785, number_of_trades=0>
 
 client.stop
 ```

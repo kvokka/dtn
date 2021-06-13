@@ -19,7 +19,7 @@ module Dtn
             end
 
             it "produce response with ticks" do
-              expect(response).to all(be_an(Dtn::Messages::NewsConfig))
+              expect(response).to all(be_an(Dtn::Messages::News::Config))
             end
 
             it "have correct combined_options" do
@@ -42,7 +42,7 @@ module Dtn
             end
 
             it "produce response with ticks" do
-              expect(response).to all(be_an(Dtn::Messages::NewsConfig))
+              expect(response).to all(be_an(Dtn::Messages::News::Config))
             end
 
             it "have correct combined_options" do
@@ -67,7 +67,7 @@ module Dtn
             end
 
             it "produce response with headlines" do
-              expect(response).to all(be_an(Dtn::Messages::NewsHeadline))
+              expect(response).to all(be_an(Dtn::Messages::News::Headline))
             end
 
             it "have correct combined_options" do
@@ -92,7 +92,7 @@ module Dtn
             end
 
             it "produce response with headline" do
-              expect(response).to all(be_an(Dtn::Messages::NewsHeadline))
+              expect(response).to all(be_an(Dtn::Messages::News::Headline))
             end
 
             it "have correct combined_options" do

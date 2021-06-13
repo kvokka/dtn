@@ -19,7 +19,7 @@ module Dtn
         end
 
         def expected_messages_class
-          Messages::DailyWeeklyMonthly
+          Messages::Historical::DailyWeeklyMonthly
         end
       end
     end
