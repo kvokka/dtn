@@ -15,7 +15,7 @@ module Dtn
         #   NCG,[XML/Text],[RequestID]<CR><LF>
         def call(format_type: DEFAULT_NEWS_FORMAT_TYPE)
           self.combined_options = defaults.merge(
-            format_type: validate_news_format_type(format_type)
+            format_type: validate_format_type(format_type)
           )
           super
         end

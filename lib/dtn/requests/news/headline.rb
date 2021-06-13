@@ -26,7 +26,7 @@ module Dtn
         def call(date_range: "", symbols: [], sources: [], format_type: DEFAULT_NEWS_FORMAT_TYPE,
                  limit: DEFAULT_NEWS_HEADLINES_LIMIT)
           self.combined_options = defaults.merge(
-            format_type: validate_news_format_type(format_type),
+            format_type: validate_format_type(format_type),
             symbols: validate_list(symbols),
             sources: validate_list(sources),
             date_range: validate_date_ranges(date_range),

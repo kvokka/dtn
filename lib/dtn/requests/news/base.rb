@@ -17,7 +17,7 @@ module Dtn
           }.merge(options)
         end
 
-        def validate_news_format_type(value)
+        def validate_format_type(value)
           it = value.to_s.downcase[0]
           return it if [nil, "x", "t"].include?(it)
 

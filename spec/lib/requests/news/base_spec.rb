@@ -11,21 +11,21 @@ module Dtn
           end.new(socket: socket)
         end
 
-        context "#validate_news_format_type" do
+        context "#validate_format_type" do
           context "valid" do
             ["x", "XML", "T", "tEXt", :t, nil].each do |value|
-              it { expect { subject.validate_news_format_type(value) }.not_to raise_error }
+              it { expect { subject.validate_format_type(value) }.not_to raise_error }
             end
           end
           context "invalid" do
             %w[a foo].each do |value|
-              it { expect { subject.validate_news_format_type(value) }.to raise_error Request::ValidationError }
+              it { expect { subject.validate_format_type(value) }.to raise_error Request::ValidationError }
             end
           end
           context "returns" do
-            it { expect(subject.validate_news_format_type(nil)).to eq nil }
-            it { expect(subject.validate_news_format_type(:t)).to eq "t" }
-            it { expect(subject.validate_news_format_type("XmL")).to eq "x" }
+            it { expect(subject.validate_format_type(nil)).to eq nil }
+            it { expect(subject.validate_format_type(:t)).to eq "t" }
+            it { expect(subject.validate_format_type("XmL")).to eq "x" }
           end
         end
 

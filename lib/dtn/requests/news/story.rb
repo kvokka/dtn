@@ -18,7 +18,7 @@ module Dtn
         #   NSY,[ID],[XML/Text/Email],[DeliverTo],[RequestID]<CR><LF>
         def call(story_id:, deliver_to: nil, format_type: DEFAULT_NEWS_FORMAT_TYPE)
           self.combined_options = defaults.merge(
-            format_type: validate_news_format_type(format_type),
+            format_type: validate_format_type(format_type),
             deliver_to: deliver_to,
             story_id: story_id
           )
@@ -31,7 +31,7 @@ module Dtn
 
         private
 
-        def validate_news_format_type(value)
+        def validate_format_type(value)
           it = value.to_s.downcase[0]
           return it if [nil, "x", "t", "e"].include?(it)
 
