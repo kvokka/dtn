@@ -58,7 +58,7 @@ module Dtn
 
             context "date"
             %w[20191055 20191001-20191055 20190601-20190607:20191001-20191055].each do |value|
-              it { expect { subject.validate_date_range(value) }.to raise_error Date::Error }
+              it { expect { subject.validate_date_range(value) }.to raise_error Request::ValidationError }
             end
           end
 
