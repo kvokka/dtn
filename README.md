@@ -66,6 +66,10 @@ client.request.news.config
 ```ruby
 client.request.news.headline limit: 10, symbols: 'aapl;fb'
 ```
+* [story_count](https://github.com/kvokka/dtn/blob/master/lib/dtn/requests/news/story_count.rb)
+```ruby
+client.request.news.story_count symbols: :aapl, date: Date.new(2020,1,1)..Date.new(2020,2,1)
+```
 
 NOTES:
 
@@ -200,6 +204,9 @@ $ bundle exec rake spec:set_spec_date
 To run the client you can use the `docker-compose up` (before execution pls fill
 in `.env` file with your credentials following the pattern from
 [.env.example](https://github.com/kvokka/dtn/blob/master/.env.example))
+
+All specs have a 5 seconds timeout, which can be stubbed with `DEBUG=1`
+environment variable.
 
 ## Contributing
 

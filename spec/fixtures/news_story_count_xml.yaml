@@ -1,0 +1,10 @@
+---
+:writes:
+- "S,SET CLIENT NAME,gUi4uCgBkC\r\n"
+- "NSC,aapl,x,,20210507-20210607,1\r\n"
+:reads:
+- "1,<?xml version='1.0'?>\r\n"
+- "1,<story_counts>\r\n"
+- "1,\t<symbol Name = \"AAPL\" StoryCount = \"665\"/>\r\n"
+- "1,</story_counts>\r\n"
+- "1,!ENDMSG!,\r\n"

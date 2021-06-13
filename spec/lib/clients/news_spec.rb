@@ -110,6 +110,60 @@ module Dtn
               it { expect(response.last.public_send(attr)).to be_present }
             end
           end
+
+          context "news story count" do
+            let(:date_range) { (CURRENT_DAY - 1.month)..CURRENT_DAY }
+
+            context "text", socket_recorder: "news story count text" do
+              let(:request_id) do
+                subject.request.news.story_count symbols: :aapl, date: date_range
+              end
+
+              it "produce response with headlines" do
+                expect(response).to all(be_an(Dtn::Messages::News::StoryCount))
+              end
+
+              it "have correct combined_options" do
+                expect(Request.registry.find(request_id).combined_options).to include(
+                  *%i[format_type id symbols date sources]
+                )
+              end
+
+              it("should stop engine in the end") { expect(subject.stopped?).to be_truthy }
+
+              it_behaves_like "request registered in registry as", Requests::News::StoryCount
+
+              context "have attributes"
+              %i[description count].each do |attr|
+                it { expect(response.last.public_send(attr)).to be_present }
+              end
+            end
+
+            context "xml", socket_recorder: "news story count xml" do
+              let(:request_id) do
+                subject.request.news.story_count symbols: :aapl, date: date_range, format_type: "x"
+              end
+
+              it "produce response with headline" do
+                expect(response).to all(be_an(Dtn::Messages::News::StoryCount))
+              end
+
+              it "have correct combined_options" do
+                expect(Request.registry.find(request_id).combined_options).to include(
+                  *%i[format_type id symbols date sources]
+                )
+              end
+
+              it("should stop engine in the end") { expect(subject.stopped?).to be_truthy }
+
+              it_behaves_like "request registered in registry as", Requests::News::StoryCount
+
+              context "have attributes"
+              %i[request_id xml].each do |attr|
+                it { expect(response.last.public_send(attr)).to be_present }
+              end
+            end
+          end
         end
       end
     end

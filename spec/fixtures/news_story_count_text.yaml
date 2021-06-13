@@ -1,0 +1,7 @@
+---
+:writes:
+- "S,SET CLIENT NAME,iYNjdJt6pd\r\n"
+- "NSC,aapl,t,,20210507-20210607,1\r\n"
+:reads:
+- "1,Story Counts:AAPL,665\r\n"
+- "1,!ENDMSG!,\r\n"
