@@ -5,7 +5,6 @@ module Dtn
     module Historical
       # User historical requests
       class Base < Request
-        class ValidationError < StandardError; end
         # Maximum data allowed per 1 request and per 1 batch
         DEFAULT_MAX_DATAPOINTS = 1_000_000
         DEFAULT_DATAPOINTS_PER_SENT = 500
@@ -22,8 +21,7 @@ module Dtn
 
         MAX_INT16 = 2**16 - 1
 
-        DATE_TIME_FORMAT = "%Y%m%d %H%M%S"
-        DATE_FORMAT = "%Y%m%d"
+        include Concerns::Validation
 
         private
 
@@ -42,26 +40,11 @@ module Dtn
           Integer(value) > MAX_INT16 ? MAX_INT16 : value
         end
 
-        def validate_datetime(value)
-          general_date_validation(format: DATE_TIME_FORMAT, string_pattern: /^\d{8}\s\d{6}$/, value: value)
-        end
-
-        def validate_date(value)
-          general_date_validation(format: DATE_FORMAT, string_pattern: /^\d{8}$/, value: value)
-        end
-
         def validate_symbol(value)
           v = value.to_s
           return v.upcase if v.length.positive?
 
           raise ValidationError, "Symbol must be present"
-        end
-
-        def general_date_validation(format:, string_pattern:, value:)
-          return value.strftime(format) if value.is_a? Date
-          return value if value.to_s =~ string_pattern
-
-          raise ValidationError, "Entered value '#{value.inspect}' is not following pattern #{format}"
         end
       end
     end

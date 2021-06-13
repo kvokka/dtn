@@ -3,6 +3,8 @@
 module Dtn
   # Request abstraction
   class Request
+    class ValidationError < StandardError; end
+
     extend Forwardable
     delegate next_id: :'self.class'
 

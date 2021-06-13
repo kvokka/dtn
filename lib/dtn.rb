@@ -12,6 +12,7 @@ require "active_support/core_ext/string"
 require "socket"
 require "securerandom"
 require "timeout"
+require "date"
 
 # Top level API methods only
 module Dtn

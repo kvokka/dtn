@@ -7,8 +7,6 @@ module Dtn
       class Config < Base
         TEMPLATE = "NCG,%<format_type>s,%<id>d\r\n"
 
-        DEFAULT_NEWS_FORMAT_TYPE = "t"
-
         # Returns the News configuration which tells you what news sources
         # you are subscribed to.
         #
