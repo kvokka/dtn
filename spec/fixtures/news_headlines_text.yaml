@@ -1,0 +1,26 @@
+---
+:writes:
+- "S,SET CLIENT NAME,A9qjRMGTTN\r\n"
+- "NHL,,aapl,t,10,,1\r\n"
+:reads:
+- "1,N,BEN,22426377717,:BZEvents::AAPL:,20210612110554,Apple Says It Hardened Rules
+  On Legal Requests After Trump Administ...\r\n"
+- "1,N,BEN,22426377672,:BZEvents::AAPL:,20210612110244,Apple Says It Hardened Rules
+  On Legal Requests After Trump Administ...\r\n"
+- "1,N,BEN,22426034635,:BZRumors::AAPL::AMZN::FB::GOOG::GOOGL:,20210611144712,'Lawmakers
+  unveil major bipartisan antitrust reforms that could res...\r\n"
+- "1,N,BEN,22426014485,:AAPL::INTC::TSM:,20210611133342,Apple Supplier TSMC Plans
+  To Build Advanced Chip Packaging Plant In...\r\n"
+- "1,N,BEN,22426014383,:AAPL::INTC::TSM:,20210611133322,Apple Supplier TSMC Plans
+  To Build Advanced Chip Packaging Plant In...\r\n"
+- "1,N,BEN,22426007268,:BZOptions::AAPL::AMD::CSCO::MSFT::NOK::NVDA::PYPL::RAMP::SPLK:,20210611130952,9
+  Information Technology Stocks With Unusual Options Alerts In Toda...\r\n"
+- "1,N,BEN,22425991672,:AAPL::SPY:,20210611121011,'Democrats demand Barr, Sessions
+  testify on Apple data subpoenas' -...\r\n"
+- "1,N,CPR,22425968311,:AAPL::MRNA::TSLA::GE::XOM:,20210611110059,Thinking about trading
+  options or stock in Tesla, Apple, Moderna, Exxon Mobil, \r\n"
+- "1,N,BEN,22425927481,:BZEvents::AAPL:,20210611084934,Trump Government Summoned Apple
+  To Investigate Information Leaks: R...\r\n"
+- "1,N,BEN,22425751344,:BZEvents::AAPL::BMWYY::GOEV::TSLA:,20210610214444,Apple Hires
+  Former BMW Executive To Lead Electric Car Efforts\r\n"
+- "1,!ENDMSG!,\r\n"

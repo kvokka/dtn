@@ -17,6 +17,8 @@ module Dtn
 
       def apply_values(instance:, attributes:, values:)
         attributes.zip(values).each do |(attr, converter), value|
+          next if attr.to_s.start_with?("_")
+
           instance.public_send("#{attr}=", value.public_send(converter))
         end
       end

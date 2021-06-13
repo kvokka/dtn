@@ -62,6 +62,10 @@ For all requests `client = Dtn::Clients::Lookup.new` was used
 ```ruby
 client.request.news.config
 ```
+* [headline](https://github.com/kvokka/dtn/blob/master/lib/dtn/requests/news/headline.rb)
+```ruby
+client.request.news.headline limit: 10, symbols: 'aapl;fb'
+```
 
 NOTES:
 
