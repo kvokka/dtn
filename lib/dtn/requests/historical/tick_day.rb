@@ -23,7 +23,7 @@ module Dtn
         def call(symbol:, days:, **options)
           self.combined_options = defaults(**options).merge({
                                                               symbol: validate_symbol(symbol),
-                                                              days: validate_days(days)
+                                                              days: validate_short_int(days)
                                                             })
 
           super

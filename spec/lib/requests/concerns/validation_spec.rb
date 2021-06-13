@@ -51,6 +51,34 @@ module Dtn
             it { expect(subject.validate_datetime(DateTime.new(2020, 1, 1, 10, 11, 12))).to eq "20200101 101112" }
           end
         end
+
+        context "#validate_int" do
+          context "valid" do
+            [42, "1", 65_636].each do |value|
+              it { expect { subject.validate_short_int(value) }.not_to raise_error }
+            end
+          end
+
+          context "invalid" do
+            ["5a", :foo, ""].each do |value|
+              it { expect { subject.validate_short_int(value) }.to raise_error Request::ValidationError }
+            end
+          end
+
+          context "returns" do
+            it { expect(subject.validate_short_int("42")).to eq 42 }
+            it { expect(subject.validate_short_int(42)).to eq 42 }
+          end
+        end
+
+        context "#validate_short_int" do
+          context "returns" do
+            it { expect(subject.validate_short_int("42")).to eq 42 }
+            it { expect(subject.validate_short_int(42)).to eq 42 }
+            it { expect(subject.validate_short_int(65_536)).to eq 65_535 }
+            it { expect(subject.validate_short_int(655_360)).to eq 65_535 }
+          end
+        end
       end
     end
   end

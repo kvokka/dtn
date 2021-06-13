@@ -19,8 +19,6 @@ module Dtn
 
         DEFAULT_INTERVAL_TYPE = "s"
 
-        MAX_INT16 = 2**16 - 1
-
         include Concerns::Validation
 
         private
@@ -34,10 +32,6 @@ module Dtn
             datapoints_per_send: DEFAULT_DATAPOINTS_PER_SEND,
             id: id
           }.merge(options)
-        end
-
-        def validate_days(value)
-          Integer(value) > MAX_INT16 ? MAX_INT16 : value
         end
 
         def validate_symbol(value)
