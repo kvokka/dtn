@@ -3,18 +3,13 @@
 module Dtn
   module Messages
     module News
-      # News headline
-      class Headline < Base
+      # News story
+      class Story < Base
         class << self
           private
 
           def text_fields
             {
-              _skip: :to_s,
-              source: :to_s,
-              story_id: :to_s,
-              symbols: :to_s,
-              timestamp: :to_datetime,
               text: :to_s
             }
           end

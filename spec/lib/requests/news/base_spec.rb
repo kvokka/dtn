@@ -23,7 +23,7 @@ module Dtn
             end
           end
           context "returns" do
-            it { expect(subject.validate_news_format_type(nil)).to eq "t" }
+            it { expect(subject.validate_news_format_type(nil)).to eq nil }
             it { expect(subject.validate_news_format_type(:t)).to eq "t" }
             it { expect(subject.validate_news_format_type("XmL")).to eq "x" }
           end

@@ -1,0 +1,175 @@
+---
+:writes:
+- "S,SET CLIENT NAME,6cVfas9uIx\r\n"
+- "NHL,,aapl,t,1,20210507-20210607,1\r\n"
+- "NSY,22424363689,x,,2\r\n"
+:reads:
+- "1,N,BEN,22424363689,:BZEvents::AAPL:,20210607184404,What To Know From Apple's WWDC
+  Keynote: iOS 15, Improved Privacy Fe...\r\n"
+- "1,!ENDMSG!,\r\n"
+- "2,<?xml version='1.0'?>\r\n"
+- "2,<news_stories>\r\n"
+- "2,\t<news_story>\r\n"
+- "2,\t\t<is_link>N</is_link>\r\n"
+- "2,\t\t<story_text>\r\n"
+- "2,\r\n"
+- "2,What To Know From Apple's WWDC Keynote: iOS 15, Improved Privacy Features, \r\n"
+- "2,Developer Tools\r\n"
+- "2,\r\n"
+- "2,Apple Inc. (NASDAQ:AAPL) kicked off its five-day annual Worldwide Developers
+  \r\n"
+- "2,Conference Monday with a keynote address.\r\n"
+- "2,\r\n"
+- "2,\r\n"
+- "2,CEO Tim Cook got the ball rolling by welcoming the participants of the virtual
+  \r\n"
+- "2,conference and providing them with information about what to expect.\r\n"
+- "2,\r\n"
+- "2,\r\n"
+- "2,New iOS:  Craig Federighi, senior vice president of software engineering, \r\n"
+- "2,announced iOS 15, the next iteration of its OS powering the iPhone.\r\n"
+- "2,\r\n"
+- "2,\r\n"
+- "2,With the new OS, FaceTime, the company's video calling app, will have spatial
+  \r\n"
+- "2,audio allowing the conversation to flow as easily as they do face-to-face. The
+  \r\n"
+- "2,new OS will provide two powerful options for the microphone: voice isolation
+  \r\n"
+- "2,that blocks out ambient voices and wide-spectrum, which is when the mic picks
+  \r\n"
+- "2,up all sounds.\r\n"
+- "2,\r\n"
+- "2,\r\n"
+- "2,The new OS also allows generating FaceTime links for scheduling calls and share
+  \r\n"
+- "2,them anywhere. Grid view and portrait mode were also introduced.\r\n"
+- "2,\r\n"
+- "2,\r\n"
+- "2,Apple announced SharePlay for shared listening and watching experiences, while
+  \r\n"
+- "2,on a FaceTime call. FaceTime will now support non-Apple devices like Android
+  \r\n"
+- "2,smartphones.\r\n"
+- "2,\r\n"
+- "2,\r\n"
+- "2,iMessage users will have access to new options to collage and stack photos for
+  \r\n"
+- "2,sharing. The company also announced Focus, which lets users focus while doing
+  \r\n"
+- "2,other work. Notifications will now have a Notification Summary.\r\n"
+- "2,\r\n"
+- "2,\r\n"
+- "2,The new OS gives Wallet the ability to be used as a digital identification at
+  \r\n"
+- "2,airports across the U.S. Upon scanning a driver's license or state ID, it can
+  \r\n"
+- "2,be used as a digital ID.\r\n"
+- "2,\r\n"
+- "2,\r\n"
+- "2,MacOS Monterey:  Apple also previewed macOS Monterey, the latest version of its
+  \r\n"
+- "2,desktop operating system.\r\n"
+- "2,\r\n"
+- "2,\r\n"
+- "2,\"We think our customers are going to love browsing the web with Safari's new
+  \r\n"
+- "2,tab design, enjoying shared experiences with SharePlay in FaceTime, and using
+  \r\n"
+- "2,their Mac and other Apple devices together in new ways with Universal Control
+  \r\n"
+- "2,and AirPlay to Mac,\" Federighi said.\r\n"
+- "2,\r\n"
+- "2,\r\n"
+- "2,Related Link: 10 Things Apple Investors May Wish For In 2021\r\n"
+- "2,\r\n"
+- "2,\r\n"
+- "2,iPadOS 15:  Apple unveiled iPadOS 15 with new features that help users be more
+  \r\n"
+- "2,productive and taking the versatility of iPad even further.\r\n"
+- "2,\r\n"
+- "2,\r\n"
+- "2,A new multitasking menu appears at the top of apps, letting users go into Split
+  \r\n"
+- "2,View or Slide Over with just a tap. Users can now place widgets among apps on
+  \r\n"
+- "2,Home Screen pages, providing more information at a glance and offering a more
+  \r\n"
+- "2,personalized experience.\r\n"
+- "2,\r\n"
+- "2,\r\n"
+- "2,The App Library also comes to the iPad. With the new OS, Notes goes systemwide
+  \r\n"
+- "2,with Quick Note.\r\n"
+- "2,\r\n"
+- "2,\r\n"
+- "2,Watch OS 8:  Apple announced Watch OS 8, and updates to the Wallet and Home \r\n"
+- "2,apps provided by the new OS makes Apple Watch an increasingly useful tool for
+  \r\n"
+- "2,convenient access.\r\n"
+- "2,\r\n"
+- "2,\r\n"
+- "2,\"With WatchOS 8, Wallet brings even more powerful contact-free ways for users
+  \r\n"
+- "2,to access the places and things they care about seamlessly, safely, and \r\n"
+- "2,securely,\" the company said.\r\n"
+- "2,\r\n"
+- "2,\r\n"
+- "2,Ultrawideband support comes for digital car keys on Apple Watch Series 6. Apple
+  \r\n"
+- "2,Watch wearers can securely unlock their car from a distance and start it from
+  \r\n"
+- "2,the driver's seat.\r\n"
+- "2,\r\n"
+- "2,\r\n"
+- "2,New Privacy Features:  Apple unveiled new privacy protections in iOS 15, iPadOS
+  \r\n"
+- "2,15, macOS Monterey, and watchOS 8, which help users better control and manage
+  \r\n"
+- "2,access to their data.\r\n"
+- "2,\r\n"
+- "2,\r\n"
+- "2,These features help protect data from third parties, check up on app privacy,
+  \r\n"
+- "2,process audio of users' requests on Siri and enhance internet privacy with \r\n"
+- "2,iCloud+.\r\n"
+- "2,\r\n"
+- "2,\r\n"
+- "2,Healthcare Data Sharing: Apple announced advanced consumer health and wellness
+  \r\n"
+- "2,insights for users, as well as new tools for supporting loved ones. The OS 15
+  \r\n"
+- "2,gives users the ability to securely share their data with important people in
+  \r\n"
+- "2,their life and receive insights into the health trends. Additionally, new tools
+  \r\n"
+- "2,can be used to identify, measure and understand changes in a person's health
+  \r\n"
+- "2,data.\r\n"
+- "2,\r\n"
+- "2,\r\n"
+- "2,Developer Tools &amp; Technologies:  Apple unveiled Xcode Cloud that brings \r\n"
+- "2,together the multiple tasks and tools required to build, test and deliver apps
+  \r\n"
+- "2,using powerful cloud services.\r\n"
+- "2,\r\n"
+- "2,\r\n"
+- "2,With In-App Events and Custom Product Pages, the App Store now provides ways
+  \r\n"
+- "2,for developers to promote their apps and connect with users. Swift will offer
+  \r\n"
+- "2,concurrency support built into the language and augmented reality technologies
+  \r\n"
+- "2,will help build immersive content in apps or on the web.\r\n"
+- "2,\r\n"
+- "2,\r\n"
+- "2,Apple closed Monday little changed at $125.90, and was seen adding 0.040% \r\n"
+- "2,after-hours at publication.\r\n"
+- "2,\r\n"
+- "2,\r\n"
+- "2,(TS:BZEvents;AAPL)\r\n"
+- "2,</story_text>\r\n"
+- "2,\t\t<symbols>:BZEvents::AAPL:</symbols>\r\n"
+- "2,\t</news_story>\r\n"
+- "2,</news_stories>\r\n"
+- "2,!ENDMSG!,\r\n"

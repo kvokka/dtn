@@ -70,6 +70,11 @@ client.request.news.headline limit: 10, symbols: 'aapl;fb'
 ```ruby
 client.request.news.story_count symbols: :aapl, date_range: Date.new(2020,1,1)..Date.new(2020,2,1)
 ```
+* [story](https://github.com/kvokka/dtn/blob/master/lib/dtn/requests/news/story.rb)
+```ruby
+client.request.news.story story_id: '22424363689'
+```
+
 
 NOTES:
 

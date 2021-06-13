@@ -18,10 +18,8 @@ module Dtn
         end
 
         def validate_news_format_type(value)
-          return DEFAULT_NEWS_FORMAT_TYPE unless value
-
           it = value.to_s.downcase[0]
-          return it if %w[x t].include?(it)
+          return it if [nil, "x", "t"].include?(it)
 
           raise ValidationError, "Got #{value}, but interval_type can be only 't' for text or 'x' for XML"
         end
