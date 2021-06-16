@@ -28,6 +28,8 @@ module Dtn
     NO_DATA_CHARACTERS = /!NO_DATA!/.freeze
     SYNTAX_ERROR_CHARACTERS = "!SYNTAX_ERROR!"
 
+    CLIENT_TERMINATION_SIGNALS = %w[TERM INT]
+
     # @params name             Specify name for this client
     # @params max_queue_length Limit the number of messages for 1 client to avoid OOM
     # @params auto_stop        If true, stop client after the first user request, needs manual stop otherwise
@@ -39,6 +41,7 @@ module Dtn
       initializing
 
       init_connection
+      setup_signals
       engine
     end
 
@@ -75,6 +78,12 @@ module Dtn
 
     def init_connection
       raise NotImplemented
+    end
+
+    def setup_signals
+      CLIENT_TERMINATION_SIGNALS.each do |signal|
+        Signal.trap(signal) { stop }
+      end
     end
   end
 end
