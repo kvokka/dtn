@@ -45,7 +45,7 @@ module Dtn
         case (Regexp.last_match(2) || line)
         when Client::END_OF_MESSAGE_CHARACTERS then Messages::System::EndOfMessageCharacters
         when Client::NO_DATA_CHARACTERS then Messages::System::NoDataCharacters
-        when /^E/ then Messages::System::Error
+        when /^E,/ then Messages::System::Error
         else Request.registry.find(Integer(request_id)).expected_messages_class
         end
       end
