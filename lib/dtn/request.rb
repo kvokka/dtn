@@ -5,6 +5,10 @@ module Dtn
   class Request
     class ValidationError < StandardError; end
 
+    END_OF_MESSAGE_CHARACTERS = /!ENDMSG!/.freeze
+    NO_DATA_CHARACTERS = /!NO_DATA!/.freeze
+    SYNTAX_ERROR_CHARACTERS = /!SYNTAX_ERROR!/.freeze
+
     extend Forwardable
     delegate next_id: :'self.class'
 
@@ -18,8 +22,8 @@ module Dtn
         _id_tvar.value
       end
 
-      def registry
-        @registry ||= Registry.new(name: "Requests registry")
+      def call(*args, **opts, &blk)
+        new.call(*args, **opts, &blk)
       end
 
       private
@@ -29,16 +33,36 @@ module Dtn
       end
     end
 
-    def initialize(socket:)
-      @socket = socket
-    end
-
     # Initialize the request to api, should be used in children classes only
     #
     # @returns nil or request_id (Integer)
-    def call(*)
+    def call(*, &blk)
       socket.print format(self.class.const_get(:TEMPLATE), combined_options)
-      id
+
+      acc = poll_socket(&blk)
+
+      return acc unless block_given?
+    end
+
+    def poll_socket(acc: [])
+      while (line = socket.gets)
+        message = engine_klass_picker(line).parse(line: line, request: self)
+        break if message.termination?
+
+        block_given? ? yield(message) : acc << message
+      end
+      acc
+    end
+
+    def engine_klass_picker(line)
+      /^\d+,(.+)/ =~ line
+      payload = Regexp.last_match(1)
+      case payload
+      when END_OF_MESSAGE_CHARACTERS then Messages::System::EndOfMessageCharacters
+      when NO_DATA_CHARACTERS then Messages::System::NoDataCharacters
+      when /^E,/, SYNTAX_ERROR_CHARACTERS then Messages::System::Error
+      else expected_messages_class
+      end
     end
 
     # This should contain expected class of the returning message.
@@ -49,22 +73,14 @@ module Dtn
       raise NotImplementedError
     end
 
-    def finished?
-      !!@finished
-    end
-
-    def finish
-      @finished = true
-    end
-
     def id
       @id ||= next_id
     end
 
     attr_accessor :combined_options
 
-    protected
-
-    attr_reader :socket
+    def socket
+      @socket ||= TCPSocket.open(Dtn.config.host, self.class::PORT)
+    end
   end
 end

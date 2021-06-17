@@ -4,12 +4,14 @@ module Dtn
   # Message abstraction
   class Message < OpenStruct
     class << self
-      def parse(line:)
+      def parse(line:, request: nil)
         values = line.split(",")
 
         new.tap do |n|
           apply_values instance: n, attributes: fields, values: values
-          parse_dynamic_fields(instance: n, values: values[(fields.size)..]) if respond_to?(:parse_dynamic_fields)
+          if respond_to?(:parse_dynamic_fields)
+            parse_dynamic_fields(instance: n, values: values[(fields.size)..], request: request)
+          end
         end
       end
 

@@ -10,6 +10,10 @@ module Dtn
             raise "DTN Error: #{line}"
           end
         end
+
+        def termination?
+          true
+        end
       end
     end
   end

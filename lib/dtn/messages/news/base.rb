@@ -10,8 +10,8 @@ module Dtn
             @fields ||= { request_id: :to_i }
           end
 
-          def parse_dynamic_fields(instance:, values:)
-            attributes = case Request.registry.find(instance.request_id).combined_options[:format_type]
+          def parse_dynamic_fields(instance:, values:, request:)
+            attributes = case request.combined_options[:format_type]
                          when "t" then text_fields
                          when "x" then xml_fields
                          else raise "Wrong format type"

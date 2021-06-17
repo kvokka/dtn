@@ -5,6 +5,8 @@ module Dtn
     module Historical
       # User historical requests
       class Base < Request
+        PORT = 9100
+
         # Maximum data allowed per 1 request and per 1 batch
         DEFAULT_MAX_DATAPOINTS = 1_000_000
         DEFAULT_DATAPOINTS_PER_SEND = 500

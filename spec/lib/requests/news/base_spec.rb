@@ -8,7 +8,7 @@ module Dtn
         let(:subject) do
           class Foo < described_class
             public(*private_instance_methods) # rubocop:disable Style/AccessModifierDeclarations
-          end.new(socket: socket)
+          end.new
         end
 
         context "#validate_format_type" do

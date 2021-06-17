@@ -5,6 +5,7 @@ module Dtn
     module News
       # User news requests
       class Base < Request
+        PORT = 9100
         DEFAULT_NEWS_FORMAT_TYPE = "t"
 
         include Concerns::Validation

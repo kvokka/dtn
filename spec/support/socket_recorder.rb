@@ -92,28 +92,20 @@ module TCPSocketWithRecorder
 
   %i[read getc gets read_nonblock].each do |method|
     define_method(method) do |*args, **opts|
-      return super unless cassette
+      return super(*args, **opts) unless cassette
       return (super(*args, **opts).tap { |r| cassette.reads << r }) unless cassette.persisted?
 
-      # In case we drained the cassette we just act like hanging socket and it's other Thread
-      # responsibility to stop the pulling
-      sleep if cassette.reads.empty?
+      raise("Trying to read more than was saved in the cassette #{cassette.filename}") if cassette.reads.empty?
 
-      cassette.reads.shift.tap do |line|
-        lm = /^(\d+),.+/ =~ line && Integer(Regexp.last_match(1))
-        next unless lm
-
-        sleep(0.001) until ::Dtn::Request.registry.registered?(lm)
-      end
+      cassette.reads.shift
     end
   end
 
   %i[write write_nonblock].each do |method|
     define_method(method) do |line, *args, **opts|
-      return super unless cassette
+      return super(line, *args, **opts) unless cassette
 
       if cassette.persisted?
-
         raise("Trying to write more than was saved in the cassette #{cassette.filename}") if cassette.writes.empty?
 
         cassette.writes.shift.length

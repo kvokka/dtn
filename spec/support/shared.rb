@@ -1,35 +1,75 @@
 # frozen_string_literal: true
 
 module Dtn
-  RSpec.shared_examples_for "request registered in registry as" do |klass|
-    context "registry" do
-      it "was registered right request" do
-        expect(Request.registry.find(request_id)).to be_a klass
-      end
+  RSpec.shared_examples_for "common historical tick" do |_klass|
+    let(:response) { subject.call(**request_options) }
 
-      it "registered request was finished" do
-        expect(Request.registry.find(request_id).finished?).to be_truthy
+    it "produce response with ticks" do
+      expect(response).to all(be_an(Dtn::Messages::Historical::Tick))
+    end
+
+    it { expect { |b| subject.call(**request_options, &b) }.to yield_control }
+
+    context "have attributes" do
+      %i[request_id
+         timestamp
+         last
+         last_size
+         total_volume
+         bid
+         ask
+         tick_id
+         basis_for_last
+         trade_market_center
+         trade_aggressor].each do |attr|
+        it { expect(response.last.public_send(attr)).to be_present }
       end
     end
   end
 
-  RSpec.shared_context "integration specs preparation" do
-    before do
-      Request.registry.clear
-      allow(Request).to receive(:next_id).and_return(1, 2, 3, 4, 5)
-      # we must fetch all the data first for every request, cos the requests may run in different order
-      request_id
+  RSpec.shared_examples_for "common historical interval" do |_klass|
+    let(:response) { subject.call(**request_options) }
+
+    it "produce response with ticks" do
+      expect(response).to all(be_an(Dtn::Messages::Historical::Interval))
     end
 
-    after do
-      subject.stop
+    it { expect { |b| subject.call(**request_options, &b) }.to yield_control }
+
+    context "have attributes" do
+      %i[request_id
+         timestamp
+         high
+         low
+         open
+         close
+         total_volume
+         period_volume
+         number_of_trades].each do |attr|
+        it { expect(response.last.public_send(attr)).to be_present }
+      end
+    end
+  end
+
+  RSpec.shared_examples_for "common historical daily weekley monthly" do |_klass|
+    let(:response) { subject.call(**request_options) }
+
+    it "produce response with ticks" do
+      expect(response).to all(be_an(Dtn::Messages::Historical::DailyWeeklyMonthly))
     end
 
-    unless ENV["DEBUG"]
-      around do |example|
-        Timeout.timeout(5) do
-          example.run
-        end
+    it { expect { |b| subject.call(**request_options, &b) }.to yield_control }
+
+    context "have attributes" do
+      %i[request_id
+         timestamp
+         high
+         low
+         open
+         close
+         period_volume
+         open_interest].each do |attr|
+        it { expect(response.last.public_send(attr)).to be_present }
       end
     end
   end

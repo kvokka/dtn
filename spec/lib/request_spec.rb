@@ -11,9 +11,5 @@ module Dtn
     context ".last_id" do
       it { expect(described_class.last_id).to be_a Integer }
     end
-
-    context ".registry" do
-      it { expect(described_class.registry).to be_a Registry }
-    end
   end
 end
