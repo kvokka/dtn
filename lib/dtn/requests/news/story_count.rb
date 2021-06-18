@@ -30,10 +30,6 @@ module Dtn
           )
           super
         end
-
-        def expected_messages_class
-          Messages::News::StoryCount
-        end
       end
     end
   end

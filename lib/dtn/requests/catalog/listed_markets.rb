@@ -6,10 +6,6 @@ module Dtn
       # Listed markets
       class ListedMarkets < Base
         TEMPLATE = "SLM\r\n"
-
-        def expected_messages_class
-          Messages::Catalog::ListedMarkets
-        end
       end
     end
   end

@@ -25,10 +25,6 @@ module Dtn
           super
         end
 
-        def expected_messages_class
-          Messages::News::Story
-        end
-
         private
 
         def validate_format_type(value)

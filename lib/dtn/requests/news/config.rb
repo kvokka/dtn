@@ -19,10 +19,6 @@ module Dtn
           )
           super
         end
-
-        def expected_messages_class
-          Messages::News::Config
-        end
       end
     end
   end

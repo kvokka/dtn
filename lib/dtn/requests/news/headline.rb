@@ -34,10 +34,6 @@ module Dtn
           )
           super
         end
-
-        def expected_messages_class
-          Messages::News::Headline
-        end
       end
     end
   end

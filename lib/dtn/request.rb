@@ -66,11 +66,11 @@ module Dtn
     end
 
     # This should contain expected class of the returning message.
-    # Should be overwritten in child class
+    # Might be overwritten in child class
     #
-    # @returns nil or Class
+    # @returns Class
     def expected_messages_class
-      raise NotImplementedError
+      self.class.name.sub("Requests", "Messages").constantize
     end
 
     def id
