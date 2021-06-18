@@ -55,8 +55,8 @@ module Dtn
     end
 
     def engine_klass_picker(line)
-      /^\d+,(.+)/ =~ line
-      payload = Regexp.last_match(1)
+      /^(\d+,)?(.+)/ =~ line
+      payload = Regexp.last_match(2)
       case payload
       when END_OF_MESSAGE_CHARACTERS then Messages::System::EndOfMessageCharacters
       when NO_DATA_CHARACTERS then Messages::System::NoDataCharacters
