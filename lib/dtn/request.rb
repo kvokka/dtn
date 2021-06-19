@@ -39,7 +39,7 @@ module Dtn
     #
     # @returns nil or request_id (Integer)
     def call(*, &blk)
-      socket.print format(self.class.const_get(:TEMPLATE), combined_options)
+      socket.print "#{format(self.class.const_get(:TEMPLATE), combined_options)}\r\n"
 
       acc = poll_socket(&blk)
 

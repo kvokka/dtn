@@ -6,7 +6,7 @@ module Dtn
       # Weekly datapoint requests
       class WeeklyDatapoint < Datapoint
         TEMPLATE =
-          "HWX,%<symbol>s,%<max_datapoints>d,%<data_direction>d,%<id>d,%<datapoints_per_send>d\r\n"
+          "HWX,%<symbol>s,%<max_datapoints>d,%<data_direction>d,%<id>d,%<datapoints_per_send>d"
       end
     end
   end

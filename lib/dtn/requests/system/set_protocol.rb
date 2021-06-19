@@ -9,7 +9,7 @@ module Dtn
           # protocol version is locked and gem was tested only with client 6.1
           self.combined_options = { version: "6.1" }
 
-          socket.print "S,SET PROTOCOL,#{combined_options[:version]}\r\n"
+          socket.print "S,SET PROTOCOL,#{combined_options[:version]}"
           finish
         end
       end

@@ -5,7 +5,7 @@ module Dtn
     module Catalog
       # Naic codes
       class NaicCodes < Base
-        TEMPLATE = "SNC\r\n"
+        TEMPLATE = "SNC"
       end
     end
   end

@@ -5,7 +5,7 @@ module Dtn
     module Symbol
       # Symbol lookup by custom filter
       class ByFilter < Base
-        TEMPLATE = "SBF,%<field_to_search>s,%<search_line>s,%<filter_type>s,%<filter_value>s,%<id>d\r\n"
+        TEMPLATE = "SBF,%<field_to_search>s,%<search_line>s,%<filter_type>s,%<filter_value>s,%<id>d"
 
         # Symbols lookup by user filter.
         #

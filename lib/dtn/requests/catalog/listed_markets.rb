@@ -5,7 +5,7 @@ module Dtn
     module Catalog
       # Listed markets
       class ListedMarkets < Base
-        TEMPLATE = "SLM\r\n"
+        TEMPLATE = "SLM"
       end
     end
   end

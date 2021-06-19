@@ -5,7 +5,7 @@ module Dtn
     module Catalog
       # Sic codes
       class SicCodes < Base
-        TEMPLATE = "SSC\r\n"
+        TEMPLATE = "SSC"
       end
     end
   end

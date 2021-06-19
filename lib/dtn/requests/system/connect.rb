@@ -6,7 +6,7 @@ module Dtn
       # Connect request
       class Connect < Base
         def call
-          socket.print "S,CONNECT\r\n"
+          socket.print "S,CONNECT"
           finish
         end
       end

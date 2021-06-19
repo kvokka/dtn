@@ -5,7 +5,7 @@ module Dtn
     module Symbol
       # Symbol lookup by NAIC
       class ByNaic < Base
-        TEMPLATE = "SBN,%<search_line>s,%<id>d\r\n"
+        TEMPLATE = "SBN,%<search_line>s,%<id>d"
 
         # Return symbols in a specific NAIC sector.
         #

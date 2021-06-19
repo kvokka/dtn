@@ -8,7 +8,7 @@ module Dtn
         def call(name:)
           self.combined_options = { name: name }
 
-          socket.print "S,SET CLIENT NAME,#{name}\r\n"
+          socket.print "S,SET CLIENT NAME,#{name}"
           finish
         end
       end

@@ -8,7 +8,7 @@ module Dtn
         TEMPLATE =
           "HIT,%<symbol>s,%<interval>d,%<begin_datetime>s,%<end_datetime>s,%<max_datapoints>d,"\
           "%<begin_filter_time>s,%<end_filter_time>s,%<data_direction>d,%<id>d,"\
-          "%<datapoints_per_send>d,%<interval_type>s\r\n"
+          "%<datapoints_per_send>d,%<interval_type>s"
 
         # HIT - Retrieves interval data between [BeginDate BeginTime] and [EndDate EndTime] for the
         # specified [Symbol].

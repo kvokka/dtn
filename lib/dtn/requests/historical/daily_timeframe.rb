@@ -6,7 +6,7 @@ module Dtn
       # Daily timeframe requests
       class DailyTimeframe < Interval
         TEMPLATE =
-          "HDT,%<symbol>s,%<begin_date>s,%<end_date>s,%<max_datapoints>d,%<data_direction>d,%<id>d\r\n"
+          "HDT,%<symbol>s,%<begin_date>s,%<end_date>s,%<max_datapoints>d,%<data_direction>d,%<id>d"
 
         # HDT - Retrieves [Days] days of interval data for the specified [Symbol].
         #

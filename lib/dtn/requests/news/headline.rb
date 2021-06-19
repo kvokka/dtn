@@ -5,7 +5,7 @@ module Dtn
     module News
       # News headlines
       class Headline < Base
-        TEMPLATE = "NHL,%<sources>s,%<symbols>s,%<format_type>s,%<limit>d,%<date_range>s,%<id>d\r\n"
+        TEMPLATE = "NHL,%<sources>s,%<symbols>s,%<format_type>s,%<limit>d,%<date_range>s,%<id>d"
 
         DEFAULT_NEWS_HEADLINES_LIMIT = 1000
 

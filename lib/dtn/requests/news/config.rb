@@ -5,7 +5,7 @@ module Dtn
     module News
       # News config
       class Config < Base
-        TEMPLATE = "NCG,%<format_type>s,%<id>d\r\n"
+        TEMPLATE = "NCG,%<format_type>s,%<id>d"
 
         # Returns the News configuration which tells you what news sources
         # you are subscribed to.

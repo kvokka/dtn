@@ -7,7 +7,7 @@ module Dtn
       class IntervalDatapoint < Interval
         TEMPLATE =
           "HIX,%<symbol>s,%<interval>d,%<max_datapoints>d,%<data_direction>d,%<id>d,"\
-          "%<datapoints_per_send>d,%<interval_type>s\r\n"
+          "%<datapoints_per_send>d,%<interval_type>s"
 
         # HIX - Retrieves [maxDatapoints] number of Intervals of data for the specified [Symbol].
         #

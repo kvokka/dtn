@@ -7,7 +7,7 @@ module Dtn
       class Story < Base
         NEWS_FORMAT_TYPES = %w[x t e].freeze
 
-        TEMPLATE = "NSY,%<story_id>s,%<format_type>s,%<deliver_to>s,%<id>d\r\n"
+        TEMPLATE = "NSY,%<story_id>s,%<format_type>s,%<deliver_to>s,%<id>d"
 
         # Returns all current news story.
         #

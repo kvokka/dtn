@@ -5,7 +5,7 @@ module Dtn
     module Symbol
       # Symbol lookup by SIC
       class BySic < Base
-        TEMPLATE = "SBS,%<search_line>s,%<id>d\r\n"
+        TEMPLATE = "SBS,%<search_line>s,%<id>d"
 
         # Return symbols in a specific SIC sector.
         #

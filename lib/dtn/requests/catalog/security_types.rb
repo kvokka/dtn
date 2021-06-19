@@ -5,7 +5,7 @@ module Dtn
     module Catalog
       # Security types
       class SecurityTypes < Base
-        TEMPLATE = "SST\r\n"
+        TEMPLATE = "SST"
       end
     end
   end

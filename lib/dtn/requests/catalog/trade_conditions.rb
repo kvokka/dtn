@@ -5,7 +5,7 @@ module Dtn
     module Catalog
       # Trade conditions
       class TradeConditions < Base
-        TEMPLATE = "STC\r\n"
+        TEMPLATE = "STC"
       end
     end
   end

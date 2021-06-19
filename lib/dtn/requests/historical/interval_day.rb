@@ -7,7 +7,7 @@ module Dtn
       class IntervalDay < Interval
         TEMPLATE =
           "HID,%<symbol>s,%<interval>d,%<days>d,%<max_datapoints>d,%<begin_filter_time>s,"\
-          "%<end_filter_time>s,%<data_direction>d,%<id>d,%<datapoints_per_send>d,%<interval_type>s\r\n"
+          "%<end_filter_time>s,%<data_direction>d,%<id>d,%<datapoints_per_send>d,%<interval_type>s"
 
         # HID - Retrieves [Days] days of interval data for the specified [Symbol].
         #

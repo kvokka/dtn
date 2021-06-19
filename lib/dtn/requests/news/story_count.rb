@@ -5,7 +5,7 @@ module Dtn
     module News
       # News story count
       class StoryCount < Base
-        TEMPLATE = "NSC,%<symbols>s,%<format_type>s,%<sources>s,%<date_range>s,%<id>d\r\n"
+        TEMPLATE = "NSC,%<symbols>s,%<format_type>s,%<sources>s,%<date_range>s,%<id>d"
 
         DEFAULT_NEWS_HEADLINES_LIMIT = 1000
 

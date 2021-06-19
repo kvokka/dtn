@@ -6,7 +6,7 @@ module Dtn
       # Daily datapoint requests
       class DailyDatapoint < Datapoint
         TEMPLATE =
-          "HDX,%<symbol>s,%<max_datapoints>d,%<data_direction>d,%<id>d,%<datapoints_per_send>d\r\n"
+          "HDX,%<symbol>s,%<max_datapoints>d,%<data_direction>d,%<id>d,%<datapoints_per_send>d"
       end
     end
   end

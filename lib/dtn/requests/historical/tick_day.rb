@@ -7,7 +7,7 @@ module Dtn
       class TickDay < Tick
         TEMPLATE =
           "HTD,%<symbol>s,%<days>s,%<max_datapoints>d,%<begin_filter_time>s,%<end_filter_time>s," \
-          "%<data_direction>d,%<id>d,%<datapoints_per_send>d\r\n"
+          "%<data_direction>d,%<id>d,%<datapoints_per_send>d"
 
         # Retrieves ticks for the previous [Days] days for the specified [Symbol].
         #
