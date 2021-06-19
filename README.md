@@ -164,6 +164,10 @@ Dtn::Requests::Symbol::BySic.call(search_line: '42')
 ```ruby
 Dtn::Requests::Symbol::ByNaic.call(search_line: '42')
 ```
+* [by_filter](https://github.com/kvokka/dtn/blob/master/lib/dtn/requests/symbol/by_filter.rb)
+```ruby
+Dtn::Requests::Symbol::ByFilter.call(field_to_search: "s", search_line: "aap", filter_type: "t", filter_value: "1")
+```
 
 ## Development
 
