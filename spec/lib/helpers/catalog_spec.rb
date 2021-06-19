@@ -9,10 +9,10 @@ module Dtn
         include_examples "global catalog helper method for klass", Dtn::Messages::Catalog::ListedMarkets
       end
 
-      context "NaicsCodes", socket_recorder: "catalog naics codes" do
-        subject { Dtn.naics_codes_catalog }
+      context "NaicCodes", socket_recorder: "catalog naic codes" do
+        subject { Dtn.naic_codes_catalog }
 
-        include_examples "global catalog helper method for klass", Dtn::Messages::Catalog::NaicsCodes
+        include_examples "global catalog helper method for klass", Dtn::Messages::Catalog::NaicCodes
       end
 
       context "SecurityTypes", socket_recorder: "catalog security types" do

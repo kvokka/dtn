@@ -3,7 +3,7 @@
 module Dtn
   module Messages
     module Catalog
-      class NaicsCodes < Code
+      class NaicCodes < Code
       end
     end
   end

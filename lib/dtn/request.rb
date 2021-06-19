@@ -33,6 +33,8 @@ module Dtn
       end
     end
 
+    attr_accessor :combined_options
+
     # Initialize the request to api, should be used in children classes only
     #
     # @returns nil or request_id (Integer)
@@ -43,6 +45,12 @@ module Dtn
 
       return acc unless block_given?
     end
+
+    def id
+      @id ||= next_id
+    end
+
+    private
 
     def poll_socket(acc: [])
       while (line = socket.gets)
@@ -73,14 +81,14 @@ module Dtn
       self.class.name.sub("Requests", "Messages").constantize
     end
 
-    def id
-      @id ||= next_id
-    end
-
-    attr_accessor :combined_options
-
     def socket
       @socket ||= TCPSocket.open(Dtn.config.host, self.class::PORT)
+    end
+
+    def defaults(**options)
+      {
+        id: id
+      }.merge(options)
     end
   end
 end

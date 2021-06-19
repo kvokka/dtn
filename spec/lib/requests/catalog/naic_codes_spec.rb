@@ -3,11 +3,11 @@
 module Dtn
   module Requests
     module Catalog
-      RSpec.describe NaicsCodes, socket_recorder: "catalog naics codes" do
+      RSpec.describe NaicCodes, socket_recorder: "catalog naic codes" do
         let(:response) { subject.call }
 
         it "produce response with ticks" do
-          expect(response).to all(be_an(Dtn::Messages::Catalog::NaicsCodes))
+          expect(response).to all(be_an(Dtn::Messages::Catalog::NaicCodes))
         end
 
         context "have attributes"

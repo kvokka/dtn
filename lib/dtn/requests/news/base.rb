@@ -12,12 +12,6 @@ module Dtn
 
         private
 
-        def defaults(**options)
-          {
-            id: id
-          }.merge(options)
-        end
-
         def validate_format_type(value)
           it = value.to_s.downcase[0]
           return it if [nil, "x", "t"].include?(it)

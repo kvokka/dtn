@@ -3,8 +3,8 @@
 module Dtn
   module Requests
     module Catalog
-      # Naics codes
-      class NaicsCodes < Base
+      # Naic codes
+      class NaicCodes < Base
         TEMPLATE = "SNC\r\n"
       end
     end

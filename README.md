@@ -149,10 +149,17 @@ They very rarely change and we can treat them as constants. To reduce requests t
 API they are requested only once. For easy access to them you can use:
 
 * `Dtn.listed_markets_catalog`
-* `Dtn.naics_codes_catalog`
+* `Dtn.naic_codes_catalog`
 * `Dtn.security_types_catalog`
 * `Dtn.sic_codes_catalog`
 * `Dtn.trade_conditions_catalog`
+
+#### Symbol lookup
+
+* [by_sic](https://github.com/kvokka/dtn/blob/master/lib/dtn/requests/symbol/by_sic.rb)
+```ruby
+Dtn::Requests::Symbol::BySic.call(search_line: '42')
+```
 
 ## Development
 

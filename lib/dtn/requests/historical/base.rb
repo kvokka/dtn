@@ -26,14 +26,13 @@ module Dtn
         private
 
         def defaults(**options)
-          {
-            max_datapoints: DEFAULT_MAX_DATAPOINTS,
-            begin_filter_time: DEFAULT_BEGIN_FILTER_TIME,
-            data_direction: DEFAULT_DATA_DIRECTION,
-            end_filter_time: DEFAULT_END_FILTER_TIME,
-            datapoints_per_send: DEFAULT_DATAPOINTS_PER_SEND,
-            id: id
-          }.merge(options)
+          super.merge({
+                        max_datapoints: DEFAULT_MAX_DATAPOINTS,
+                        begin_filter_time: DEFAULT_BEGIN_FILTER_TIME,
+                        data_direction: DEFAULT_DATA_DIRECTION,
+                        end_filter_time: DEFAULT_END_FILTER_TIME,
+                        datapoints_per_send: DEFAULT_DATAPOINTS_PER_SEND
+                      }).merge(options)
         end
 
         def validate_symbol(value)
