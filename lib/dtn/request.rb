@@ -10,7 +10,7 @@ module Dtn
     SYNTAX_ERROR_CHARACTERS = /!SYNTAX_ERROR!/.freeze
 
     extend Forwardable
-    delegate next_id: :'self.class'
+    delegate next_id: :"self.class"
 
     class << self
       def next_id
