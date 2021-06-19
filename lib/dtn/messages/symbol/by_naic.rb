@@ -3,13 +3,13 @@
 module Dtn
   module Messages
     module Symbol
-      # By SIC code
-      class BySic < Base
+      # By NAIC code
+      class ByNaic < Base
         class << self
           def fields
             @fields ||= {
               request_id: :to_i,
-              sic_code_id: :to_i,
+              naic_code_id: :to_i,
               symbol: :to_s,
               listed_market_id: :to_i,
               security_type_id: :to_i,
@@ -18,8 +18,8 @@ module Dtn
           end
         end
 
-        def sic_code
-          Dtn.sic_codes_catalog[sic_code_id]
+        def naic_code
+          Dtn.sic_codes_catalog[naic_code_id]
         end
       end
     end

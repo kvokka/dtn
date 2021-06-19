@@ -160,6 +160,10 @@ API they are requested only once. For easy access to them you can use:
 ```ruby
 Dtn::Requests::Symbol::BySic.call(search_line: '42')
 ```
+* [by_naic](https://github.com/kvokka/dtn/blob/master/lib/dtn/requests/symbol/by_naic.rb)
+```ruby
+Dtn::Requests::Symbol::ByNaic.call(search_line: '42')
+```
 
 ## Development
 
