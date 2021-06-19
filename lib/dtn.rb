@@ -11,7 +11,7 @@ require "active_support/inflector"
 require "active_support/core_ext/string"
 require "socket"
 require "securerandom"
-require "timeout"
+require "ostruct"
 require "date"
 
 # Top level API methods only
@@ -19,6 +19,7 @@ module Dtn
   class Error < StandardError; end
 
   extend Dry::Configurable
+  extend Helpers::Catalog
 
   setting :host, ENV.fetch("DTN_HOST", "localhost")
 end

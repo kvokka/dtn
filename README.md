@@ -142,6 +142,18 @@ NOTES:
 * Requests have extra options from their parents classes. They have appropriate
 defaults and are easy to customize.
 
+#### Catalogs
+
+For symbol lookup and description API use a few catalogs, which describe each row.
+They very rarely change and we can treat them as constants. To reduce requests to
+API they are requested only once. For easy access to them you can use:
+
+* `Dtn.listed_markets_catalog`
+* `Dtn.naics_codes_catalog`
+* `Dtn.security_types_catalog`
+* `Dtn.sic_codes_catalog`
+* `Dtn.trade_conditions_catalog`
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run

@@ -73,4 +73,22 @@ module Dtn
       end
     end
   end
+
+  RSpec.shared_examples_for "global catalog helper method for klass" do |klass|
+    let(:desired_messages_class) { klass }
+    let(:registry) { instance_double("Dtn::Registry", :[]= => nil) }
+
+    it { is_expected.to be_a Registry }
+
+    it "store the value in the variable" do
+      allow(Registry).to receive(:new).and_return(registry)
+      subject
+      subject
+      expect(Registry).to have_received(:new).at_most(1).time
+    end
+
+    it "contain right messages" do
+      expect(subject).to all(be_an(desired_messages_class))
+    end
+  end
 end
