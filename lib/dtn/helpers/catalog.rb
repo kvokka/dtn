@@ -21,7 +21,7 @@ module Dtn
         return v if v
 
         result = Registry.new(name: catalog).tap do |registry|
-          "Dtn::Requests::Catalog::#{catalog.camelcase}".constantize.call.each do |message|
+          "Dtn::Lookups::Catalog::#{catalog.camelcase}".constantize.call.each do |message|
             registry[message.id] = message
           end
         end

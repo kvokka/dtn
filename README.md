@@ -33,7 +33,7 @@ Or install it yourself as:
 ### Quick start
 
 ```ruby
-Dtn::Requests::Historical::DailyTimeframe.call(
+Dtn::Lookups::Historical::DailyTimeframe.call(
     symbol: :aapl,
     begin_date: Date.new(2021, 05, 01),
     end_date: Date.new(2021, 06, 01)
@@ -48,7 +48,7 @@ Dtn::Requests::Historical::DailyTimeframe.call(
 
 # if block provided, then each message will be yielded as it is processed
 
-Dtn::Requests::News::Headline.call(limit: 10) do |message|
+Dtn::Lookups::News::Headline.call(limit: 10) do |message|
   # ...
 end
 ```
@@ -59,19 +59,19 @@ end
 
 * [config](https://github.com/kvokka/dtn/blob/master/lib/dtn/requests/news/config.rb)
 ```ruby
-Dtn::Requests::News::Config.call
+Dtn::Lookups::News::Config.call
 ```
 * [headline](https://github.com/kvokka/dtn/blob/master/lib/dtn/requests/news/headline.rb)
 ```ruby
-Dtn::Requests::News::Headline.call limit: 10, symbols: 'aapl;fb'
+Dtn::Lookups::News::Headline.call limit: 10, symbols: 'aapl;fb'
 ```
 * [story_count](https://github.com/kvokka/dtn/blob/master/lib/dtn/requests/news/story_count.rb)
 ```ruby
-Dtn::Requests::News::StoryCount.call symbols: :aapl, date_range: Date.new(2020,1,1)..Date.new(2020,2,1)
+Dtn::Lookups::News::StoryCount.call symbols: :aapl, date_range: Date.new(2020,1,1)..Date.new(2020,2,1)
 ```
 * [story](https://github.com/kvokka/dtn/blob/master/lib/dtn/requests/news/story.rb)
 ```ruby
-Dtn::Requests::News::Story.call story_id: '22424363689'
+Dtn::Lookups::News::Story.call story_id: '22424363689'
 ```
 
 
@@ -83,11 +83,11 @@ NOTES:
 
 * [interval_day](https://github.com/kvokka/dtn/blob/master/lib/dtn/requests/historical/interval_day.rb)
 ```ruby
-Dtn::Requests::Historical::IntervalDay.call(symbol: :aapl, interval: 3600, max_datapoints: 50, days: 2)
+Dtn::Lookups::Historical::IntervalDay.call(symbol: :aapl, interval: 3600, max_datapoints: 50, days: 2)
 ```
 * [tick_timeframe](https://github.com/kvokka/dtn/blob/master/lib/dtn/requests/historical/tick_timeframe.rb)
 ```ruby
-Dtn::Requests::Historical::TickTimeframe.call(
+Dtn::Lookups::Historical::TickTimeframe.call(
               symbol: :aapl,
               begin_datetime: begin_datetime,
               end_datetime: end_datetime,
@@ -96,11 +96,11 @@ Dtn::Requests::Historical::TickTimeframe.call(
 ```
 * [daily_datapoint](https://github.com/kvokka/dtn/blob/master/lib/dtn/requests/historical/daily_datapoint.rb)
 ```ruby
-Dtn::Requests::Historical::DailyDatapoint.call(symbol: :aapl, max_datapoints: 50)
+Dtn::Lookups::Historical::DailyDatapoint.call(symbol: :aapl, max_datapoints: 50)
 ```
 * [interval_timeframe](https://github.com/kvokka/dtn/blob/master/lib/dtn/requests/historical/interval_timeframe.rb)
 ```ruby
-Dtn::Requests::Historical::IntervalTimeframe.call(
+Dtn::Lookups::Historical::IntervalTimeframe.call(
               symbol: :aapl,
               interval: 15,
               max_datapoints: 50,
@@ -110,15 +110,15 @@ Dtn::Requests::Historical::IntervalTimeframe.call(
 ```
 * [tick_datapoint](https://github.com/kvokka/dtn/blob/master/lib/dtn/requests/historical/tick_datapoint.rb)
 ```ruby
-Dtn::Requests::Historical::TickDatapoint.call(symbol: :aapl, max_datapoints: 100)
+Dtn::Lookups::Historical::TickDatapoint.call(symbol: :aapl, max_datapoints: 100)
 ```
 * [weekly_datapoint](https://github.com/kvokka/dtn/blob/master/lib/dtn/requests/historical/weekly_datapoint.rb)
 ```ruby
-Dtn::Requests::Historical::WeeklyDatapoint.call(symbol: :aapl, max_datapoints: 10)
+Dtn::Lookups::Historical::WeeklyDatapoint.call(symbol: :aapl, max_datapoints: 10)
 ```
 * [daily_timeframe](https://github.com/kvokka/dtn/blob/master/lib/dtn/requests/historical/daily_timeframe.rb)
 ```ruby
-Dtn::Requests::Historical::DailyTimeframe.call(
+Dtn::Lookups::Historical::DailyTimeframe.call(
               symbol: :aapl,
               begin_date: Date.new(2020,05,01),
               end_date: Date.new(2020,06,01)
@@ -126,20 +126,20 @@ Dtn::Requests::Historical::DailyTimeframe.call(
 ```
 * [interval_datapoint](https://github.com/kvokka/dtn/blob/master/lib/dtn/requests/historical/interval_datapoint.rb)
 ```ruby
-Dtn::Requests::Historical::IntervalDatapoint.call(symbol: :aapl, interval: 3600, max_datapoints: 100)
+Dtn::Lookups::Historical::IntervalDatapoint.call(symbol: :aapl, interval: 3600, max_datapoints: 100)
 ```
 * [monthly_datapoint](https://github.com/kvokka/dtn/blob/master/lib/dtn/requests/historical/monthly_datapoint.rb)
 ```ruby
-Dtn::Requests::Historical::MonthlyDatapoint.call(symbol: :aapl, max_datapoints: 10)
+Dtn::Lookups::Historical::MonthlyDatapoint.call(symbol: :aapl, max_datapoints: 10)
 ```
 * [tick_day](https://github.com/kvokka/dtn/blob/master/lib/dtn/requests/historical/tick_day.rb)
 ```ruby
-Dtn::Requests::Historical::TickDay.call(symbol: :aapl, days: 2, max_datapoints: 50)
+Dtn::Lookups::Historical::TickDay.call(symbol: :aapl, days: 2, max_datapoints: 50)
 ```
 
 NOTES:
 
-* Requests have extra options from their parents classes. They have appropriate
+* Lookups have extra options from their parents classes. They have appropriate
 defaults and are easy to customize.
 
 #### Catalogs
@@ -158,15 +158,15 @@ API they are requested only once. For easy access to them you can use:
 
 * [by_sic](https://github.com/kvokka/dtn/blob/master/lib/dtn/requests/symbol/by_sic.rb)
 ```ruby
-Dtn::Requests::Symbol::BySic.call(search_line: '42')
+Dtn::Lookups::Symbol::BySic.call(search_line: '42')
 ```
 * [by_naic](https://github.com/kvokka/dtn/blob/master/lib/dtn/requests/symbol/by_naic.rb)
 ```ruby
-Dtn::Requests::Symbol::ByNaic.call(search_line: '42')
+Dtn::Lookups::Symbol::ByNaic.call(search_line: '42')
 ```
 * [by_filter](https://github.com/kvokka/dtn/blob/master/lib/dtn/requests/symbol/by_filter.rb)
 ```ruby
-Dtn::Requests::Symbol::ByFilter.call(field_to_search: "s", search_line: "aap", filter_type: "t", filter_value: "1")
+Dtn::Lookups::Symbol::ByFilter.call(field_to_search: "s", search_line: "aap", filter_type: "t", filter_value: "1")
 ```
 
 ## Development
