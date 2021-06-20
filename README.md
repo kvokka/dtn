@@ -55,6 +55,13 @@ end
 
 ### Supported requests
 
+Keep in mind, that at the moment os this writing DTN API has limit of 50
+historical requests per minute.
+
+TODO: Attach [limiter](https://github.com/Shopify/limiter) gem after merge
+https://github.com/Shopify/limiter/pull/17 https://github.com/Shopify/limiter/pull/19
+or use own branch of this gem.
+
 #### News
 
 * [config](https://github.com/kvokka/dtn/blob/master/lib/dtn/requests/news/config.rb)
