@@ -2,7 +2,14 @@
 
 module Dtn
   module Lookups
-    # Request abstraction
+    # Lookups are used to get historical data from IQFeed's lookup socket.
+    # This class returns historical data as the return value from the function
+    # used to request the data.
+    #
+    # Works synchronously
+    #
+    # For more details see:
+    # www.iqfeed.net/dev/api/docs/HistoricalviaTCPIP.cfm
     class Request
       class ValidationError < StandardError; end
 
