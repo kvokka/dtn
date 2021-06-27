@@ -4,7 +4,7 @@ module Dtn
   module Lookups
     module Catalog
       # Listed markets
-      class ListedMarkets < Base
+      class ListedMarkets < Request
         TEMPLATE = "SLM"
       end
     end

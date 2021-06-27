@@ -4,7 +4,7 @@ module Dtn
   module Lookups
     module Catalog
       # Trade conditions
-      class TradeConditions < Base
+      class TradeConditions < Request
         TEMPLATE = "STC"
       end
     end

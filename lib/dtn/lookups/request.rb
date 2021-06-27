@@ -51,7 +51,7 @@ module Dtn
       def call(*, &blk)
         socket.print "#{format(self.class.const_get(:TEMPLATE), combined_options)}\r\n"
 
-        acc = poll_socket(&blk)
+        acc = pull_socket(&blk)
 
         return acc unless block_given?
       end
@@ -62,7 +62,7 @@ module Dtn
 
       private
 
-      def poll_socket(acc: [])
+      def pull_socket(acc: [])
         while (line = socket.gets)
           message = engine_klass_picker(line).parse(line: line, request: self)
           break if message.termination?

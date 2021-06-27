@@ -4,7 +4,7 @@ module Dtn
   module Lookups
     module Catalog
       # Security types
-      class SecurityTypes < Base
+      class SecurityTypes < Request
         TEMPLATE = "SST"
       end
     end

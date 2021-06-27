@@ -4,7 +4,7 @@ module Dtn
   module Lookups
     module Catalog
       # Sic codes
-      class SicCodes < Base
+      class SicCodes < Request
         TEMPLATE = "SSC"
       end
     end

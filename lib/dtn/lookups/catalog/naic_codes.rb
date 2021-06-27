@@ -4,7 +4,7 @@ module Dtn
   module Lookups
     module Catalog
       # Naic codes
-      class NaicCodes < Base
+      class NaicCodes < Request
         TEMPLATE = "SNC"
       end
     end

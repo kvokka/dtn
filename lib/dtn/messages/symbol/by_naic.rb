@@ -6,20 +6,15 @@ module Dtn
       # By NAIC code
       class ByNaic < Base
         class << self
-          def fields
-            @fields ||= {
-              request_id: :to_i,
-              naic_code_id: :to_i,
-              symbol: :to_s,
-              listed_market_id: :to_i,
-              security_type_id: :to_i,
-              description: :to_s
-            }
+          private
+
+          def code_id
+            :naic_code_id
           end
         end
 
         def naic_code
-          Dtn.sic_codes_catalog[naic_code_id]
+          Dtn.naic_codes_catalog[naic_code_id]
         end
       end
     end
