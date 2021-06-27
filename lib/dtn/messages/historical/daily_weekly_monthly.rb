@@ -4,7 +4,7 @@ module Dtn
   module Messages
     module Historical
       # High timeframe Bar representation
-      class DailyWeeklyMonthly < Message
+      class DailyWeeklyMonthly < MessageWithSimpleParser
         class << self
           def fields
             @fields ||= {

@@ -4,7 +4,7 @@ module Dtn
   module Messages
     module System
       # Empty response abstraction
-      class NoDataCharacters < Message
+      class NoDataCharacters < MessageWithSimpleParser
         class << self
           def fields
             @fields ||= {

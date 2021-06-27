@@ -4,7 +4,7 @@ module Dtn
   module Messages
     module Catalog
       # Security Types
-      class SecurityTypes < Message
+      class SecurityTypes < MessageWithSimpleParser
         class << self
           def fields
             @fields ||= {

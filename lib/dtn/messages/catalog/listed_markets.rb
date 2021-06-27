@@ -4,7 +4,7 @@ module Dtn
   module Messages
     module Catalog
       # Listed Markets
-      class ListedMarkets < Message
+      class ListedMarkets < MessageWithSimpleParser
         class << self
           def fields
             @fields ||= {

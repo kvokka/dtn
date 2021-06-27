@@ -4,7 +4,7 @@ module Dtn
   module Messages
     module Symbol
       # Base lookup
-      class Base < Message
+      class Base < MessageWithSimpleParser
         def listed_market
           Dtn.listed_markets_catalog[listed_market_id]
         end

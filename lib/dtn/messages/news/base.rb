@@ -4,7 +4,7 @@ module Dtn
   module Messages
     module News
       # Base
-      class Base < Message
+      class Base < MessageWithSimpleParser
         class << self
           def fields
             @fields ||= { request_id: :to_i }

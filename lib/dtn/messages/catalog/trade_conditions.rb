@@ -4,7 +4,7 @@ module Dtn
   module Messages
     module Catalog
       # Trade conditions
-      class TradeConditions < Message
+      class TradeConditions < MessageWithSimpleParser
         class << self
           def fields
             @fields ||= {

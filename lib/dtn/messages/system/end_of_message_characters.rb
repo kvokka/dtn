@@ -4,7 +4,7 @@ module Dtn
   module Messages
     module System
       # End of the message abstraction.
-      class EndOfMessageCharacters < Message
+      class EndOfMessageCharacters < MessageWithSimpleParser
         class << self
           def fields
             @fields ||= {

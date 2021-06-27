@@ -4,7 +4,7 @@ module Dtn
   module Messages
     module Historical
       # Price tick message abstraction.
-      class Tick < Message
+      class Tick < MessageWithSimpleParser
         class << self
           # rubocop:disable Metrics/MethodLength
           def fields

@@ -4,7 +4,7 @@ module Dtn
   module Messages
     module Historical
       # Bar representation
-      class Interval < Message
+      class Interval < MessageWithSimpleParser
         class << self
           # rubocop:disable Metrics/MethodLength
           def fields
