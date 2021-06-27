@@ -3,16 +3,12 @@
 module Dtn
   module Messages
     module System
-      # Error message abstraction.
-      class Error < Message
+      # IP addresses IQFeed.exe is connecting to for data.
+      class Ip < Message
         class << self
           def parse(line:, **)
-            raise "DTN Error: #{line}"
+            new list: line.chomp.split(",").uniq
           end
-        end
-
-        def termination?
-          true
         end
       end
     end

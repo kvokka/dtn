@@ -5,7 +5,7 @@ module Dtn
     # Lookup Message abstraction
     class MessageWithSimpleParser < OpenStruct
       class << self
-        def parse(line:, request: nil)
+        def parse(line:, request: nil, **)
           values = line.split(",")
 
           new.tap do |n|

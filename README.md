@@ -176,6 +176,41 @@ Dtn::Lookups::Symbol::ByNaic.call(search_line: '42')
 Dtn::Lookups::Symbol::ByFilter.call(field_to_search: "s", search_line: "aap", filter_type: "t", filter_value: "1")
 ```
 
+#### Streaming data
+
+##### Quotes (Level1)
+
+Streaming data is using Observers to deliver the results.
+Keep in mind, that observers will receive data until you unsubscribe from it
+or stop the client.
+
+Summary message always come with all possible fields, while for Update message
+it is possible to add a filter with `client.request.system.update_fields list: %w[Bid Ask]`
+
+```ruby
+class Observer
+  # data callbacks are optional and match message class
+  def summary(message:)
+    puts message
+  end
+
+  def update(message:)
+    puts message
+  end
+
+  # system methods callback
+  def generic(message:)
+    puts message
+  end
+end
+
+client = Dtn::Streaming::Clients::Quote.new
+client.observers << Observer.new
+client.request.quote.watch symbol: :aapl
+sleep 10
+client.stop
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run

@@ -11,6 +11,10 @@ require "fileutils"
 #
 # If you want to share one socket request between a few specs, you can
 # add a custom name `socket_recorder: 'my awesome file'`
+#
+# `infinite_reads: true` spec option allow to let it hang forever after
+# the reads were drained, simulating IOWait. This allows to test streaming
+# data
 module TCPSocketWithRecorder
   class Cassette
     CASSETTES_PATH = "spec/fixtures"
@@ -26,6 +30,10 @@ module TCPSocketWithRecorder
 
     def reads
       @reads ||= []
+    end
+
+    def infinite_reads?
+      !!spec.metadata[:infinite_reads]
     end
 
     def writes
@@ -94,10 +102,10 @@ module TCPSocketWithRecorder
     define_method(method) do |*args, **opts|
       return super(*args, **opts) unless cassette
       return (super(*args, **opts).tap { |r| cassette.reads << r }) unless cassette.persisted?
+      return cassette.reads.shift unless cassette.reads.empty?
 
-      raise("Trying to read more than was saved in the cassette #{cassette.filename}") if cassette.reads.empty?
-
-      cassette.reads.shift
+      sleep if cassette.infinite_reads?
+      raise("Trying to read more than was saved in the cassette #{cassette.filename}")
     end
   end
 

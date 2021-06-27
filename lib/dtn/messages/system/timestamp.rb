@@ -3,16 +3,12 @@
 module Dtn
   module Messages
     module System
-      # Error message abstraction.
-      class Error < Message
+      # Parsed timestamp
+      class Timestamp < Message
         class << self
           def parse(line:, **)
-            raise "DTN Error: #{line}"
+            new timestamp: line[2..].to_datetime
           end
-        end
-
-        def termination?
-          true
         end
       end
     end
