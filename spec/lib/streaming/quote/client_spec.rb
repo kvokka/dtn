@@ -6,33 +6,43 @@ module Dtn
       RSpec.describe Quote, infinite_reads: true do
         let(:observer) { MessagesRecorderObserver.new }
 
+        before do
+          subject.observers << observer
+        end
+
         after do
           subject.stop
         end
 
+        unless ENV["SPEC_DEBUG"]
+          around do |ex|
+            Timeout.timeout(5) do
+              ex.run
+            end
+          end
+        end
+
         context "fetch level 1 summary", socket_recorder: "streaming level1 summary" do
           before do
-            subject.observers << observer
             subject.request.quote.watch symbol: :aapl
-            sleep(0.001) while observer.invoked_methods[:summary].empty?
+            sleep(0.001) while observer.invoked_methods[:level1_summary].empty?
           end
 
           it "should get level 1 summary" do
-            expect(observer.invoked_methods[:summary]).to all(be_an(Dtn::Messages::Quote::Summary))
+            expect(observer.invoked_methods[:level1_summary]).to all(be_an(Dtn::Messages::Quote::Level1Summary))
           end
 
           it "should receive all data in the message" do
-            keys = observer.invoked_methods[:summary].first.to_h.keys.map(&:to_s)
+            keys = observer.invoked_methods[:level1_summary].first.to_h.keys.map(&:to_s)
             expect(Messages::Quote::Level1::ALL_FIELDS.keys).to include(*keys)
           end
         end
 
         context "fetch level 1 summary with custom fields", socket_recorder: "streaming level1 custom update" do
           before do
-            subject.observers << observer
             subject.request.system.update_fields list: %i[Bid Ask]
             subject.request.quote.watch symbol: :aapl
-            sleep(0.001) while observer.invoked_methods[:update].empty?
+            sleep(0.001) while observer.invoked_methods[:level1_update].empty?
           end
 
           # # TODO: try this out in trading hours
@@ -45,6 +55,63 @@ module Dtn
           #   keys = observer.invoked_methods[:update].first.to_h.keys
           #   expect(keys).to eq %i[Symbol Bid Ask]
           # end
+        end
+
+        context "fundamental fieldnames", socket_recorder: "streaming fundamental fieldnames" do
+          before do
+            subject.request.system.fundamental_fieldnames
+            sleep(0.001) while observer.invoked_methods[:fundamental_fieldnames].empty?
+          end
+
+          it "should include the list" do
+            expect(
+              observer.invoked_methods[:fundamental_fieldnames]
+            ).to all(be_an(Dtn::Messages::System::Generic::FundamentalFieldnames))
+          end
+
+          it "should be a list" do
+            expect(
+              observer.invoked_methods[:fundamental_fieldnames].first.list
+            ).to be_a Array
+          end
+        end
+
+        context "all update fieldnames", socket_recorder: "streaming all update fieldnames" do
+          before do
+            subject.request.system.all_update_fieldnames
+            sleep(0.001) while observer.invoked_methods[:all_update_fieldnames].empty?
+          end
+
+          it "should include the list" do
+            expect(
+              observer.invoked_methods[:all_update_fieldnames]
+            ).to all(be_an(Dtn::Messages::System::Generic::AllUpdateFieldnames))
+          end
+
+          it "should be a list" do
+            expect(
+              observer.invoked_methods[:all_update_fieldnames].first.list
+            ).to be_a Array
+          end
+        end
+
+        context "current update fieldnames", socket_recorder: "streaming current update fieldnames" do
+          before do
+            subject.request.system.current_update_fieldnames
+            sleep(0.001) while observer.invoked_methods[:current_update_fieldnames].empty?
+          end
+
+          it "should include the list" do
+            expect(
+              observer.invoked_methods[:current_update_fieldnames]
+            ).to all(be_an(Dtn::Messages::System::Generic::CurrentUpdateFieldnames))
+          end
+
+          it "should be a list" do
+            expect(
+              observer.invoked_methods[:current_update_fieldnames].first.list
+            ).to be_a Array
+          end
         end
       end
     end

@@ -5,7 +5,7 @@ module Dtn
     module Quote
       # Streaming level1 dynamic data
       # This message can not be received outside of trading hours
-      class Update < MessageWithSimpleParser
+      class Level1Update < MessageWithSimpleParser
         class << self
           def parse(line:, client:)
             new.tap do |n|

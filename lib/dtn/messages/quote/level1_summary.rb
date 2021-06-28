@@ -5,7 +5,7 @@ module Dtn
     module Quote
       # Streaming level1 dynamic data.
       # Always return full dataset
-      class Summary < MessageWithSimpleParser
+      class Level1Summary < MessageWithSimpleParser
         class << self
           def parse(line:, **)
             new.tap do |n|

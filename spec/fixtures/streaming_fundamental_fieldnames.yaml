@@ -1,0 +1,33 @@
+---
+:writes:
+- "S,SET CLIENT NAME,lfPofJnb3I\r\n"
+- "S,REQUEST FUNDAMENTAL FIELDNAMES\r\n"
+:reads:
+- 'S,KEY,99999
+
+  '
+- 'S,SERVER CONNECTED
+
+  '
+- 'S,IP,0.0.0.0 59000,0.0.0.0 59000,66.112.148.212 60009,66.112.148.212 60001,66.112.148.211
+  60005,66.112.156.213 60012,66.112.156.200 60003,66.112.148.211 60015,66.112.148.210
+  60050,66.112.148.212 60014,66.112.148.210 60016,66.112.148.210 60018
+
+  '
+- 'S,CUST,real_time,66.112.148.224,60004,N0l5MU4TTTseu,6.1.0.20,0, TRIAL NASDAQ-L2
+  NASDAQ L2_SERV CUSTSCANS RT_TRADER COMTEX PRIMEZONE DTNNEWS SCROLLNEWS EXFUND BENZINGA
+  INDEX L2 ,Z3TRL1O121E2Ab1X2Ag1D2DE2EF1a,500,QT_API,20210702,
+
+  '
+- 'S,FUNDAMENTAL FIELDNAMES,Symbol,Exchange ID,PE,Average Volume,52 Week High,52 Week
+  Low,Calendar Year High,Calendar Year Low,Dividend Yield,Dividend Amount,Dividend
+  Rate,Pay Date,Ex-dividend Date,(Reserved),(Reserved),(Reserved),Short Interest,(Reserved),Current
+  Year EPS,Next Year EPS,Five-year Growth Percentage,Fiscal Year End,(Reserved),Company
+  Name,Root Option Symbol,Percent Held By Institutions,Beta,Leaps,Current Assets,Current
+  Liabilities,Balance Sheet Date,Long-term Debt,Common Shares Outstanding,(Reserved),Split
+  Factor 1,Split Factor 2,(Reserved),Market Center,Format Code,Precision,SIC,Historical
+  Volatility,Security Type,Listed Market,52 Week High Date,52 Week Low Date,Calendar
+  Year High Date,Calendar Year Low Date,Year End Close,Maturity Date,Coupon Rate,Expiration
+  Date,Strike Price,NAICS,Exchange Root
+
+  '

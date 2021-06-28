@@ -3,7 +3,7 @@
 module Dtn
   module Messages
     # Lookup Message abstraction
-    class MessageWithSimpleParser < OpenStruct
+    class MessageWithSimpleParser < Message
       class << self
         def parse(line:, request: nil, **)
           values = line.split(",")

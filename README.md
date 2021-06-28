@@ -190,16 +190,16 @@ it is possible to add a filter with `client.request.system.update_fields list: %
 ```ruby
 class Observer
   # data callbacks are optional and match message class
-  def summary(message:)
+  def level1_summary(message:)
     puts message
   end
 
-  def update(message:)
+  def level1_update(message:)
     puts message
   end
 
-  # system methods callback
-  def generic(message:)
+  # one of system methods callback
+  def disconnected(message:)
     puts message
   end
 end

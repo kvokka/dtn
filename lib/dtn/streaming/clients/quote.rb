@@ -9,8 +9,8 @@ module Dtn
 
         SUPPORTED_MESSAGES = {
           # "F" => Messages::Quote::Fundamental,
-          "P" => Messages::Quote::Summary,
-          "Q" => Messages::Quote::Update,
+          "P" => Messages::Quote::Level1Summary,
+          "Q" => Messages::Quote::Level1Update,
           # "R" => Messages::Quote::RegionalUpdate,
           # "N" => Messages::Quote::News,
           "S" => Messages::System::Generic,
@@ -38,8 +38,9 @@ module Dtn
         def process_line(line:)
           message_class = SUPPORTED_MESSAGES[line[0]] || Messages::Unknown
           message_class.parse(line: line, client: self).tap do |message|
-            method_name = message_class.name.demodulize.underscore
-            observers.each { |obs| obs.public_send(method_name, message: message) if obs.respond_to?(method_name) }
+            observers.each do |obs|
+              obs.public_send(message.callback_name, message: message) if obs.respond_to?(message.callback_name)
+            end
           end
         end
       end
