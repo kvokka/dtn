@@ -114,6 +114,21 @@ module Dtn
           end
         end
 
+        context "level1 refresh", socket_recorder: "streaming level1 refresh" do
+          before do
+            # we must be subscribed to be able to refresh
+            subject.request.quote.watch symbol: :aapl
+            #  we must to wait at least 1 second on iqfeed side to refresh.
+            sleep(0.001) while observer.invoked_methods[:timestamp].empty?
+            subject.request.quote.refresh symbol: :aapl
+            sleep(0.001) while (observer.invoked_methods[:level1_summary] || []).size < 2
+          end
+
+          it "should get level 1 summary twice" do
+            expect(observer.invoked_methods[:level1_summary].size).to eq 2
+          end
+        end
+
         context "level1 watches", socket_recorder: "streaming level1 watches" do
           before do
             subject.request.quote.watch symbol: :aapl
