@@ -140,6 +140,19 @@ module Dtn
             expect(observer.invoked_methods[:watches].first.list).to eq ['AAPL']
           end
         end
+
+        context 'level1 unwatch all', socket_recorder: "streaming level1 unwatch all" do
+          before do
+            subject.request.quote.watch symbol: :aapl
+            subject.request.system.unwatch_all
+            subject.request.system.watches
+            sleep(0.001) while observer.invoked_methods[:watches].empty?
+          end
+
+          it "should return empty watches" do
+            expect(observer.invoked_methods[:watches].first.list).to be_empty
+          end
+        end
       end
     end
   end
