@@ -24,6 +24,8 @@ module Dtn
 
         class CurrentUpdateFieldnames < ParseListFromMessage; end
 
+        class Watches < ParseListFromMessage; end
+
         class << self
           # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/AbcSize
           def parse(line:, **)
@@ -38,6 +40,7 @@ module Dtn
             when /^S,FUNDAMENTAL FIELDNAMES,/ then FundamentalFieldnames.parse(line: line[25..])
             when /^S,UPDATE FIELDNAMES,/ then AllUpdateFieldnames.parse(line: line[20..])
             when /^S,CURRENT UPDATE FIELDNAMES,/ then CurrentUpdateFieldnames.parse(line: line[28..])
+            when /^S,WATCHES,/ then Watches.parse(line: line[10..])
             else new(line: line[2..])
             end
           end

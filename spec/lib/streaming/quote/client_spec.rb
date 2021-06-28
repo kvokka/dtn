@@ -113,6 +113,18 @@ module Dtn
             ).to be_a Array
           end
         end
+
+        context "level1 watches", socket_recorder: "streaming level1 watches" do
+          before do
+            subject.request.quote.watch symbol: :aapl
+            subject.request.system.watches
+            sleep(0.001) while observer.invoked_methods[:watches].empty?
+          end
+
+          it "should watch the stock" do
+            expect(observer.invoked_methods[:watches].first.list).to eq ['AAPL']
+          end
+        end
       end
     end
   end
