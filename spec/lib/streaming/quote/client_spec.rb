@@ -137,11 +137,11 @@ module Dtn
           end
 
           it "should watch the stock" do
-            expect(observer.invoked_methods[:watches].first.list).to eq ['AAPL']
+            expect(observer.invoked_methods[:watches].first.list).to eq ["AAPL"]
           end
         end
 
-        context 'level1 unwatch all', socket_recorder: "streaming level1 unwatch all" do
+        context "level1 unwatch all", socket_recorder: "streaming level1 unwatch all" do
           before do
             subject.request.quote.watch symbol: :aapl
             subject.request.system.unwatch_all
