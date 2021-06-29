@@ -20,3 +20,6 @@ Metrics/BlockLength:
 Metrics/ModuleLength:
   Exclude:
     - spec/**/*
+
+Naming/InclusiveLanguage:
+  Enabled: false

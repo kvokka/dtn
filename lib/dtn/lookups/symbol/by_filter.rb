@@ -35,14 +35,14 @@ module Dtn
           return value if ["", "s", "d"].include?(value.to_s)
 
           raise ValidationError, "Got #{value}, but field_to_search can be only 's' to search " \
-                "be symbols or 'd' to search by descriptions."
+                                 "be symbols or 'd' to search by descriptions."
         end
 
         def validate_filter_type(value)
           return value if ["", "e", "t"].include?(value.to_s)
 
           raise ValidationError, "Got #{value}, but filter_type can be only 'e' for listed_markets "\
-                "or 't' for security_types."
+                                 "or 't' for security_types."
         end
 
         # it assume that filter type was already validated

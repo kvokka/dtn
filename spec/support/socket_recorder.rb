@@ -129,7 +129,7 @@ module TCPSocketWithRecorder
 
     def message
       "Trying to write:\n\n    #{line.chomp}\n\n"\
-      "It's more than was saved in the cassette #{cassette.filename}"
+        "It's more than was saved in the cassette #{cassette.filename}"
     end
   end
 
