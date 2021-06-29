@@ -23,7 +23,7 @@ module Dtn
             when Array then list
             when String then list.split(",")
             else raise("Only Array or ',' separated string is supported")
-            end
+            end.map(&:to_s)
           end
 
           def validate(arr:)

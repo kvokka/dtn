@@ -53,7 +53,7 @@ module Dtn
       end
 
       def to_s
-        "Client name: #{name}, status: #{status}, queue size: #{queue.size}"
+        "Client name: #{name}, status: #{status}"
       end
 
       def socket

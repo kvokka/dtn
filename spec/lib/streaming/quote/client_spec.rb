@@ -22,6 +22,25 @@ module Dtn
           end
         end
 
+        context "init", socket_recorder: "streaming init" do
+          before do
+            subject
+            sleep(0.001) while observer.invoked_methods[:current_update_fieldnames].empty?
+          end
+
+          it "receive current protocol message" do
+            expect(observer.invoked_methods[:current_protocol].size).to be_positive
+          end
+
+          it "receive current update filednames message" do
+            expect(observer.invoked_methods[:current_update_fieldnames].size).to be_positive
+          end
+
+          it "set fieldnames to client" do
+            expect(subject.quote_update_fields).to be_a Array
+          end
+        end
+
         context "fetch level 1 summary", socket_recorder: "streaming level1 summary" do
           before do
             subject.request.quote.watch symbol: :aapl
@@ -42,19 +61,17 @@ module Dtn
           before do
             subject.request.system.update_fields list: %i[Bid Ask]
             subject.request.quote.watch symbol: :aapl
-            sleep(0.001) while observer.invoked_methods[:level1_update].empty?
+            sleep(0.001) while observer.invoked_methods[:level1_summary].empty?
           end
 
-          # # TODO: try this out in trading hours
+          it "should get level 1 update" do
+            expect(observer.invoked_methods[:current_update_fieldnames].size).to be > 2
+          end
 
-          # it "should get level 1 update" do
-          #   expect(observer.invoked_methods[:update]).to all(be_an(Dtn::Messages::Quote::Update))
-          # end
-
-          # it "should receive only filtered data" do
-          #   keys = observer.invoked_methods[:update].first.to_h.keys
-          #   expect(keys).to eq %i[Symbol Bid Ask]
-          # end
+          it "should receive only filtered data" do
+            keys = observer.invoked_methods[:current_update_fieldnames].last.list
+            expect(keys).to eq %w[Symbol Bid Ask]
+          end
         end
 
         context "fundamental fieldnames", socket_recorder: "streaming fundamental fieldnames" do
@@ -177,6 +194,18 @@ module Dtn
 
           it "should get level1 summary message" do
             expect(observer.invoked_methods[:level1_summary].size).to eq 2
+          end
+        end
+
+        context "level1 trades", socket_recorder: "streaming level1 trades" do
+          before do
+            subject.request.quote.trades symbol: :aapl
+            sleep(0.001) while (observer.invoked_methods[:current_update_fieldnames] || []).size < 2
+          end
+
+          # in fact it should produce updates, but we can not test them at any time
+          it "should get level1 summary message" do
+            expect(observer.invoked_methods[:current_update_fieldnames].size).to eq 2
           end
         end
       end

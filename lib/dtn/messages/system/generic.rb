@@ -16,30 +16,47 @@ module Dtn
 
         class SymbolLimitReached < Message; end
 
+        # Gem will support only one protocol version at the time
+        class CurrentProtocol < Message
+          class << self
+            def parse(**)
+              super.tap { |message| (message.line =~ /6.1/) || raise("Unsupported protocol: #{message}") }
+            end
+          end
+        end
+
         class Ip < ParseListFromMessage; end
 
         class FundamentalFieldnames < ParseListFromMessage; end
 
         class AllUpdateFieldnames < ParseListFromMessage; end
 
-        class CurrentUpdateFieldnames < ParseListFromMessage; end
+        # With this return we also updating our vision of the current fields
+        class CurrentUpdateFieldnames < ParseListFromMessage
+          class << self
+            def parse(client:, **)
+              super.tap { |message| client.quote_update_fields = message.list }
+            end
+          end
+        end
 
         class Watches < ParseListFromMessage; end
 
         class << self
           # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/AbcSize
-          def parse(line:, **)
+          def parse(line:, client:, **)
             case line
             when /^S,KEY/ then Obsolete.new
             when /^S,SERVER CONNECTED/ then Connected.new
             when /^S,SERVER DISCONNECTED/ then Disconnected.new
             when /^S,SERVER RECONNECT FAILED/ then ReconnectionFailed.new
             when /^S,SYMBOL LIMIT REACHED/ then SymbolLimitReached.new
+            when /^S,CURRENT PROTOCOL,/ then CurrentProtocol.parse(line: line[19..])
             when /^S,IP,/ then Ip.parse(line: line[5..])
             when /^S,CUST,/ then CustomerInfo.parse(line: line[7..])
             when /^S,FUNDAMENTAL FIELDNAMES,/ then FundamentalFieldnames.parse(line: line[25..])
             when /^S,UPDATE FIELDNAMES,/ then AllUpdateFieldnames.parse(line: line[20..])
-            when /^S,CURRENT UPDATE FIELDNAMES,/ then CurrentUpdateFieldnames.parse(line: line[28..])
+            when /^S,CURRENT UPDATE FIELDNAMES,/ then CurrentUpdateFieldnames.parse(line: line[28..], client: client)
             when /^S,WATCHES/ then Watches.parse(line: line[10..])
             else new(line: line[2..])
             end

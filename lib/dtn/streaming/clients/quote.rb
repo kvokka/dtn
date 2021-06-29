@@ -22,7 +22,9 @@ module Dtn
         private
 
         def init_connection
+          request.system.set_protocol
           request.system.set_client_name(name: name)
+          request.system.current_update_fieldnames
           nil
         end
 

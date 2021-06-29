@@ -9,16 +9,10 @@ module Dtn
         class << self
           def parse(line:, client:)
             new.tap do |n|
-              apply_values instance: n, attributes: fields(client: client), values: line.split(",")
+              apply_values instance: n,
+                           attributes: Level1::ALL_FIELDS.slice(*client.quote_update_fields),
+                           values: line.split(",")
             end
-          end
-
-          private
-
-          def fields(client:)
-            return Level1::ALL_FIELDS unless client.quote_update_fields
-
-            Level1::ALL_FIELDS.slice(*client.quote_update_fields)
           end
         end
       end
