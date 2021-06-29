@@ -167,6 +167,18 @@ module Dtn
             expect(observer.invoked_methods[:watches].first.list).to be_empty
           end
         end
+
+        context "level1 regional switch", socket_recorder: "streaming level1 regional switch" do
+          before do
+            subject.request.quote.watch symbol: :aapl
+            subject.request.system.regional_switch symbol: :aapl
+            sleep(0.001) while (observer.invoked_methods[:level1_summary] || []).size < 2
+          end
+
+          it "should get level1 summary message" do
+            expect(observer.invoked_methods[:level1_summary].size).to eq 2
+          end
+        end
       end
     end
   end
