@@ -98,6 +98,17 @@ module TCPSocketWithRecorder
 
   attr_reader :cassette
 
+  class ReadFromCassetteError < StandardError
+    def initialize(casette:, line:)
+      @casette = casette
+      super
+    end
+
+    def message
+      "Trying to read more than was saved in the cassette #{cassette.filename}"
+    end
+  end
+
   %i[read getc gets read_nonblock].each do |method|
     define_method(method) do |*args, **opts|
       return super(*args, **opts) unless cassette
@@ -105,7 +116,20 @@ module TCPSocketWithRecorder
       return cassette.reads.shift unless cassette.reads.empty?
 
       sleep if cassette.infinite_reads?
-      raise("Trying to read more than was saved in the cassette #{cassette.filename}")
+      raise ReadFromCassetteError.new(casette: casette)
+    end
+  end
+
+  class WriteToCassetteError < StandardError
+    def initialize(casette:, line:)
+      @casette = casette
+      @line = line
+      super
+    end
+
+    def message
+      "Trying to write:\n\n    #{line.chomp}\n\n"\
+      "It's more than was saved in the cassette #{cassette.filename}"
     end
   end
 
@@ -114,7 +138,7 @@ module TCPSocketWithRecorder
       return super(line, *args, **opts) unless cassette
 
       if cassette.persisted?
-        raise("Trying to write more than was saved in the cassette #{cassette.filename}") if cassette.writes.empty?
+        raise WriteToCassetteError.new(line: line, casette: casette) if cassette.writes.empty?
 
         cassette.writes.shift.length
       else
