@@ -14,8 +14,8 @@ module Dtn
           "R" => Messages::Quote::Level1Regional,
           "N" => Messages::Quote::Level1News,
           "S" => Messages::System::Generic,
-          "T" => Messages::System::Timestamp
-          # "n" => Messages::System::SymbolNotFound,
+          "T" => Messages::System::Timestamp,
+          "n" => Messages::System::SymbolNotFound
           # "E" => Messages::System::Error
         }.freeze
 

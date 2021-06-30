@@ -120,6 +120,19 @@ module Dtn
           end
         end
 
+        context "fetch level 1 not found", socket_recorder: "streaming level1 not found" do
+          include_context "use recording or run in woking hours"
+
+          before do
+            subject.request.quote.watch symbol: :notfound
+            sleep(0.001) while observer.invoked_methods[:symbol_not_found].empty?
+          end
+
+          it "should get level 1 update" do
+            expect(observer.invoked_methods[:symbol_not_found].size).to be_positive
+          end
+        end
+
         context "fetch level 1 regional update", socket_recorder: "streaming level1 regional update" do
           include_context "use recording or run in woking hours"
 
