@@ -8,7 +8,7 @@ module Dtn
         PORT = 5009
 
         SUPPORTED_MESSAGES = {
-          # "F" => Messages::Quote::Fundamental,
+          "F" => Messages::Quote::Level1Fundamental,
           "P" => Messages::Quote::Level1Summary,
           "Q" => Messages::Quote::Level1Update,
           # "R" => Messages::Quote::RegionalUpdate,

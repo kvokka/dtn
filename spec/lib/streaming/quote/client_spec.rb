@@ -54,18 +54,38 @@ module Dtn
         end
 
         context "fetch level 1 summary", socket_recorder: "streaming level1 summary" do
-          before do
-            subject.request.quote.watch symbol: :aapl
-            sleep(0.001) while observer.invoked_methods[:level1_summary].empty?
+          context "quotes" do
+            before do
+              subject.request.quote.watch symbol: :aapl
+              sleep(0.001) while observer.invoked_methods[:level1_summary].empty?
+            end
+
+            it "should get level 1 summary" do
+              expect(observer.invoked_methods[:level1_summary]).to all(be_an(Dtn::Messages::Quote::Level1Summary))
+            end
+
+            it "should receive all data in the message" do
+              keys = observer.invoked_methods[:level1_summary].first.to_h.keys.map(&:to_s)
+              expect(Messages::Quote::Level1::ALL_FIELDS.keys).to include(*keys)
+            end
           end
 
-          it "should get level 1 summary" do
-            expect(observer.invoked_methods[:level1_summary]).to all(be_an(Dtn::Messages::Quote::Level1Summary))
-          end
+          context "fundamental" do
+            before do
+              subject.request.quote.watch symbol: :aapl
+              sleep(0.001) while observer.invoked_methods[:level1_fundamental].empty?
+            end
 
-          it "should receive all data in the message" do
-            keys = observer.invoked_methods[:level1_summary].first.to_h.keys.map(&:to_s)
-            expect(Messages::Quote::Level1::ALL_FIELDS.keys).to include(*keys)
+            it "should get level1_fundamental" do
+              expect(
+                observer.invoked_methods[:level1_fundamental]
+              ).to all(be_an(Dtn::Messages::Quote::Level1Fundamental))
+            end
+
+            it "should receive all data in the message" do
+              keys = observer.invoked_methods[:level1_fundamental].first.to_h.keys.map(&:to_s)
+              expect(Messages::Quote::Level1::ALL_FUNDAMENTAL_FIELDS.keys).to include(*keys)
+            end
           end
         end
 

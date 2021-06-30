@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 module Dtn
   module Messages
     module Quote
@@ -80,7 +81,70 @@ module Dtn
           "Most Recent Trade Aggressor" => :to_s,
           "Most Recent Trade Day Code" => :to_s
         }.freeze
+
+        # cached from `client.request.system.fundamental_fieldnames`
+        ALL_FUNDAMENTAL_FIELDS = {
+          "_skip" => nil,
+          "Symbol" => :to_s,
+          "Exchange ID" => :to_i,
+          "PE" => :to_f,
+          "Average Volume" => :to_i,
+          "52 Week High" => :to_f,
+          "52 Week Low" => :to_f,
+          "Calendar Year High" => :to_f,
+          "Calendar Year Low" => :to_f,
+          "Dividend Yield" => :to_s,
+          "Dividend Amount" => :to_s,
+          "Dividend Rate" => :to_s,
+          "Pay Date" => :to_s,
+          "Ex-dividend Date" => :to_s,
+          "Current Year EPS" => :to_f,
+          "Next Year EPS" => :to_f,
+          "Five-year Growth Percentage" => :to_f,
+          "Fiscal Year End" => :to_i,
+          "Company Name" => :to_s,
+          "Root Option Symbol" => :to_s,
+          "Percent Held By Institutions" => :to_f,
+          "Beta" => :to_f,
+          "Leaps" => :to_s,
+          "Current Assets" => :to_f,
+          "Current Liabilities" => :to_f,
+          "Balance Sheet Date" => :to_s,
+          "Long-term Debt" => :to_f,
+          "Common Shares Outstanding" => :to_i,
+          "Split Factor 1" => :to_s,
+          "Split Factor 2" => :to_s,
+          "Format Code" => :to_i,
+          "Precision" => :to_i,
+          "SIC" => :to_i,
+          "Historical Volatility" => :to_f,
+          "Security Type" => :to_i,
+          "Listed Market" => :to_i,
+          "52 Week High Date" => :to_s,
+          "52 Week Low Date" => :to_s,
+          "Calendar Year High Date" => :to_s,
+          "Calendar Year Low Date" => :to_s,
+          "Year End Close" => :to_f,
+          "Maturity Date" => :to_s,
+          "Coupon Rate" => :to_s,
+          "Expiration Date" => :to_s,
+          "Strike Price" => :to_s,
+          "NAICS" => :to_s,
+          "Exchange Root" => :to_s,
+          "Option Premium Multiplier" => :to_s,
+          "Option Multiple Deliverable" => :to_s,
+          "Session Open Time" => :to_s,
+          "Session Close Time" => :to_s,
+          "Base Currency" => :to_s,
+          "Contract Size" => :to_s,
+          "Contract Months" => :to_s,
+          "Minimum Tick Size" => :to_s,
+          "First Delivery Date" => :to_s,
+          "FIGI" => :to_s,
+          "Security SubType" => :to_s
+        }.freeze
       end
     end
   end
 end
+# rubocop:enable Metrics/ClassLength
