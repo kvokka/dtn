@@ -41,6 +41,18 @@ module Dtn
           end
         end
 
+        context "timestamp", socket_recorder: "streaming timestamp" do
+          before do
+            subject.request.system.timestamp_switch turned_on: false
+            subject.request.system.timestamp
+            sleep(0.001) while observer.invoked_methods[:timestamp].empty?
+          end
+
+          it "receive a timestamp by request" do
+            expect(observer.invoked_methods[:timestamp].size).to be_positive
+          end
+        end
+
         context "fetch level 1 summary", socket_recorder: "streaming level1 summary" do
           before do
             subject.request.quote.watch symbol: :aapl
