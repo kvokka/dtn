@@ -12,7 +12,7 @@ module Dtn
           "P" => Messages::Quote::Level1Summary,
           "Q" => Messages::Quote::Level1Update,
           "R" => Messages::Quote::Level1Regional,
-          # "N" => Messages::Quote::News,
+          "N" => Messages::Quote::Level1News,
           "S" => Messages::System::Generic,
           "T" => Messages::System::Timestamp
           # "n" => Messages::System::SymbolNotFound,

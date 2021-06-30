@@ -5,6 +5,7 @@ module Dtn
     module Clients
       RSpec.describe Quote, infinite_reads: true do
         let(:observer) { MessagesRecorderObserver.new }
+        let(:timeout) { 5 }
 
         before do
           subject.observers << observer
@@ -16,7 +17,7 @@ module Dtn
 
         unless ENV["SPEC_DEBUG"]
           around do |ex|
-            Timeout.timeout(5) do
+            Timeout.timeout(timeout) do
               ex.run
             end
           end
@@ -130,6 +131,21 @@ module Dtn
 
           it "should get level 1 regional" do
             expect(observer.invoked_methods[:level1_regional].size).to be_positive
+          end
+        end
+
+        context "fetch level 1 news update", socket_recorder: "streaming level1 news update" do
+          include_context "use recording or run in woking hours"
+          # we have to get one live news to test this. it may take a while
+          let(:timeout) { 120 }
+
+          before do
+            subject.request.system.news_switch
+            sleep(0.001) while observer.invoked_methods[:level1_news].empty?
+          end
+
+          it "should get level 1 regional" do
+            expect(observer.invoked_methods[:level1_news].size).to be_positive
           end
         end
 

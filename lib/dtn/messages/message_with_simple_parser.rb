@@ -13,6 +13,7 @@ module Dtn
             if respond_to?(:parse_dynamic_fields)
               parse_dynamic_fields(instance: n, values: values[(fields.size)..], request: request)
             end
+            n.after_initialization if n.respond_to?(:after_initialization)
           end
         end
 
