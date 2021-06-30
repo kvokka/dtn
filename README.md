@@ -187,6 +187,8 @@ or stop the client.
 Summary message always come with all possible fields, while for Update message
 it is possible to add a filter with `client.request.system.update_fields list: %w[Bid Ask]`
 
+This methods do not allow any historical data access, only real time.
+
 ```ruby
 class Observer
   # data callbacks are optional and match message class
@@ -210,6 +212,9 @@ client.request.quote.watch symbol: :aapl
 sleep 10
 client.stop
 ```
+
+[Here](https://github.com/kvokka/dtn/tree/master/lib/dtn/streaming/requests) you
+will find all level1 streaming requests with appropriate documentation.
 
 ## Development
 
