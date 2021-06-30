@@ -106,6 +106,19 @@ module Dtn
           end
         end
 
+        context "fetch level 1 update", socket_recorder: "streaming level1 update" do
+          include_context "use recording or run in woking hours"
+
+          before do
+            subject.request.quote.watch symbol: :spy
+            sleep(0.001) while observer.invoked_methods[:level1_update].empty?
+          end
+
+          it "should get level 1 update" do
+            expect(observer.invoked_methods[:level1_update].size).to be_positive
+          end
+        end
+
         context "fundamental fieldnames", socket_recorder: "streaming fundamental fieldnames" do
           before do
             subject.request.system.fundamental_fieldnames

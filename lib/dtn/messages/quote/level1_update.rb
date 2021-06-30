@@ -10,7 +10,7 @@ module Dtn
           def parse(line:, client:)
             new.tap do |n|
               apply_values instance: n,
-                           attributes: Level1::ALL_FIELDS.slice(*client.quote_update_fields),
+                           attributes: { _skip: nil }.merge(Level1::ALL_FIELDS.slice(*client.quote_update_fields)),
                            values: line.split(",")
             end
           end

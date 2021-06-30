@@ -91,4 +91,14 @@ module Dtn
       expect(subject).to all(be_an(desired_messages_class))
     end
   end
+
+  RSpec.shared_context "use recording or run in woking hours" do
+    before do
+      require "ext/business_day" unless defined?(BusinessTime)
+      next if Thread.current[:current_spec_cassette].persisted? ||
+              Time.use_zone("Eastern Time (US & Canada)") { Time.zone.now.during_business_hours? }
+
+      skip
+    end
+  end
 end
