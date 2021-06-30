@@ -119,6 +119,20 @@ module Dtn
           end
         end
 
+        context "fetch level 1 regional update", socket_recorder: "streaming level1 regional update" do
+          include_context "use recording or run in woking hours"
+
+          before do
+            subject.request.quote.watch symbol: :aapl
+            subject.request.system.regional_switch symbol: :aapl
+            sleep(0.001) while observer.invoked_methods[:level1_regional].empty?
+          end
+
+          it "should get level 1 regional" do
+            expect(observer.invoked_methods[:level1_regional].size).to be_positive
+          end
+        end
+
         context "fundamental fieldnames", socket_recorder: "streaming fundamental fieldnames" do
           before do
             subject.request.system.fundamental_fieldnames

@@ -11,7 +11,7 @@ module Dtn
           "F" => Messages::Quote::Level1Fundamental,
           "P" => Messages::Quote::Level1Summary,
           "Q" => Messages::Quote::Level1Update,
-          # "R" => Messages::Quote::RegionalUpdate,
+          "R" => Messages::Quote::Level1Regional,
           # "N" => Messages::Quote::News,
           "S" => Messages::System::Generic,
           "T" => Messages::System::Timestamp
