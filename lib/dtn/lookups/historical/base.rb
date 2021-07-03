@@ -17,9 +17,7 @@ module Dtn
         # Returned data order
         DEFAULT_DATA_DIRECTION = 1
 
-        DEFAULT_INTERVAL_TYPE = "s"
-
-        include Concerns::Validation
+        include Dtn::Concerns::Validation
 
         private
 

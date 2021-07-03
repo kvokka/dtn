@@ -3,7 +3,36 @@
 module Dtn
   module Streaming
     module Clients
-      # Lookup management methods only
+      # Quote provides real-time Level 1 data and real-time news.
+      #
+      # Quote provides access to top-of-book quotes, regional quotes
+      # (quotes from a single exchange), fundamentals (which includes
+      # reference) data, streaming real-time news.
+      #
+      # Quotes, Regional, Trades and Fundamental data is provided as a messages
+      # since you are likely going to do something fancy with it.
+      #
+      #
+      # READ THIS CAREFULLY: For quote updates (provided when the top of book
+      # quote changes or a trade happens) IQFeed.exe can send dynamic fieldsets.
+      # This means that you can ask for any fields (subset of the set available)
+      # you want. This map to `Messages::Quote::Level1::ALL_FIELDS` which lists
+      # all available fields which will be used as a field name by DTN.
+      # The values corresponding to each
+      # key a tuple of (FieldName used by DTN, FieldName used in Structured Array,
+      # numpy scalar type used for that field).
+      #
+      # We start with a default set of fields (same as default in the IQFeed
+      # docs. It will be fetch once client starts. If you want a different
+      # set of fields, call
+      # `client.request.system.update_fields list: %i[Bid Ask]` with the
+      # fieldnames you want. If you want a different set of fieldnames for options
+      # and stocks, create two clients. Use one for all stock subscriptions and
+      # one for all options subscriptions. They can both use the same observer if
+      # that is what you want.
+      #
+      # If you don't understand the above two paragraphs, look at the code, look
+      # at the examples, run the examples and then read the above again.
       class Quote < Client
         PORT = 5009
 
@@ -22,28 +51,9 @@ module Dtn
         private
 
         def init_connection
-          request.system.set_protocol
           request.system.set_client_name(name: name)
           request.system.current_update_fieldnames
-          nil
-        end
-
-        def engine
-          @engine ||= Thread.new do
-            run
-            while running? && (line = socket.gets)
-              process_line(line: line)
-            end
-          end
-        end
-
-        def process_line(line:)
-          message_class = SUPPORTED_MESSAGES[line[0]] || Messages::Unknown
-          message_class.parse(line: line, client: self).tap do |message|
-            observers.each do |obs|
-              obs.public_send(message.callback_name, message: message) if obs.respond_to?(message.callback_name)
-            end
-          end
+          request.system.set_protocol
         end
       end
     end

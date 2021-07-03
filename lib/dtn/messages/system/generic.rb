@@ -16,6 +16,8 @@ module Dtn
 
         class SymbolLimitReached < Message; end
 
+        class ReplacedPreviousWatch < Message; end
+
         # Gem will support only one protocol version at the time
         class CurrentProtocol < Message
           class << self
@@ -58,6 +60,7 @@ module Dtn
             when /^S,UPDATE FIELDNAMES,/ then AllUpdateFieldnames.parse(line: line[20..])
             when /^S,CURRENT UPDATE FIELDNAMES,/ then CurrentUpdateFieldnames.parse(line: line[28..], client: client)
             when /^S,WATCHES/ then Watches.parse(line: line[10..])
+            when /^S,REPLACED PREVIOUS WATCH/ then ReplacedPreviousWatch.parse(line: line[25..])
             else new(line: line[2..])
             end
           end

@@ -3,6 +3,7 @@
 require "dtn"
 require "pry"
 require "active_support/time"
+require "ext/business_day"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

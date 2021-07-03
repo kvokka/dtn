@@ -20,7 +20,7 @@ module Dtn
             {
               symbol: validate_symbol(symbol),
               days: validate_short_int(days),
-              interval: validate_interval(interval),
+              interval: validate_int(interval),
               interval_type: validate_interval_type(options[:interval_type])
             }
           )

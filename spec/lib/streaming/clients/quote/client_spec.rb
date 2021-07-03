@@ -4,26 +4,9 @@ module Dtn
   module Streaming
     module Clients
       RSpec.describe Quote, infinite_reads: true do
-        let(:observer) { MessagesRecorderObserver.new }
-        let(:timeout) { 5 }
+        include_context "streaming client preparations"
 
-        before do
-          subject.observers << observer
-        end
-
-        after do
-          subject.stop
-        end
-
-        unless ENV["SPEC_DEBUG"]
-          around do |ex|
-            Timeout.timeout(timeout) do
-              ex.run
-            end
-          end
-        end
-
-        context "init", socket_recorder: "streaming init" do
+        context "init", socket_recorder: "streaming quote init" do
           before do
             subject
             sleep(0.001) while observer.invoked_methods[:current_update_fieldnames].empty?
@@ -108,8 +91,6 @@ module Dtn
         end
 
         context "fetch level 1 update", socket_recorder: "streaming level1 update" do
-          include_context "use recording or run in woking hours"
-
           before do
             subject.request.quote.watch symbol: :spy
             sleep(0.001) while observer.invoked_methods[:level1_update].empty?
@@ -121,8 +102,6 @@ module Dtn
         end
 
         context "fetch level 1 not found", socket_recorder: "streaming level1 not found" do
-          include_context "use recording or run in woking hours"
-
           before do
             subject.request.quote.watch symbol: :notfound
             sleep(0.001) while observer.invoked_methods[:symbol_not_found].empty?
@@ -134,8 +113,6 @@ module Dtn
         end
 
         context "fetch level 1 regional update", socket_recorder: "streaming level1 regional update" do
-          include_context "use recording or run in woking hours"
-
           before do
             subject.request.quote.watch symbol: :aapl
             subject.request.system.regional_switch symbol: :aapl
@@ -148,7 +125,6 @@ module Dtn
         end
 
         context "fetch level 1 news update", socket_recorder: "streaming level1 news update" do
-          include_context "use recording or run in woking hours"
           # we have to get one live news to test this. it may take a while
           let(:timeout) { 120 }
 

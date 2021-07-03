@@ -18,7 +18,7 @@ module Dtn
               open_interest: :to_i
             }
           end
-          end
+        end
       end
     end
   end

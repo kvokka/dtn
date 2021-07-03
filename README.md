@@ -216,6 +216,37 @@ client.stop
 [Here](https://github.com/kvokka/dtn/tree/master/lib/dtn/streaming/requests) you
 will find all level1 streaming requests with appropriate documentation.
 
+#### Bars data
+
+Get live data as interval bar data. It allows to look back and fetch historical
+data and get current (live) data as well,
+[details](https://github.com/kvokka/dtn/tree/master/lib/dtn/streaming/requests/bar)
+
+```ruby
+class Observer
+  # this callback will return all historical bars for the symbol
+  def historical_bar(message:)
+    puts message
+  end
+
+  # Here you get live updates until the current bar is formed
+  def update_bar(message:)
+    puts message
+  end
+
+  # when the current bar was formed, it will be processed by this callback
+  def current_bar(message:)
+    puts message
+  end
+end
+
+client = Dtn::Streaming::Clients::Bar.new
+client.observers << Observer.new
+client.request.bar.watch symbol: :aapl
+sleep 10
+client.stop
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run

@@ -1,0 +1,5 @@
+---
+:writes:
+- "S,CONNECT\r\n"
+:reads:
+- "S,SERVER CONNECTED\r\n"

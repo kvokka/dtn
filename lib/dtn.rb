@@ -7,6 +7,7 @@ loader.setup # ready!
 require "dry-configurable"
 require "forwardable"
 require "concurrent-ruby"
+require "active_support/concern"
 require "active_support/inflector"
 require "active_support/core_ext/string"
 require "active_support/time_with_zone"
@@ -18,6 +19,8 @@ require "date"
 # Top level API methods only
 module Dtn
   class Error < StandardError; end
+
+  class ValidationError < Error; end
 
   extend Dry::Configurable
   extend Helpers::Catalog

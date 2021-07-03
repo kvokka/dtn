@@ -11,35 +11,17 @@ module Dtn
     # For more details see:
     # www.iqfeed.net/dev/api/docs/HistoricalviaTCPIP.cfm
     class Request
-      class ValidationError < StandardError; end
-
       END_OF_MESSAGE_CHARACTERS = /!ENDMSG!/.freeze
       NO_DATA_CHARACTERS = /!NO_DATA!/.freeze
       SYNTAX_ERROR_CHARACTERS = /!SYNTAX_ERROR!/.freeze
 
       PORT = 9100
 
-      extend Forwardable
-      delegate next_id: :"self.class"
+      include Dtn::Concerns::Id
 
       class << self
-        def next_id
-          _id_tvar.increment
-          last_id
-        end
-
-        def last_id
-          _id_tvar.value
-        end
-
         def call(*args, **opts, &blk)
           new.call(*args, **opts, &blk)
-        end
-
-        private
-
-        def _id_tvar
-          @_id_tvar ||= Concurrent::AtomicFixnum.new
         end
       end
 
@@ -54,10 +36,6 @@ module Dtn
         acc = pull_socket(&blk)
 
         return acc unless block_given?
-      end
-
-      def id
-        @id ||= next_id
       end
 
       private

@@ -19,7 +19,7 @@ module Dtn
           end
           context "invalid" do
             %w[a foo].each do |value|
-              it { expect { subject.validate_format_type(value) }.to raise_error Request::ValidationError }
+              it { expect { subject.validate_format_type(value) }.to raise_error ValidationError }
             end
           end
           context "returns" do
@@ -53,12 +53,12 @@ module Dtn
           context "invalid" do
             context "pair"
             %w[20191001- -20191007 20191001:20191007-].each do |value|
-              it { expect { subject.validate_date_ranges(value) }.to raise_error Request::ValidationError }
+              it { expect { subject.validate_date_ranges(value) }.to raise_error ValidationError }
             end
 
             context "date"
             %w[20191055 20191001-20191055 20190601-20190607:20191001-20191055].each do |value|
-              it { expect { subject.validate_date_ranges(value) }.to raise_error Request::ValidationError }
+              it { expect { subject.validate_date_ranges(value) }.to raise_error ValidationError }
             end
           end
 

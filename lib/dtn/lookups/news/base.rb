@@ -7,7 +7,7 @@ module Dtn
       class Base < Request
         DEFAULT_NEWS_FORMAT_TYPE = "t"
 
-        include Concerns::Validation
+        include Dtn::Concerns::Validation
 
         private
 
@@ -29,7 +29,7 @@ module Dtn
         # Array including)
         # Returns Dtn valid String
         class DateRangeValidator
-          include Concerns::Validation
+          include Dtn::Concerns::Validation
 
           def initialize(*values)
             @values = values.flatten
@@ -69,7 +69,7 @@ module Dtn
 
           def check(value)
             value.split(":").map do |pair|
-              raise(Request::ValidationError, "Wrong dates range group in '#{pair}'") unless pair =~ /^\d{8}(-\d{8})?$/
+              raise(ValidationError, "Wrong dates range group in '#{pair}'") unless pair =~ /^\d{8}(-\d{8})?$/
 
               pair.to_s.split("-").map { |d| validate_date(d) }.join("-")
             end

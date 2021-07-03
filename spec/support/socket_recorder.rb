@@ -138,7 +138,7 @@ module TCPSocketWithRecorder
       return super(line, *args, **opts) unless cassette
 
       if cassette.persisted?
-        raise WriteToCassetteError.new(line: line, casette: casette) if cassette.writes.empty?
+        raise WriteToCassetteError.new(line: line, casette: cassette) if cassette.writes.empty?
 
         cassette.writes.shift.length
       else
@@ -155,7 +155,7 @@ RSpec.configure do |config|
   config.around(:each, socket_recorder: true) do |spec|
     Thread.current[:current_spec_cassette] = TCPSocketWithRecorder::Cassette.new(spec)
     spec.run
-    Thread.current[:current_spec_cassette].save unless spec.exception
+    Thread.current[:current_spec_cassette].save unless spec.exception || spec.skip
   ensure
     Thread.current[:current_spec_cassette] = nil
   end

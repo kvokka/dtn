@@ -23,7 +23,7 @@ module Dtn
           self.combined_options = defaults(**options).merge(
             {
               symbol: validate_symbol(symbol),
-              interval: validate_interval(interval),
+              interval: validate_int(interval),
               interval_type: validate_interval_type(options[:interval_type]),
               begin_datetime: validate_datetime(begin_datetime),
               end_datetime: validate_datetime(end_datetime)

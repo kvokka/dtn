@@ -92,13 +92,34 @@ module Dtn
     end
   end
 
-  RSpec.shared_context "use recording or run in woking hours" do
-    before do
-      require "ext/business_day" unless defined?(BusinessTime)
-      next if Thread.current[:current_spec_cassette].persisted? ||
-              Time.use_zone("Eastern Time (US & Canada)") { Time.zone.now.during_business_hours? }
+  RSpec.shared_context "streaming client preparations" do
+    let(:observer) { MessagesRecorderObserver.new }
+    let(:timeout) { 5 }
 
-      skip
+    subject { described_class.new(start_engine: false) }
+
+    before do
+      next if Thread.current[:current_spec_cassette].persisted?
+
+      skip("No casette") if ENV["CI"]
+      skip unless Time.use_zone("Eastern Time (US & Canada)") { Time.zone.now.during_business_hours? }
+    end
+
+    before do
+      subject.observers << observer
+      subject.engine
+    end
+
+    after do
+      subject.stop
+    end
+
+    unless ENV["SPEC_DEBUG"]
+      around do |ex|
+        Timeout.timeout(timeout) do
+          ex.run
+        end
+      end
     end
   end
 end
