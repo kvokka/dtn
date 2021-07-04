@@ -12,6 +12,23 @@ Unofficial DTN (IQFeed) client.
 
 * IQFeed client ~> 6.1
 
+# IQFeed API support status
+
+## Streaming data
+
+- [x] Level 1 data
+- [ ] Level 2 data
+- [x] Bar (Derivative) data
+- [x] Admin data
+
+## Lookup data
+
+- [x] Historical data
+- [x] News data
+- [x] Symbol Lookup data
+- [ ] Chains Lookup data
+- [ ] Market Summary Data (new in protocol 6.1)
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -245,6 +262,14 @@ client.observers << Observer.new
 client.request.bar.watch symbol: :aapl
 sleep 10
 client.stop
+```
+
+#### Admin
+
+Admin data management. See other commands in [here](https://github.com/kvokka/dtn/tree/master/lib/dtn/streaming/requests/admin)
+
+```ruby
+client.request.admin.set_client_stats turned_on: false
 ```
 
 ## Development

@@ -28,7 +28,7 @@ module Dtn
           end
         end
 
-        context "update bar", socket_recorder: "streaming bar update" do
+        context "update bar", socket_recorder: "streaming bar update", require_realtime_data: true do
           before do
             subject.request.bar.watch symbol: :aapl
             sleep(0.001) while observer.invoked_methods[:update_bar].empty?
@@ -39,7 +39,7 @@ module Dtn
           end
         end
 
-        context "current bar", socket_recorder: "streaming bar current" do
+        context "current bar", socket_recorder: "streaming bar current", require_realtime_data: true do
           before do
             # using ticks to get current bar faster
             subject.request.bar.watch symbol: :aapl, interval_type: :t, lookback_bars: 10, update_interval: 5

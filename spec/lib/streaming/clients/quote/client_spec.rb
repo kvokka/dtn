@@ -124,7 +124,9 @@ module Dtn
           end
         end
 
-        context "fetch level 1 news update", socket_recorder: "streaming level1 news update" do
+        context "fetch level 1 news update",
+                socket_recorder: "streaming level1 news update",
+                require_realtime_data: true do
           # we have to get one live news to test this. it may take a while
           let(:timeout) { 120 }
 
@@ -195,7 +197,7 @@ module Dtn
           end
         end
 
-        context "level1 refresh", socket_recorder: "streaming level1 refresh" do
+        context "level1 refresh", socket_recorder: "streaming level1 refresh", require_realtime_data: true do
           before do
             # we must be subscribed to be able to refresh
             subject.request.quote.watch symbol: :aapl

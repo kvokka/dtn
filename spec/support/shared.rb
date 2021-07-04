@@ -98,8 +98,9 @@ module Dtn
 
     subject { described_class.new(start_engine: false) }
 
-    before do
+    before do |spec|
       next if Thread.current[:current_spec_cassette].persisted?
+      next unless spec.metadata[:require_realtime_data]
 
       skip("No casette") if ENV["CI"]
       skip unless Time.use_zone("Eastern Time (US & Canada)") { Time.zone.now.during_business_hours? }

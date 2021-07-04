@@ -18,6 +18,22 @@ module Dtn
 
         class ReplacedPreviousWatch < Message; end
 
+        class RegisterClientApp < Message; end
+
+        class RemoveClientApp < Message; end
+
+        class CurrentLoginid < Message; end
+
+        class CurrentPassword < Message; end
+
+        class LoginInfoSaved < Message; end
+
+        class LoginInfoNotSaved < Message; end
+
+        class AutoconnectOn < Message; end
+
+        class AutoconnectOff < Message; end
+
         # Gem will support only one protocol version at the time
         class CurrentProtocol < Message
           class << self
@@ -61,6 +77,16 @@ module Dtn
             when /^S,CURRENT UPDATE FIELDNAMES,/ then CurrentUpdateFieldnames.parse(line: line[28..], client: client)
             when /^S,WATCHES/ then Watches.parse(line: line[10..])
             when /^S,REPLACED PREVIOUS WATCH/ then ReplacedPreviousWatch.parse(line: line[25..])
+            when /^S,REGISTER CLIENT APP COMPLETED/ then RegisterClientApp.parse(line: line[31..])
+            when /^S,REMOVE CLIENT APP COMPLETED/ then RemoveClientApp.parse(line: line[29..])
+            when /^S,CURRENT LOGINID/ then CurrentLoginid.parse(line: line[17..])
+            when /^S,CURRENT PASSWORD/ then CurrentPassword.parse(line: line[18..])
+            when /^S,LOGIN INFO SAVED/ then LoginInfoSaved.parse(line: line[18..])
+            when /^S,LOGIN INFO NOT SAVED/ then LoginInfoNotSaved.parse(line: line[22..])
+            when /^S,AUTOCONNECT ON/ then AutoconnectOn.parse(line: line[16..])
+            when /^S,AUTOCONNECT OFF/ then AutoconnectOff.parse(line: line[17..])
+            when /^S,CLIENTSTATS/ then ClientStats.parse(line: line[13..])
+            when /^S,STATS/ then Stats.parse(line: line[8..])
             else new(line: line[2..])
             end
           end

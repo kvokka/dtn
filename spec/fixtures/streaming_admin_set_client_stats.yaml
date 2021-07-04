@@ -1,0 +1,14 @@
+---
+:writes:
+- "S,CONNECT\r\n"
+- "S,CLIENTSTATS ON\r\n"
+:reads:
+- 'S,CLIENTSTATS,0,1,,20210704 174227,,,0.00,1013.65,0.00,
+
+  '
+- 'S,CLIENTSTATS,0,79,Launcher,20210704 195007,,,0.08,9.31,0.00,
+
+  '
+- 'S,CLIENTSTATS,0,82,,20210704 195117,,,0.03,0.00,0.00,
+
+  '
