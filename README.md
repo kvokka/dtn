@@ -272,6 +272,14 @@ Admin data management. See other commands in [here](https://github.com/kvokka/dt
 client.request.admin.set_client_stats turned_on: false
 ```
 
+#### Level2
+
+Connection to level2 data. See other commands in [here](https://github.com/kvokka/dtn/tree/master/lib/dtn/streaming/requests/level2)
+
+```ruby
+client.request.level2.watch symbol: :aapl
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run
