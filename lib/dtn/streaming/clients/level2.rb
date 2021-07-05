@@ -7,15 +7,11 @@ module Dtn
       class Level2 < Client
         PORT = 9200
 
-        SUPPORTED_MESSAGES = {
+        SUPPORTED_MESSAGES = COMMON_SUPPORTED_MESSAGES.merge(
           "Z" => Messages::Level2::Level2Update, # Summary message, but it's actually the same
           "2" => Messages::Level2::Level2Update,
-          "M" => Messages::Level2::MarketMakerName, # A Market Maker name OR order book level query response message.
-          "S" => Messages::System::Generic,
-          "T" => Messages::System::Timestamp,
-          "n" => Messages::System::SymbolNotFound,
-          "E" => Messages::System::Error
-        }.freeze
+          "M" => Messages::Level2::MarketMakerName # A Market Maker name OR order book level query response message.
+        ).freeze
 
         private
 

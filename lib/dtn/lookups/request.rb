@@ -33,21 +33,30 @@ module Dtn
       def call(*, &blk)
         socket.print "#{format(self.class.const_get(:TEMPLATE), combined_options)}\r\n"
 
-        acc = pull_socket(&blk)
+        pull_socket(&blk)
 
-        return acc unless block_given?
+        return result_accumulator unless block_given?
       end
 
       private
 
-      def pull_socket(acc: [])
-        while (line = socket.gets)
-          message = engine_klass_picker(line).parse(line: line, request: self)
-          break if message.termination?
-
-          block_given? ? yield(message) : acc << message
+      def pull_socket(&blk)
+        catch(:pull_termination) do
+          while (line = socket.gets)
+            process_line(line: line, &blk)
+          end
         end
-        acc
+      end
+
+      def process_line(line:)
+        message = engine_klass_picker(line).parse(line: line, request: self)
+        throw(:pull_termination) if message.termination?
+
+        block_given? ? yield(message) : result_accumulator << message
+      end
+
+      def result_accumulator
+        @result_accumulator ||= []
       end
 
       def engine_klass_picker(line)

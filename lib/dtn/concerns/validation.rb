@@ -57,10 +57,14 @@ module Dtn
       def _general_date_validation(value:, converter:, format:)
         return if value.blank?
 
-        base = value.is_a?(Date) ? value : value.to_s.public_send(converter)
-        base.strftime(format)
+        _convert_date(value: value, converter: converter, format: format)
       rescue ArgumentError
         raise ValidationError, "Value '#{value}' is not a date"
+      end
+
+      def _convert_date(value:, converter:, format:)
+        base = value.is_a?(Date) ? value : value.to_s.public_send(converter)
+        base.strftime(format)
       end
     end
   end

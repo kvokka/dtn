@@ -36,17 +36,13 @@ module Dtn
       class Quote < Client
         PORT = 5009
 
-        SUPPORTED_MESSAGES = {
+        SUPPORTED_MESSAGES = COMMON_SUPPORTED_MESSAGES.merge(
           "F" => Messages::Quote::Level1Fundamental,
           "P" => Messages::Quote::Level1Summary,
           "Q" => Messages::Quote::Level1Update,
           "R" => Messages::Quote::Level1Regional,
-          "N" => Messages::Quote::Level1News,
-          "S" => Messages::System::Generic,
-          "T" => Messages::System::Timestamp,
-          "n" => Messages::System::SymbolNotFound,
-          "E" => Messages::System::Error
-        }.freeze
+          "N" => Messages::Quote::Level1News
+        ).freeze
 
         private
 

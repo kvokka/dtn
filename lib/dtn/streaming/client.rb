@@ -27,6 +27,13 @@ module Dtn
 
       CLIENT_TERMINATION_SIGNALS = %w[TERM INT].freeze
 
+      COMMON_SUPPORTED_MESSAGES = {
+        "S" => Messages::System::Generic,
+        "T" => Messages::System::Timestamp,
+        "n" => Messages::System::SymbolNotFound,
+        "E" => Messages::System::Error
+      }.freeze
+
       # @params name             Specify name for this client
       # @params start_engine     auto start engine, which is processing messages
       def initialize(name: nil, start_engine: true)

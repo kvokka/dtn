@@ -13,12 +13,7 @@ module Dtn
       class Admin < Client
         PORT = 9300
 
-        SUPPORTED_MESSAGES = {
-          "S" => Messages::System::Generic,
-          "T" => Messages::System::Timestamp,
-          "n" => Messages::System::SymbolNotFound,
-          "E" => Messages::System::Error
-        }.freeze
+        SUPPORTED_MESSAGES = COMMON_SUPPORTED_MESSAGES
       end
     end
   end

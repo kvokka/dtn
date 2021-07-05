@@ -32,15 +32,11 @@ module Dtn
       class Bar < Client
         PORT = 9400
 
-        SUPPORTED_MESSAGES = {
+        SUPPORTED_MESSAGES = COMMON_SUPPORTED_MESSAGES.merge(
           "BH" => Messages::Bar::HistoricalBar,
           "BC" => Messages::Bar::CurrentBar,
-          "BU" => Messages::Bar::UpdateBar,
-          "S" => Messages::System::Generic,
-          "T" => Messages::System::Timestamp,
-          "n" => Messages::System::SymbolNotFound,
-          "E" => Messages::System::Error
-        }.freeze
+          "BU" => Messages::Bar::UpdateBar
+        ).freeze
 
         def message_class(line:)
           self.class::SUPPORTED_MESSAGES[line[0]] ||
