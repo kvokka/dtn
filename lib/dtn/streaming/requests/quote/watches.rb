@@ -3,7 +3,7 @@
 module Dtn
   module Streaming
     module Requests
-      module System
+      module Quote
         # Request a current watches message.
         #
         # IQFeed.exe will send you a list of all securities currently watched

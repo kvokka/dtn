@@ -6,7 +6,7 @@ module Dtn
     module Quote
       # Streaming level1 dynamic data
       class Level1 < MessageWithSimpleParser
-        # fetched with Streaming::Clients::Quote.new.request.system.all_update_fieldnames
+        # fetched with Streaming::Clients::Quote.new.request.quote.all_update_fieldnames
         # and stored this way to been able to store the returning types
         ALL_FIELDS = {
           "_skip" => nil,
@@ -82,7 +82,7 @@ module Dtn
           "Most Recent Trade Day Code" => :to_s
         }.freeze
 
-        # cached from `client.request.system.fundamental_fieldnames`
+        # cached from `client.request.quote.fundamental_fieldnames`
         ALL_FUNDAMENTAL_FIELDS = {
           "_skip" => nil,
           "Symbol" => :to_s,

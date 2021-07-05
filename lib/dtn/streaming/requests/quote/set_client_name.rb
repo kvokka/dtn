@@ -3,7 +3,7 @@
 module Dtn
   module Streaming
     module Requests
-      module System
+      module Quote
         # Set client name request
         class SetClientName < Request
           def call(name:)

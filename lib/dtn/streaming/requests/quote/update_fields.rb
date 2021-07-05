@@ -3,7 +3,7 @@
 module Dtn
   module Streaming
     module Requests
-      module System
+      module Quote
         # Set list of fields for level1 summary & updates messages.
         class UpdateFields < Request
           def call(list:)

@@ -3,7 +3,7 @@
 module Dtn
   module Streaming
     module Requests
-      module System
+      module Quote
         # Turn on/off real-time news messages.
         #
         # Can be done for entire client watches only

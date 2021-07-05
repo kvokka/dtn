@@ -3,7 +3,7 @@
 module Dtn
   module Streaming
     module Requests
-      module System
+      module Quote
         # Request a list of all current fields for level1 summary & updates messages.
         class CurrentUpdateFieldnames < Request
           def call

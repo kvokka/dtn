@@ -3,7 +3,7 @@
 module Dtn
   module Streaming
     module Requests
-      module System
+      module Quote
         # Ask IQFeed.exe to send you a single timestamp message
         # The timestamp message sent by IQFeed.exe is in addition to the
         # messages normally. By default IQFeed.exe sends a timestamp

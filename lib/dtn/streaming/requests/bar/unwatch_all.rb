@@ -3,11 +3,11 @@
 module Dtn
   module Streaming
     module Requests
-      module System
-        # Connect request
-        class Connect < Request
+      module Bar
+        # Unwatch all symbols.
+        class UnwatchAll < Request
           def call
-            socket.print "S,CONNECT\r\n"
+            socket.puts "S,UNWATCH ALL\r\n"
           end
         end
       end

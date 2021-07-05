@@ -27,8 +27,8 @@ module Dtn
 
         context "timestamp", socket_recorder: "streaming timestamp" do
           before do
-            subject.request.system.timestamp_switch turned_on: false
-            subject.request.system.timestamp
+            subject.request.quote.timestamp_switch turned_on: false
+            subject.request.quote.timestamp
             sleep(0.001) while observer.invoked_methods[:timestamp].empty?
           end
 
@@ -75,7 +75,7 @@ module Dtn
 
         context "fetch level 1 summary with custom fields", socket_recorder: "streaming level1 custom update" do
           before do
-            subject.request.system.update_fields list: %i[Bid Ask]
+            subject.request.quote.update_fields list: %i[Bid Ask]
             subject.request.quote.watch symbol: :aapl
             sleep(0.001) while observer.invoked_methods[:level1_summary].empty?
           end
@@ -115,7 +115,7 @@ module Dtn
         context "fetch level 1 regional update", socket_recorder: "streaming level1 regional update" do
           before do
             subject.request.quote.watch symbol: :aapl
-            subject.request.system.regional_switch symbol: :aapl
+            subject.request.quote.regional_switch symbol: :aapl
             sleep(0.001) while observer.invoked_methods[:level1_regional].empty?
           end
 
@@ -131,7 +131,7 @@ module Dtn
           let(:timeout) { 120 }
 
           before do
-            subject.request.system.news_switch
+            subject.request.quote.news_switch
             sleep(0.001) while observer.invoked_methods[:level1_news].empty?
           end
 
@@ -142,7 +142,7 @@ module Dtn
 
         context "fundamental fieldnames", socket_recorder: "streaming fundamental fieldnames" do
           before do
-            subject.request.system.fundamental_fieldnames
+            subject.request.quote.fundamental_fieldnames
             sleep(0.001) while observer.invoked_methods[:fundamental_fieldnames].empty?
           end
 
@@ -161,7 +161,7 @@ module Dtn
 
         context "all update fieldnames", socket_recorder: "streaming all update fieldnames" do
           before do
-            subject.request.system.all_update_fieldnames
+            subject.request.quote.all_update_fieldnames
             sleep(0.001) while observer.invoked_methods[:all_update_fieldnames].empty?
           end
 
@@ -180,7 +180,7 @@ module Dtn
 
         context "current update fieldnames", socket_recorder: "streaming current update fieldnames" do
           before do
-            subject.request.system.current_update_fieldnames
+            subject.request.quote.current_update_fieldnames
             sleep(0.001) while observer.invoked_methods[:current_update_fieldnames].empty?
           end
 
@@ -215,7 +215,7 @@ module Dtn
         context "level1 watches", socket_recorder: "streaming level1 watches" do
           before do
             subject.request.quote.watch symbol: :aapl
-            subject.request.system.watches
+            subject.request.quote.watches
             sleep(0.001) while observer.invoked_methods[:watches].empty?
           end
 
@@ -229,7 +229,7 @@ module Dtn
             subject.request.quote.watch symbol: :aapl
             subject.request.quote.watch symbol: :fb
             subject.request.quote.unwatch symbol: :aapl
-            subject.request.system.watches
+            subject.request.quote.watches
             sleep(0.001) while observer.invoked_methods[:watches].empty?
           end
 
@@ -241,8 +241,8 @@ module Dtn
         context "level1 unwatch all", socket_recorder: "streaming level1 unwatch all" do
           before do
             subject.request.quote.watch symbol: :aapl
-            subject.request.system.unwatch_all
-            subject.request.system.watches
+            subject.request.quote.unwatch_all
+            subject.request.quote.watches
             sleep(0.001) while observer.invoked_methods[:watches].empty?
           end
 
@@ -254,7 +254,7 @@ module Dtn
         context "level1 regional switch", socket_recorder: "streaming level1 regional switch" do
           before do
             subject.request.quote.watch symbol: :aapl
-            subject.request.system.regional_switch symbol: :aapl
+            subject.request.quote.regional_switch symbol: :aapl
             sleep(0.001) while (observer.invoked_methods[:level1_summary] || []).size < 2
           end
 

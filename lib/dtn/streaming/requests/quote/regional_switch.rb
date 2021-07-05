@@ -3,7 +3,7 @@
 module Dtn
   module Streaming
     module Requests
-      module System
+      module Quote
         # Request updates when the regional quote for a symbol changes.
         #
         # :param symbol:  A valid symbol for a security or derivative.

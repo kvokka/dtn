@@ -202,7 +202,7 @@ Keep in mind, that observers will receive data until you unsubscribe from it
 or stop the client.
 
 Summary message always come with all possible fields, while for Update message
-it is possible to add a filter with `client.request.system.update_fields list: %w[Bid Ask]`
+it is possible to add a filter with `client.request.quote.update_fields list: %w[Bid Ask]`
 
 This methods do not allow any historical data access, only real time.
 

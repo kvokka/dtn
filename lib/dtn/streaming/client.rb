@@ -85,8 +85,7 @@ module Dtn
       end
 
       def init_connection
-        request.system.connect
-        # noop
+        socket
       end
 
       def setup_signals

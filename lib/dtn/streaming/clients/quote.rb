@@ -25,7 +25,7 @@ module Dtn
       # We start with a default set of fields (same as default in the IQFeed
       # docs. It will be fetch once client starts. If you want a different
       # set of fields, call
-      # `client.request.system.update_fields list: %i[Bid Ask]` with the
+      # `client.request.quote.update_fields list: %i[Bid Ask]` with the
       # fieldnames you want. If you want a different set of fieldnames for options
       # and stocks, create two clients. Use one for all stock subscriptions and
       # one for all options subscriptions. They can both use the same observer if
@@ -51,9 +51,9 @@ module Dtn
         private
 
         def init_connection
-          request.system.set_client_name(name: name)
-          request.system.current_update_fieldnames
-          request.system.set_protocol
+          request.quote.set_client_name(name: name)
+          request.quote.current_update_fieldnames
+          request.quote.set_protocol
         end
       end
     end
