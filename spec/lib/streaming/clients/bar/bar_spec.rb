@@ -5,6 +5,7 @@ module Dtn
     module Clients
       RSpec.describe Bar, infinite_reads: true do
         include_context "streaming client preparations"
+        let(:timeout) { 61 }
 
         context "init", socket_recorder: "streaming bar init" do
           before do
