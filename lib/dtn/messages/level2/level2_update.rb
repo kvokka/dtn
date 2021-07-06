@@ -18,14 +18,19 @@ module Dtn
               ask_size: :to_i,
               bid_time: :to_s,
               date: :to_s,
-              condition_code: :to_s,
+              unknown1: :to_s,
+              trade_condition_id: :to_i,
+              unknown3: :to_s,
               ask_time: :to_s,
-              bid_info_valid: :to_s,
-              ask_info_valid: :to_s,
-              end_of_message_group: :to_s
+              unknown4: :to_s,
+              unknown5: :to_s
             }
           end
           # rubocop:enable Metrics/MethodLength
+        end
+
+        def trade_condition
+          Dtn.trade_conditions_catalog[trade_condition_id]
         end
       end
     end

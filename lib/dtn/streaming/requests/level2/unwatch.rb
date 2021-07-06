@@ -9,7 +9,7 @@ module Dtn
         # :param symbol:  A valid symbol for a security or derivative.
         class Unwatch < Request
           def call(symbol:)
-            socket.puts "r,#{symbol.upcase}\r\n"
+            socket.puts "r#{symbol.upcase}\r\n"
           end
         end
       end

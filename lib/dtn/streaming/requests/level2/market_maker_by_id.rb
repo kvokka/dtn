@@ -9,7 +9,7 @@ module Dtn
         # :param mmid:  A valid MMID.
         class MarketMakerById < Request
           def call(mmid:)
-            socket.puts "m,#{mmid.upcase}\r\n"
+            socket.puts "m#{mmid.upcase}\r\n"
           end
         end
       end
