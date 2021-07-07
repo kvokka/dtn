@@ -93,7 +93,7 @@ module Dtn
   end
 
   RSpec.shared_context "streaming client preparations" do
-    let(:observer) { MessagesRecorderObserver.new }
+    let(:observer) { Streaming::MessagesRecorderObserver.new }
     let(:timeout) { 5 }
 
     subject { described_class.new(start_engine: false) }

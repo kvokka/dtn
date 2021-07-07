@@ -14,14 +14,14 @@ Unofficial DTN (IQFeed) client.
 
 # IQFeed API support status
 
-## Streaming data
+## Streaming clients
 
-- [x] Level 1 data
-- [ ] Level 2 data
-- [x] Bar (Derivative) data
-- [x] Admin data
+- [x] Quote (Level 1) client
+- [x] Level 2 client
+- [x] Bar (Derivative) client
+- [x] Admin client
 
-## Lookup data
+## Lookup client
 
 - [x] Historical data
 - [x] News data
@@ -52,8 +52,8 @@ Or install it yourself as:
 ```ruby
 Dtn::Lookups::Historical::DailyTimeframe.call(
     symbol: :aapl,
-    begin_date: Date.new(2021, 05, 01),
-    end_date: Date.new(2021, 06, 01)
+    begin_date: Date.new(2021, 5, 1),
+    end_date: Date.new(2021, 6, 1)
     )
 
 =>
@@ -128,8 +128,8 @@ Dtn::Lookups::Historical::IntervalTimeframe.call(
               symbol: :aapl,
               interval: 15,
               max_datapoints: 50,
-              begin_datetime: DateTime.new(2020,05,01),
-              end_datetime: DateTime.new(2020,06,01)
+              begin_datetime: DateTime.new(2020, 5, 1),
+              end_datetime: DateTime.new(2020, 6, 1)
             )
 ```
 * [tick_datapoint](https://github.com/kvokka/dtn/blob/master/lib/dtn/requests/historical/tick_datapoint.rb)
@@ -144,8 +144,8 @@ Dtn::Lookups::Historical::WeeklyDatapoint.call(symbol: :aapl, max_datapoints: 10
 ```ruby
 Dtn::Lookups::Historical::DailyTimeframe.call(
               symbol: :aapl,
-              begin_date: Date.new(2020,05,01),
-              end_date: Date.new(2020,06,01)
+              begin_date: Date.new(2020, 5, 1),
+              end_date: Date.new(2020, 6, 1)
             )
 ```
 * [interval_datapoint](https://github.com/kvokka/dtn/blob/master/lib/dtn/requests/historical/interval_datapoint.rb)
@@ -194,6 +194,10 @@ Dtn::Lookups::Symbol::ByFilter.call(field_to_search: "s", search_line: "aap", fi
 ```
 
 #### Streaming data
+
+All streaming data is using Observer pattern, so you can connect a few listeners
+to any client with minimal cost. Below, you will get the examples with simple
+observers, but there is an [Observer](https://github.com/kvokka/dtn/blob/master/lib/dtn/streaming/messages_recorder_observer.rb) for easier development & testing.
 
 ##### Quotes (Level1)
 
@@ -269,6 +273,7 @@ client.stop
 Admin data management. See other commands in [here](https://github.com/kvokka/dtn/tree/master/lib/dtn/streaming/requests/admin)
 
 ```ruby
+client.observers << Observer.new
 client.request.admin.set_client_stats turned_on: false
 ```
 
@@ -277,6 +282,7 @@ client.request.admin.set_client_stats turned_on: false
 Connection to level2 data. See other commands in [here](https://github.com/kvokka/dtn/tree/master/lib/dtn/streaming/requests/level2)
 
 ```ruby
+client.observers << Observer.new
 client.request.level2.watch symbol: :aapl
 ```
 
@@ -298,8 +304,8 @@ you can use
 $ bundle exec rake spec:set_spec_date
 ```
 
-To run the client you can use the `docker-compose up` (before execution pls fill
-in `.env` file with your credentials following the pattern from
+To run windows DTN client you can use the `docker-compose up` (before execution
+pls fill in `.env` file with your credentials following the pattern from
 [.env.example](https://github.com/kvokka/dtn/blob/master/.env.example))
 
 ## Contributing
@@ -313,3 +319,8 @@ The gem is available as open source under the terms of the [MIT License](https:/
 ## Code of Conduct
 
 Everyone interacting in the Dtn project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/kvokka/dtn/blob/master/CODE_OF_CONDUCT.md).
+
+## References
+
+* https://github.com/mathpaquette/IQFeed.CSharpApiClient
+* https://github.com/akapur/pyiqfeed
