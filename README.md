@@ -72,7 +72,7 @@ end
 
 ### Supported requests
 
-Keep in mind, that at the moment os this writing DTN API has limit of 50
+Keep in mind, that at the time of writing DTN, API has limit of 50
 historical requests per minute.
 
 TODO: Attach [limiter](https://github.com/Shopify/limiter) gem after merge
@@ -205,10 +205,10 @@ Streaming data is using Observers to deliver the results.
 Keep in mind, that observers will receive data until you unsubscribe from it
 or stop the client.
 
-Summary message always come with all possible fields, while for Update message
+Summary message always come with all the possible fields, while for Update message
 it is possible to add a filter with `client.request.quote.update_fields list: %w[Bid Ask]`
 
-This methods do not allow any historical data access, only real time.
+These methods do not allow any historical data access, only real time.
 
 ```ruby
 class Observer
