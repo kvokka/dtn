@@ -65,7 +65,7 @@ module Dtn
       end
 
       def socket
-        @socket ||= TCPSocket.open(Dtn.config.host, self.class::PORT)
+        @socket ||= TCPSocket.open(Dtn.host, self.class::PORT)
       end
 
       def engine

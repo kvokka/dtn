@@ -79,7 +79,7 @@ module Dtn
       end
 
       def socket
-        @socket ||= TCPSocket.open(Dtn.config.host, PORT)
+        @socket ||= TCPSocket.open(Dtn.host, PORT)
       end
 
       def defaults(**options)

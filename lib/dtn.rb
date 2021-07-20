@@ -4,9 +4,9 @@ require "zeitwerk"
 loader = Zeitwerk::Loader.for_gem
 loader.setup # ready!
 
-require "dry-configurable"
 require "forwardable"
-require "concurrent-ruby"
+require "concurrent/atomic/atomic_fixnum"
+require "concurrent/map"
 require "active_support/concern"
 require "active_support/inflector"
 require "active_support/core_ext/string"
@@ -22,8 +22,7 @@ module Dtn
 
   class ValidationError < Error; end
 
-  extend Dry::Configurable
   extend Helpers::Catalog
 
-  setting :host, ENV.fetch("DTN_HOST", "localhost")
+  mattr_accessor :host, instance_accessor: false, default: ENV.fetch("DTN_HOST", "localhost")
 end

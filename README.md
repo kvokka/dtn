@@ -286,6 +286,11 @@ client.observers << Observer.new
 client.request.level2.watch symbol: :aapl
 ```
 
+## Config
+
+In case you are using DTN client running remotely (no questions asked how you
+can do it), you can specify the host with `Dtn.host = 'my_host'` setting
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run

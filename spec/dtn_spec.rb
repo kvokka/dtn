@@ -5,9 +5,9 @@ RSpec.describe Dtn do
     expect(Dtn::VERSION).not_to be nil
   end
 
-  context "config" do
-    it "has a host default setting" do
-      expect(Dtn.config.host).to eq "localhost"
+  context "host" do
+    it "has a host default host setting" do
+      expect(Dtn.host).to eq "localhost"
     end
   end
 end
